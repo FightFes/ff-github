@@ -1,0 +1,677 @@
+﻿
+set encoding=utf-8
+scriptencoding utf-8
+set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
+
+if has('win32') || has('win64')
+  let g:python_host_prog = expand('~\python2\Scripts\python.exe')
+  let g:python3_host_prog = expand('~\python3\Scripts\python.exe')
+  if !has('nvim')
+    set pythonthreedll=~\python3\Scripts\python37.dll
+  endif
+else
+  let g:python_host_prog = expand('~/python2/bin/python')
+  let g:python3_host_prog = expand('~/python3/bin/python3.7')
+  if !has('nvim')
+    " set pythonthreedll=~/homebrew/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/Python
+  endif
+endif
+
+let s:base_dir = '~/.cache/dein'
+let s:dein_repos_dir = expand(s:base_dir) . '/repos/github.com/Shougo/dein.vim'
+if !isdirectory(s:dein_repos_dir)
+  if executable('git')
+    call system('git clone https://github.com/Shougo/dein.vim ' . shellescape(s:dein_repos_dir))
+  else
+    echomsg 'Not git'
+  endif
+endif
+
+" deinの設定 
+let &runtimepath .= ',' . s:dein_repos_dir
+"let &runtimepath = s:dein_repos_dir . ',' . &runtimepath
+unlet! s:dein_repos_dir
+
+" テスト用
+if 0
+  call dein#begin(s:base_dir)
+  call dein#end()
+  finish
+endif
+
+if dein#load_state(s:base_dir)
+  call dein#begin(s:base_dir)
+  unlet! s:base_dir
+  "call dein#load_toml(expand('<sfile>:h') . '/dein.toml')
+  " Shougo
+  call dein#add('Shougo/dein.vim')
+  call dein#add('Shougo/defx.nvim')
+  call dein#add('Shougo/denite.nvim', {'rev': 'ui'})
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('roxma/nvim-yarp')
+  call dein#add('roxma/vim-hug-neovim-rpc')
+  call dein#add('Shougo/neocomplete.vim')     " 補完
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/neomru.vim')
+  call dein#add('Shougo/neoyank.vim')
+  call dein#add('Shougo/neoinclude.vim')      " 重いから有効にしてない
+  call dein#add('Shougo/unite-outline')
+  call dein#add('Shougo/unite-session')
+  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  call dein#add('Shougo/vimfiler')
+  call dein#add('Shougo/vinarise.vim')
+  " other
+  call dein#add('hachy/eva01.vim')            " カラースキーム
+  call dein#add('vim-scripts/DirDiff.vim')
+  call dein#add('tacroe/unite-mark')
+  call dein#add('octol/vim-cpp-enhanced-highlight')
+  call dein#add('tpope/vim-fugitive')         " 編集系、コマンドの直接実行
+  call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
+  call dein#add('idanarye/vim-merginal')      " ブランチ管理
+  call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
+  call dein#add('ryanoasis/vim-devicons')     " なんかアイコンのやつ
+  " call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
+  " call dein#add('kristijanhusak/defx-git')    " なんかアイコンのやつがneovimでも表示できるようなやつ
+  call dein#add('fatih/vim-go')
+  call dein#add('easymotion/vim-easymotion')  " 移動するやつ
+  call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
+  call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
+  call dein#add('simeji/winresizer')
+  call dein#add('davidhalter/jedi-vim')
+  call dein#add('dhruvasagar/vim-table-mode')
+  call dein#add('haya14busa/vim-open-googletranslate')
+  call dein#add('tyru/open-browser.vim')
+  call dein#add('raghur/fruzzy', {
+        \ 'hook_post_update': 'call fruzzy#install()'})
+  call dein#add('skanehira/translate.vim')
+  call dein#add('kmnk/denite-dirmark')
+  " call dein#add('lighttiger2505/gtags.vim')
+  call dein#end()
+  call dein#save_state()
+endif
+if dein#check_install()
+  call dein#install()
+endif
+if len(dein#check_clean()) > 0
+	call map(dein#check_clean(), "delete(v:val, 'rf')")
+	call dein#recache_runtimepath()
+endif
+
+filetype plugin indent on   "ファイルタイプ用のインデント設定を自動読み込みする
+
+noremap s <Nop>
+let g:mapleader = "s"
+
+" plugin
+if dein#is_sourced('unite.vim')
+  call unite#custom#profile('default', 'context', {
+        \   'start_insert' : 0,
+        \   'direction' : 'dynamicbottom'
+        \ })
+  call unite#custom#profile('action', 'context', {
+        \   'start_insert' : 1
+        \ })
+  call unite#custom#profile('source/grep', 'context', {
+        \   'buffer_name' : 'search-buffer',
+        \   'empty' : 0
+        \ })
+  call unite#custom#profile('source/file_rec', 'context', {
+        \   'buffer_name' : 'file-buffer',
+        \ })
+  call unite#custom#source('buffer,file,file_rec,bookmark', 
+        \ 'sorter', 'sorter_selecta')
+  nnoremap [unite] <Nop>
+  nmap , [unite]
+  nnoremap <silent> [unite]f :<C-u>Unite file<CR>
+  nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
+  nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
+  nnoremap <silent> [unite]tg :<C-u>Unite grep: <CR>
+  nnoremap <silent> [unite]ptg :<C-u>Unite grep::-w <CR>
+  nnoremap [unite]tw :<C-u>Unite grep:. <CR><C-R><C-W>
+  nnoremap [unite]w :<C-u>Unite grep:. <CR><C-R><C-W>
+  nnoremap [unite]pw :<C-u>Unite grep:.:-w <CR><C-R><C-W>
+  nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+  nnoremap <silent> [unite]ta :<C-u>Unite tab<CR>
+  nnoremap <silent> [unite]m :<C-u>Unite bookmark<CR>
+  nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [unite]h :<C-u>Unite file_mru<CR>
+  nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+  nnoremap <silent> [unite]e :<C-u>Unite register<CR>
+  nnoremap <silent> [unite]ch :<C-u>Unite change<CR>
+  nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
+  nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
+  nnoremap <silent> [unite]l :<C-u>Unite launcher<CR>
+  nnoremap <silent> [unite]k :<C-u>Unite mark<CR>
+  nnoremap <silent> [unite]cu :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+  nnoremap <silent> [unite]rs :<C-u>UniteResume search-buffer<CR>
+  nnoremap <silent> [unite]rf :<C-u>UniteResume file-buffer<CR>
+  nnoremap <silent> [unite]i :<C-u>Unite giti<CR>
+  nnoremap <silent> [unite]pi :<C-u>Unite mapping<CR>
+  nnoremap <silent> [unite]s :<C-u>Unite output:message<CR>
+
+  if executable('pt')
+    " \でエスケープ -wで完全一致 正規表現とかスペースを入れるときは''か""で囲む
+    let g:unite_source_grep_command = 'pt'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case -e'
+    let g:unite_source_grep_recursive_opt = ''
+    let g:unite_source_grep_encoding = 'utf-8'
+  endif
+
+  augroup unite_setting
+    autocmd!
+    autocmd FileType unite call s:unite_my_settings()
+  augroup END
+  function! s:unite_my_settings()
+    nnoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+    inoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+    nnoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+    inoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+    nnoremap <silent><buffer><expr> <C-o> unite#do_action('open')
+    inoremap <silent><buffer><expr> <C-o> unite#do_action('open')
+    nnoremap <silent><buffer><expr> <C-e> unite#do_action('narrow')
+    inoremap <silent><buffer><expr> <C-e> unite#do_action('narrow')
+    nnoremap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+    inoremap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+  endfunction
+
+  let s:unite_action_file_rec = {}
+  function! s:unite_action_file_rec.func(candidate)
+    call unite#start([['file_rec', a:candidate.action__path]])
+  endfunction
+  call unite#custom_action('directory', 'custom_file_rec', s:unite_action_file_rec)
+  unlet! s:unite_action_file_rec
+
+  let s:unite_action_directory_rec = {}
+  function! s:unite_action_directory_rec.func(candidate)
+    call unite#start([['directory_rec', a:candidate.action__path]])
+  endfunction
+  call unite#custom_action('directory', 'custom_directory_rec', s:unite_action_directory_rec)
+  unlet! s:unite_action_directory_rec
+
+  let s:unite_action_grep = {}
+  function! s:unite_action_grep.func(candidate)
+    call unite#start([['grep', a:candidate.action__path]])
+  endfunction
+  call unite#custom_action('directory', 'custom_grep', s:unite_action_grep)
+  unlet! s:unite_action_grep
+
+  call unite#custom#default_action('directory' , 'vimfiler')
+endif
+
+if dein#is_sourced('unite-session')
+  let g:unite_source_session_enable_auto_save = 0 " オートセーブを無効化する
+  nnoremap <C-s> :<C-u>UniteSessionSave<CR>
+  nnoremap g<C-l> :<C-u>UniteSessionLoad<CR>
+endif
+
+if dein#is_sourced('vimfiler')
+  " カーソルが置かれているファイル、フォルダのパスを引数にしてコマンドを実行で
+  " きるようしたい。
+  let g:vimfiler_as_default_explorer = 0 " vim標準のファイラを置き換える
+  let g:vimfiler_enable_auto_cd = 1      " 自動でカレントディレクトリ移動
+  let g:vimfiler_safe_mode_by_default = 0
+  "let g:vimfiler_ignore_pattern = ['^\.', '\.db$']
+  let g:vimfiler_ignore_pattern = ['\.db$']
+  let g:vimfiler_min_cache_files = 5000
+  nnoremap <silent> <C-@> :<C-u>VimFilerBufferDir<CR>
+endif
+
+if dein#is_sourced('neocomplete.vim') && !has('nvim')
+  " バッファ補完のみを有効に、他に重くない補完があればそれを使うようにしよう
+	let g:acp_enableAtStartup = 0
+  let g:neocomplete#enable_at_startup = 1 " 起動時に有効化
+  let g:neocomplete#enable_smart_case = 1 " 大文字が入力されるまで大文字小文字の区別無視
+  let g:neocomplete#auto_completion_start_length = 2      " 補完を表示する最小文字列
+  let g:neocomplete#enable_underbar_completion = 1        " _区切りの補完を有効化 
+  let g:neocomplete#max_list = 20         " 表示される候補の数
+  let g:neocomplete#max_keyword_width = 200
+  if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+  endif
+  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+  inoremap <expr> <C-g> neocomplete#undo_completion()
+  " 共通の文字列を補完してくれる
+  inoremap <expr> <C-l> neocomplete#complete_common_string()
+  " <CR>: close popup and save indent.
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function()
+    return (pumvisible() ? "\<C-y>" : "") . "\<CR>"
+  endfunction
+  " <TAB>: completion
+  inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>" 
+  " <C-h>, <BS>: close popup and delete backword char
+  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+  "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+  inoremap <silent> <C-y> <C-y><C-[>
+  if !exists('g:neocomplete#sources')
+    let g:neocomplete#sources = {}
+  endif
+  let g:neocomplete#sources._ = ['buffer', 'member', 'file']
+endif
+
+if dein#is_sourced('winresizer')
+  let g:winresizer_start_key="\<Leader>e"
+endif
+
+if dein#is_sourced('agit.vim')
+  let g:agit_enable_auto_show_commit=0
+endif
+
+if dein#is_sourced('vim-easymotion')
+  let g:EasyMotion_startofline=0
+  let g:EasyMotion_do_mapping=0
+  let g:EasyMotion_smartcase=1
+  map <Leader>s <Plug>(easymotion-s)
+  map <Leader>f <Plug>(easymotion-bd-f2)
+  map <Leader>j <Plug>(easymotion-bd-jk)
+endif
+
+if dein#is_sourced('vim-localrc')
+  augroup vim_localrc_setting
+    autocmd!
+    autocmd BufWinEnter * nested
+    \   call localrc#load(g:localrc_filename)
+  augroup END
+endif
+
+if dein#is_sourced('nerdcommenter')
+  let g:NERDSpaceDelims=1
+  let g:NERDDefaultAlign='left'
+endif
+
+if dein#is_sourced('defx.nvim')
+  call defx#custom#option('_', {
+        \ 'auto_cd': v:true,
+        \ 'columns': 'mark:indent:icon:filename:type:size:time',
+        \ 'show_ignored_files': v:false,
+        \ 'split': 'no',
+        \ })
+  call defx#custom#column('time', {
+        \ 'format': '%y/%m/%d %H:%M',
+        \ })
+  augroup defx_settings
+    autocmd!
+    autocmd FileType defx call s:defx_my_settings()
+  augroup END
+	function! s:defx_my_settings() abort
+	  " Define mappings
+	  nnoremap <silent><buffer><expr> <CR>
+		\ defx#is_directory() ?
+		\ defx#do_action('open') :
+		\ defx#do_action('multi', ['drop', 'quit'])
+	  nnoremap <silent><buffer><expr> c
+	  \ defx#do_action('copy')
+	  nnoremap <silent><buffer><expr> m
+	  \ defx#do_action('move')
+	  nnoremap <silent><buffer><expr> p
+	  \ defx#do_action('paste')
+	  nnoremap <silent><buffer><expr> l
+		\ defx#is_directory() ?
+		\ defx#do_action('open') :
+		\ defx#do_action('multi', ['drop', 'quit'])
+	  nnoremap <silent><buffer><expr> E
+	  \ defx#do_action('open', 'vsplit')
+	  nnoremap <silent><buffer><expr> P
+	  \ defx#do_action('open', 'pedit')
+	  nnoremap <silent><buffer><expr> o
+	  \ defx#do_action('open_or_close_tree')
+	  nnoremap <silent><buffer><expr> O
+	  \ defx#do_action('open_tree_recursive')
+	  nnoremap <silent><buffer><expr> K
+	  \ defx#do_action('new_directory')
+	  nnoremap <silent><buffer><expr> N
+	  \ defx#do_action('new_file')
+	  nnoremap <silent><buffer><expr> M
+	  \ defx#do_action('new_multiple_files')
+	  nnoremap <silent><buffer><expr> C
+	  \ defx#do_action('toggle_columns',
+	  \                'mark:indent:icon:filename:type:size:time')
+		" nnoremap <buffer><expr> S
+		" \ defx#do_action('toggle_sort', ['time'])
+		" nnoremap <buffer><expr> s
+		" \ defx#do_action('search', '.')
+	  nnoremap <silent><buffer><expr> d
+	  \ defx#do_action('remove')
+	  nnoremap <silent><buffer><expr> r
+	  \ defx#do_action('rename')
+	  nnoremap <silent><buffer><expr> !
+	  \ defx#do_action('execute_command')
+	  nnoremap <silent><buffer><expr> x
+	  \ defx#do_action('execute_system')
+	  nnoremap <silent><buffer><expr> yy
+	  \ defx#do_action('yank_path')
+	  nnoremap <silent><buffer><expr> .
+	  \ defx#do_action('toggle_ignored_files')
+	  nnoremap <silent><buffer><expr> ;
+	  \ defx#do_action('repeat')
+	  nnoremap <silent><buffer><expr> h
+	  \ defx#do_action('cd', ['..'])
+	  nnoremap <silent><buffer><expr> ~
+	  \ defx#do_action('cd')
+	  nnoremap <silent><buffer><expr> q
+	  \ defx#do_action('quit')
+	  nnoremap <silent><buffer><expr> <Space>
+	  \ defx#do_action('toggle_select') . 'j'
+	  nnoremap <silent><buffer><expr> *
+	  \ defx#do_action('toggle_select_all')
+	  vnoremap <silent><buffer><expr> *
+	  \ defx#do_action('toggle_select_visual')
+	  nnoremap <silent><buffer><expr> j
+	  \ line('.') == line('$') ? 'gg' : 'j'
+	  nnoremap <silent><buffer><expr> k
+	  \ line('.') == 1 ? 'G' : 'k'
+	  nnoremap <silent><buffer><expr> <C-l>
+	  \ defx#do_action('multi', ['redraw', 'clear_select_all'])
+	  nnoremap <silent><buffer><expr> <C-g>
+	  \ defx#do_action('print')
+	  nnoremap <silent><buffer><expr> cd
+	  \ defx#do_action('change_vim_cwd')
+	endfunction
+endif
+
+if dein#is_sourced('denite.nvim')
+	autocmd FileType denite call s:denite_my_settings()
+	function! s:denite_my_settings() abort
+	  nnoremap <silent><buffer><expr> <TAB>
+	  \ denite#do_map('choose_action')
+	  nnoremap <silent><buffer><expr> <CR>
+	  \ denite#do_map('do_action')
+	  nnoremap <silent><buffer><expr> d
+	  \ denite#do_map('do_action', 'delete')
+	  nnoremap <silent><buffer><expr> p
+	  \ denite#do_map('do_action', 'preview')
+	  nnoremap <silent><buffer><expr> q
+	  \ denite#do_map('quit')
+	  nnoremap <silent><buffer><expr> i
+	  \ denite#do_map('open_filter_buffer')
+	  nnoremap <silent><buffer><expr> <Space>
+	  \ denite#do_map('toggle_select').'j'
+	endfunction
+
+	" For Pt(the platinum searcher)
+	" NOTE: It also supports windows.
+	call denite#custom#var('file/rec', 'command',
+	\ ['pt', '--follow', '--nocolor', '--nogroup',
+	\  (has('win32') ? '-g:' : '-g='), ''])
+	" For python script scantree.py
+	" Read bellow on this file to learn more about scantree.py
+	" call denite#custom#var('file/rec', 'command', ['scantree.py'])
+
+	" Change matchers.
+	" call denite#custom#source(
+	" \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+  call denite#custom#source(
+  \ '_', 'matchers', ['matcher/fruzzy'])
+
+	" Change sorters.
+	" call denite#custom#source(
+	" \ '_', 'sorters', ['sorter/sublime'])
+
+	" Add custom menus
+	let s:menus = {}
+
+	let s:menus.zsh = {
+		\ 'description': 'Edit your import zsh configuration'
+		\ }
+	let s:menus.zsh.file_candidates = [
+		\ ['zshrc', '~/.config/zsh/.zshrc'],
+		\ ['zshenv', '~/.zshenv'],
+		\ ]
+
+	let s:menus.my_commands = {
+		\ 'description': 'Example commands'
+		\ }
+	let s:menus.my_commands.command_candidates = [
+		\ ['Split the window', 'vnew'],
+		\ ['Open zsh menu', 'Denite menu:zsh'],
+		\ ['Format code', 'FormatCode', 'go,python'],
+		\ ]
+
+	call denite#custom#var('menu', 'menus', s:menus)
+
+	" Pt command on grep source
+	call denite#custom#var('grep', 'command', ['pt'])
+	call denite#custom#var('grep', 'default_opts',
+			\ ['-i', '--nogroup', '--nocolor', '--smart-case'])
+	call denite#custom#var('grep', 'recursive_opts', [])
+	call denite#custom#var('grep', 'pattern_opt', [])
+	call denite#custom#var('grep', 'separator', ['--'])
+	call denite#custom#var('grep', 'final_opts', [])
+
+	" Specify multiple paths in grep source
+	"call denite#start([{'name': 'grep',
+	"      \ 'args': [['a.vim', 'b.vim'], '', 'pattern']}])
+
+	" Define alias
+	call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+	call denite#custom#var('file/rec/git', 'command',
+	      \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+	call denite#custom#alias('source', 'file/rec/py', 'file/rec')
+	call denite#custom#var('file/rec/py', 'command',['scantree.py'])
+
+	" Change default prompt
+	call denite#custom#option('default', 'prompt', '>')
+
+	" Change ignore_globs
+	call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+	      \ [ '.git/', '.ropeproject/', '__pycache__/',
+	      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+	" Custom action
+	" Note: lambda function is not supported in Vim8.
+	call denite#custom#action('file', 'test',
+	      \ {context -> execute('let g:foo = 1')})
+	call denite#custom#action('file', 'test2',
+	      \ {context -> denite#do_action(
+	      \  context, 'open', context['targets'])})
+  nnoremap [denite] <Nop>
+  " nmap , [denite]
+  nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
+  nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
+  nnoremap <silent> [denite]g :<C-u>Denite grep:. <CR>
+  nnoremap [denite]w :<C-u>Denite grep:. <CR><C-R><C-W>
+  nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
+  nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
+endif
+
+if dein#is_sourced('deoplete.nvim')
+	" Use deoplete.
+	let g:deoplete#enable_at_startup = 1
+	" Use smartcase.
+	call deoplete#custom#option('smart_case', v:true)
+
+	" <CR>: close popup and save indent.
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function() abort
+	  return deoplete#close_popup() . "\<CR>"
+	endfunction
+endif
+
+" if dein#is_sourced('vim-gitgutter')
+"   nnoremap <silent> sn :GitGutterNextHunk<CR>
+"   nnoremap <silent> sp :GitGutterPrevHunk<CR>
+" endif
+
+" packadd
+if !has('nvim')
+  packadd! matchit
+endif
+" 設定 
+" 表示
+set termguicolors
+set number	      "行番号表示
+"set relativenumber " 相対行番号表示
+set title         "編集中のファイル名を表示
+set showcmd       "入力中のコマンド表示
+set ruler         "座標を表示
+set showmatch     "対応する括弧を表示
+set laststatus=2  "ステータスラインを表示
+set nowrap        "端で折り返さない
+set cursorline    "カーソルラインをハイライト
+set cursorcolumn  "縦にもハイライト
+set previewheight=36
+set cindent 
+set cinoptions=g1,N-s,h1,l1,j1 "| setl foldmethod=indent
+set scrolloff=10  "カーソルの上または下に表示される最低行数
+set diffopt=
+set cmdheight=2   "コマンドラインに使われる画面上の行数
+set listchars+=tab:>-,space:\|,trail:-,nbsp:%
+" set iminsert=0
+"set scrolljump=5 "画面外に出た時にスクロールする行数
+"set fileformat?  "e ++ff=dos "(CRLF) "e ++ff=mac "(LF)
+" Anywhere SID.
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+let g:ff_table = {'dos' : 'CRLF', 'unix' : 'LF', 'mac' : 'CR' }
+function! s:MyStatusLine()
+  let str = '%<%f %m%r%h%w%y'
+  let str .= '[%{(&fenc!=""?&fenc:&enc)}]'
+  let str .= '%{&bomb?"[BOM]":""}'
+  let str .= '[%{ff_table[&ff]}]'
+  let str .= '%{FugitiveStatusline()}'
+  let str .= '%=%l/%L %4c %4P'
+  return str
+endfunction
+let &statusline = '%!' . s:SID_PREFIX() . 'MyStatusLine()'
+function! s:MyTabLine()
+  let str = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let no = i  " display 0-origin tabpagenr.
+    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+    let title = fnamemodify(bufname(bufnr), ':t')
+    let title = '[' . title . ']'
+    let str .= '%'.i.'T'
+    let str .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let str .= no . ':' . title
+    let str .= mod
+    let str .= '%#TabLineFill# '
+  endfor
+  let str .= '%#TabLineFill#%T%=%#TabLine#'
+  if tabpagenr('$') > 1
+    let str .= '%999X[ X ]'
+  endif
+  return str
+endfunction
+let &tabline = '%!'. s:SID_PREFIX() . 'MyTabLine()'
+set showtabline=2 " 常にタブラインを表示
+set matchpairs+=<:>
+augroup filetype_all_setting
+  autocmd!
+  "autocmd BufReadPost * if &fileencoding == 'utf-8' | setl bomb | endif
+augroup END
+augroup filetype_per_setting
+  autocmd!
+  autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:elseif:else,switch:case:default'
+  autocmd FileType python setl shiftwidth=2 softtabstop=2 tabstop=2
+augroup END
+"set cindent       "C言語インデントに従って自動インデント
+"set cinoptions=g1,N-s "スコープ宣言をブロックのインデントから１の位置に，namespaceはインデントしない
+set expandtab     "タブをスペースに置き換え、タブ死すべし
+set tabstop=2     "画面上でのタブ幅
+set shiftwidth=2  "自動インデントでずれる幅
+set shiftround    "インデントをshiftwidthの倍数に丸める
+set softtabstop=2 "連続した空白でのタブやバックスペースで動く幅
+set backspace=indent,eol,start
+set whichwrap=b,s,h,l,<,>,[,] "カーソルを行頭，行末で止まらないように
+set clipboard=unnamed "無名レジスタに
+set wildmenu      "コマンドモードの補完
+set wildmode=full      
+set nofixeol      "最後に改行のないファイルを編集したときに改行を付けない
+set history=200   "コマンドラインモードの履歴を200に
+"set textwidth=80 "グーグルコーディング規約に従って
+"set colorcolumn=+1
+"set foldcolumn=3
+" ファイル
+set hidden    "変更中でも他のファイルを開けるように
+set autoread  "ファイル内容が変更されると自動読み込み
+set undodir=~/.vim/undofile
+set directory=~/.vim/swapfile   "スワップファイル
+set backupdir=~/.vim/backupfile "バックアップファイル
+" 検索
+set incsearch "インクリメンタルサーチ
+set hlsearch  "検索結果をハイライト
+set ignorecase "大文字小文字を区別しない
+set smartcase "検索時に大文字を含んでいたら大小を区別
+set wrapscan  "検索をファイルの先頭へループ
+"バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
+augroup Binary
+  autocmd!
+  autocmd BufReadPre  *.bin let &bin=1
+  autocmd BufReadPost *.bin if &bin | %!xxd
+  autocmd BufReadPost *.bin set ft=xxd | endif
+  autocmd BufWritePre *.bin if &bin | %!xxd -r
+  autocmd BufWritePre *.bin endif
+  autocmd BufWritePost *.bin if &bin | %!xxd
+  autocmd BufWritePost *.bin set nomod | endif
+augroup END
+" プラグインに関係ないキーマップ
+nnoremap / /\v
+nnoremap ? ?\v
+" 挙動をC、Dと同じにする
+nnoremap Y y$
+inoremap <silent> <ESC> <ESC>
+inoremap <silent> <C-[> <ESC>
+" inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
+" inoremap <silent> <C-[> <ESC>:set iminsert=0<CR>
+nnoremap <silent> <C-l> :<C-u>noh<CR><C-l>
+nnoremap <silent> <C-]> g<C-]>
+nnoremap <silent> <C-w>} <C-w>g}
+noremap ; :
+noremap : ;
+cnoremap ; :
+cnoremap : ;
+nnoremap ' `
+nnoremap <C-n> gt
+nnoremap <C-p> gT
+nnoremap <C-k> :tablast <bar> tabnew<CR>
+tnoremap <C-[> <C-W>N
+if has('gui_macvim')
+  set macmeta
+endif
+cnoremap <C-a> <Home>
+cnoremap <C-b> <Left>
+cnoremap <C-d> <Del>
+cnoremap <C-e> <End>
+cnoremap <C-f> <Right>
+cnoremap <C-n> <Down>
+cnoremap <C-p> <Up>
+" cnoremap <M-b> <S-Left>
+" cnoremap <M-f> <S-Right>
+cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
+" 文字数カウント
+" command! Cc %s/./&/gn
+" nnoremap <Leader>g :Gtags 
+" nnoremap <Leader>r :Gtags -r 
+" nnoremap <Leader>o :Gtags -f %<CR>
+" nnoremap <Leader>c :GtagsCursor<CR>
+" nnoremap <Leader>n :cn<CR>
+" nnoremap <Leader>p :cp<CR>
+"便利なマッピング					*useful-mappings*
+"C のプログラムを編集する				*C-editing*
+"*usr_29.txt*	For Vim バージョン 8.0.  Last change: 2016 Feb 27
+"*41.11*	プラグインを書く				*write-plugin*
+"単語や行などの数を数える				*count-items*
+"	:%s/./&/gn		   文字
+"	:%s/\i\+/&/gn		 単語
+"	:%s/^//n		     行
+"	:%s/the/&/gn		 "the" (どこかしら)
+"	:%s/\<the\>/&/gn "the" (単語一致)
+" inoremap <C-H> (
+" inoremap <C-J> )
+" inoremap <C-K> [
+" inoremap <C-L> ]
+" inoremap <C-D> *
+" :%!python -m json.tool
+"
+" http://items.sjbach.com/319/configuring-vim-right	
+" nnoremap 0 ^
+" nnoremap ^ 0
+" ヘルプ
+" index
+" eval
+" functions
+" function-list
