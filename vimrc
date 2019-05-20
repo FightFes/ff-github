@@ -513,7 +513,7 @@ set cursorcolumn  "縦にもハイライト
 set previewheight=36
 set cindent 
 set cinoptions=g1,N-s,h1,l1,j1 "| setl foldmethod=indent
-set scrolloff=10  "カーソルの上または下に表示される最低行数
+set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=
 set cmdheight=2   "コマンドラインに使われる画面上の行数
 set listchars+=tab:>-,space:\|,trail:-,nbsp:%
@@ -642,6 +642,10 @@ cnoremap <C-p> <Up>
 " cnoremap <M-b> <S-Left>
 " cnoremap <M-f> <S-Right>
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
+vnoremap <C-a> <C-a>gv
+vnoremap <C-x> <C-x>gv
+" v_g_CTRL-A
+" 10. ファイルを挿入する					*inserting-file*
 " 文字数カウント
 " command! Cc %s/./&/gn
 " nnoremap <Leader>g :Gtags 
