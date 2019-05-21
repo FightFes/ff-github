@@ -644,6 +644,7 @@ cnoremap <C-p> <Up>
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 vnoremap <C-a> <C-a>gv
 vnoremap <C-x> <C-x>gv
+" :r! date
 " v_g_CTRL-A
 " 10. ファイルを挿入する					*inserting-file*
 " 文字数カウント
