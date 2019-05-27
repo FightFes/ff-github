@@ -121,7 +121,7 @@ if dein#is_sourced('unite.vim')
   call unite#custom#source('buffer,file,file_rec,bookmark', 
         \ 'sorter', 'sorter_selecta')
   nnoremap [unite] <Nop>
-  nmap , [unite]
+  " nmap , [unite]
   nnoremap <silent> [unite]f :<C-u>Unite file<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
   nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
@@ -372,20 +372,30 @@ endif
 if dein#is_sourced('denite.nvim')
 	autocmd FileType denite call s:denite_my_settings()
 	function! s:denite_my_settings() abort
+	  nnoremap <silent><buffer><expr> a
+	  \ denite#do_map('choose_action')
 	  nnoremap <silent><buffer><expr> <TAB>
 	  \ denite#do_map('choose_action')
+	  nnoremap <silent><buffer><expr> l
+	  \ denite#do_map('do_action')
 	  nnoremap <silent><buffer><expr> <CR>
 	  \ denite#do_map('do_action')
 	  nnoremap <silent><buffer><expr> d
 	  \ denite#do_map('do_action', 'delete')
 	  nnoremap <silent><buffer><expr> p
 	  \ denite#do_map('do_action', 'preview')
+	  nnoremap <silent><buffer><expr> h
+	  \ denite#do_map('move_up_path')
 	  nnoremap <silent><buffer><expr> q
 	  \ denite#do_map('quit')
 	  nnoremap <silent><buffer><expr> i
 	  \ denite#do_map('open_filter_buffer')
 	  nnoremap <silent><buffer><expr> <Space>
 	  \ denite#do_map('toggle_select').'j'
+	  nnoremap <silent><buffer><expr> <C-l>
+	  \ denite#do_map('redraw')
+	  nnoremap <silent><buffer><expr> m
+	  \ denite#do_map('quick_move')
 	endfunction
 
 	" For Pt(the platinum searcher)
@@ -451,7 +461,11 @@ if dein#is_sourced('denite.nvim')
 	call denite#custom#var('file/rec/py', 'command',['scantree.py'])
 
 	" Change default prompt
-	call denite#custom#option('default', 'prompt', '>')
+	call denite#custom#option('_', {
+        \ 'auto_resize': v:false,
+        \ 'empty': v:false,
+        \ 'direction': 'dynamicbottom',
+        \ })
 
 	" Change ignore_globs
 	call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
@@ -465,10 +479,13 @@ if dein#is_sourced('denite.nvim')
 	call denite#custom#action('file', 'test2',
 	      \ {context -> denite#do_action(
 	      \  context, 'open', context['targets'])})
+  
   nnoremap [denite] <Nop>
-  " nmap , [denite]
+  nmap , [denite]
   nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
+  nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
+  nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep:. <CR>
   nnoremap [denite]w :<C-u>Denite grep:. <CR><C-R><C-W>
   nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
@@ -645,6 +662,7 @@ cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 vnoremap <C-a> <C-a>gv
 vnoremap <C-x> <C-x>gv
 " :r! date
+" 再度コマンドを打つときはq:がいい気がする
 " v_g_CTRL-A
 " 10. ファイルを挿入する					*inserting-file*
 " 文字数カウント
