@@ -121,7 +121,7 @@ if dein#is_sourced('unite.vim')
   call unite#custom#source('buffer,file,file_rec,bookmark', 
         \ 'sorter', 'sorter_selecta')
   nnoremap [unite] <Nop>
-  " nmap , [unite]
+  nmap , [unite]
   nnoremap <silent> [unite]f :<C-u>Unite file<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
   nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
@@ -437,6 +437,12 @@ if dein#is_sourced('denite.nvim')
 		\ ['Format code', 'FormatCode', 'go,python'],
 		\ ]
 
+  function! AddBookmark()
+    " 現在のバッファのパスを取得
+    " ファイルに書き込み準備
+    " ファイルに書き込む
+  endfunction
+
 	call denite#custom#var('menu', 'menus', s:menus)
 
 	" Pt command on grep source
@@ -481,7 +487,7 @@ if dein#is_sourced('denite.nvim')
 	      \  context, 'open', context['targets'])})
   
   nnoremap [denite] <Nop>
-  nmap , [denite]
+  " nmap , [denite]
   nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
