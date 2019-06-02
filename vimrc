@@ -7,12 +7,14 @@ if has('win32') || has('win64')
   let g:python_host_prog = expand('~\python2\Scripts\python.exe')
   let g:python3_host_prog = expand('~\python3\Scripts\python.exe')
   if !has('nvim')
-    set pythonthreedll=~\python3\Scripts\python37.dll
+    set pythonthreedll=~\python3\Scripts\python36.dll
+    set pythonthreehome=~\python3
   endif
 else
   let g:python_host_prog = expand('~/python2/bin/python')
-  let g:python3_host_prog = expand('~/python3/bin/python3.7')
+  let g:python3_host_prog = expand('~/python3/bin/python3.6')
   if !has('nvim')
+    " vim自体が3.7に対応していない見たなので3.6を入れないと無理っぽい
     " set pythonthreedll=~/homebrew/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/Python
   endif
 endif
@@ -45,11 +47,11 @@ if dein#load_state(s:base_dir)
   "call dein#load_toml(expand('<sfile>:h') . '/dein.toml')
   " Shougo
   call dein#add('Shougo/dein.vim')
-  call dein#add('Shougo/defx.nvim')
-  call dein#add('Shougo/denite.nvim', {'rev': 'ui'})
-  call dein#add('Shougo/deoplete.nvim')
   call dein#add('roxma/nvim-yarp')
   call dein#add('roxma/vim-hug-neovim-rpc')
+  call dein#add('Shougo/defx.nvim')
+  call dein#add('Shougo/denite.nvim')
+  call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/neocomplete.vim')     " 補完
   call dein#add('Shougo/unite.vim')
   call dein#add('Shougo/neomru.vim')
@@ -57,7 +59,7 @@ if dein#load_state(s:base_dir)
   call dein#add('Shougo/neoinclude.vim')      " 重いから有効にしてない
   call dein#add('Shougo/unite-outline')
   call dein#add('Shougo/unite-session')
-  call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+  call dein#add('Shougo/vimproc.vim')
   call dein#add('Shougo/vimfiler')
   call dein#add('Shougo/vinarise.vim')
   " other
@@ -69,7 +71,7 @@ if dein#load_state(s:base_dir)
   call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
   call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
-  call dein#add('ryanoasis/vim-devicons')     " なんかアイコンのやつ
+  " call dein#add('ryanoasis/vim-devicons')     " なんかアイコンのやつ
   " call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
   " call dein#add('kristijanhusak/defx-git')    " なんかアイコンのやつがneovimでも表示できるようなやつ
   call dein#add('fatih/vim-go')
@@ -81,11 +83,9 @@ if dein#load_state(s:base_dir)
   call dein#add('dhruvasagar/vim-table-mode')
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
-  call dein#add('raghur/fruzzy', {
-        \ 'hook_post_update': 'call fruzzy#install()'})
+  call dein#add('raghur/fruzzy', {'hook_post_update': 'call fruzzy#install()'})
   call dein#add('skanehira/translate.vim')
   call dein#add('kmnk/denite-dirmark')
-  " call dein#add('lighttiger2505/gtags.vim')
   call dein#end()
   call dein#save_state()
 endif
@@ -400,9 +400,9 @@ if dein#is_sourced('denite.nvim')
 
 	" For Pt(the platinum searcher)
 	" NOTE: It also supports windows.
-	call denite#custom#var('file/rec', 'command',
-	\ ['pt', '--follow', '--nocolor', '--nogroup',
-	\  (has('win32') ? '-g:' : '-g='), ''])
+  call denite#custom#var('file/rec', 'command',
+  \ ['pt', '--follow', '--nocolor', '--nogroup',
+  \  (has('win32') ? '-g:' : '-g='), ''])
 	" For python script scantree.py
 	" Read bellow on this file to learn more about scantree.py
 	" call denite#custom#var('file/rec', 'command', ['scantree.py'])
@@ -474,11 +474,11 @@ if dein#is_sourced('denite.nvim')
 
 	" Custom action
 	" Note: lambda function is not supported in Vim8.
-	call denite#custom#action('file', 'test',
-	      \ {context -> execute('let g:foo = 1')})
-	call denite#custom#action('file', 'test2',
-	      \ {context -> denite#do_action(
-	      \  context, 'open', context['targets'])})
+  call denite#custom#action('file', 'test',
+        \ {context -> execute('let g:foo = 1')})
+  call denite#custom#action('file', 'test2',
+        \ {context -> denite#do_action(
+        \  context, 'open', context['targets'])})
   
   nnoremap [denite] <Nop>
   nmap , [denite]
