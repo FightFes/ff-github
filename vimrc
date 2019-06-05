@@ -12,7 +12,7 @@ if has('win32') || has('win64')
   endif
 else
   let g:python_host_prog = expand('~/python2/bin/python')
-  let g:python3_host_prog = expand('~/python3/bin/python3.6')
+  let g:python3_host_prog = expand('~/python3/bin/python3.7')
   if !has('nvim')
     " vim自体が3.7に対応していない見たなので3.6を入れないと無理っぽい
     " set pythonthreedll=~/homebrew/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/Python
@@ -83,7 +83,7 @@ if dein#load_state(s:base_dir)
   call dein#add('dhruvasagar/vim-table-mode')
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
-  call dein#add('raghur/fruzzy', {'hook_post_update': 'call fruzzy#install()'})
+  call dein#add('raghur/fruzzy')
   call dein#add('skanehira/translate.vim')
   call dein#add('kmnk/denite-dirmark')
   call dein#end()
