@@ -456,6 +456,8 @@ if dein#is_sourced('denite.nvim')
   call denite#custom#alias('source', 'file/rec/git', 'file/rec')
   call denite#custom#var('file/rec/git', 'command',
         \ ['git', 'ls-files', '-co', '--exclude-standard'])
+  nnoremap <silent> <C-p> :<C-u>Denite
+        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
 
   call denite#custom#alias('source', 'file/rec/py', 'file/rec')
   call denite#custom#var('file/rec/py', 'command',['scantree.py'])
@@ -466,6 +468,11 @@ if dein#is_sourced('denite.nvim')
         \ 'empty': v:false,
         \ 'direction': 'dynamicbottom',
         \ })
+  if has('nvim')
+    call denite#custom#option('_', {
+          \ 'split': 'floating',
+          \ })
+  endif
 
   " Change ignore_globs
   call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
@@ -490,8 +497,10 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep:. <CR>
   nnoremap [denite]w :<C-u>Denite grep:. <CR><C-R><C-W>
-  nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
-  nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
+  " nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
+  " nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
+  nnoremap <silent> [denite]m :<C-u>Denite unite:bookmark<CR>
+  nnoremap <silent> [denite]a :<C-u>UniteBookmarkAdd<CR>
 endif
 
 if dein#is_sourced('deoplete.nvim')
