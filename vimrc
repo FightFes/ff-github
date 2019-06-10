@@ -85,7 +85,6 @@ if dein#load_state(s:base_dir)
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy')
   call dein#add('skanehira/translate.vim')
-  call dein#add('kmnk/denite-dirmark')
   call dein#end()
   call dein#save_state()
 endif
@@ -456,8 +455,6 @@ if dein#is_sourced('denite.nvim')
   call denite#custom#alias('source', 'file/rec/git', 'file/rec')
   call denite#custom#var('file/rec/git', 'command',
         \ ['git', 'ls-files', '-co', '--exclude-standard'])
-  nnoremap <silent> <C-p> :<C-u>Denite
-        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
 
   call denite#custom#alias('source', 'file/rec/py', 'file/rec')
   call denite#custom#var('file/rec/py', 'command',['scantree.py'])
@@ -491,16 +488,21 @@ if dein#is_sourced('denite.nvim')
 
   nnoremap [denite] <Nop>
   " nmap , [denite]
-  nnoremap <silent> [denite]f :<C-u>Denite file/rec<CR>
+  nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
+  nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep:. <CR>
   nnoremap [denite]w :<C-u>Denite grep:. <CR><C-R><C-W>
-  " nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
-  " nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
   nnoremap <silent> [denite]m :<C-u>Denite unite:bookmark<CR>
   nnoremap <silent> [denite]a :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [denite]ch :<C-u>Denite change<CR>
+  nnoremap <silent> [denite]fg :<C-u>Denite
+        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
+  nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
+  nnoremap <silent> [denite]co :<C-u>Denite command<CR>
+  nnoremap <silent> [denite]hc :<C-u>Denite command_history<CR>
 endif
 
 if dein#is_sourced('deoplete.nvim')
