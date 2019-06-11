@@ -490,19 +490,21 @@ if dein#is_sourced('denite.nvim')
   " nmap , [denite]
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
-  nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
-  nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
-  nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
+  nnoremap <silent> [denite]bb :<C-u>Denite buffer<CR>
+  nnoremap <silent> [denite]bf :<C-u>DeniteBufferDir file<CR>
+  nnoremap <silent> [denite]br :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep:. <CR>
   nnoremap [denite]w :<C-u>Denite grep:. <CR><C-R><C-W>
   nnoremap <silent> [denite]m :<C-u>Denite unite:bookmark<CR>
   nnoremap <silent> [denite]a :<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [denite]ch :<C-u>Denite change<CR>
+  nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
   nnoremap <silent> [denite]fg :<C-u>Denite
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
   nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
   nnoremap <silent> [denite]co :<C-u>Denite command<CR>
-  nnoremap <silent> [denite]hc :<C-u>Denite command_history<CR>
+  nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
+  nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
+  nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
 endif
 
 if dein#is_sourced('deoplete.nvim')
