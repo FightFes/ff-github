@@ -395,6 +395,10 @@ if dein#is_sourced('denite.nvim')
           \ denite#do_map('redraw')
     nnoremap <silent><buffer><expr> m
           \ denite#do_map('quick_move')
+	  nnoremap <silent><buffer><expr> j
+          \ line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k
+          \ line('.') == 1 ? 'G' : 'k'
   endfunction
 
   " For Pt(the platinum searcher)
@@ -461,7 +465,8 @@ if dein#is_sourced('denite.nvim')
 
   " Change default prompt
   call denite#custom#option('_', {
-        \ 'auto_resize': v:false,
+        \ 'auto_resize': v:true,
+        \ 'auto_resume': v:true,
         \ 'empty': v:false,
         \ 'direction': 'dynamicbottom',
         \ })
@@ -505,6 +510,18 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
+  nnoremap <silent> [denite]j :<C-u>Denite jump<CR>
+  nnoremap <silent> [denite]l :<C-u>Denite line<CR>
+  nnoremap <silent> [denite]e :<C-u>Denite menu<CR>
+  nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
+  nnoremap <silent> [denite]ss :<C-u>Denite output:message<CR>
+  nnoremap <silent> [denite]re :<C-u>Denite register<CR>
+  nnoremap <silent> [denite]so :<C-u>Denite source<CR>
+  nnoremap <silent> [denite]t :<C-u>Denite tag<CR>
+  nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
+  nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
+  nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
+  nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
 endif
 
 if dein#is_sourced('deoplete.nvim')
