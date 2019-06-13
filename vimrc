@@ -120,7 +120,7 @@ if dein#is_sourced('unite.vim')
   call unite#custom#source('buffer,file,file_rec,bookmark', 
         \ 'sorter', 'sorter_selecta')
   nnoremap [unite] <Nop>
-  nmap , [unite]
+  " nmap , [unite]
   nnoremap <silent> [unite]f :<C-u>Unite file<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
   nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
@@ -421,26 +421,26 @@ if dein#is_sourced('denite.nvim')
   " \ '_', 'sorters', ['sorter/sublime'])
 
   " Add custom menus
-  let s:menus = {}
+  " let s:menus = {}
 
-  let s:menus.zsh = {
-        \ 'description': 'Edit your import zsh configuration'
-        \ }
-  let s:menus.zsh.file_candidates = [
-        \ ['zshrc', '~/.config/zsh/.zshrc'],
-        \ ['zshenv', '~/.zshenv'],
-        \ ]
+  " let s:menus.zsh = {
+  "       \ 'description': 'Edit your import zsh configuration'
+  "       \ }
+  " let s:menus.zsh.file_candidates = [
+  "       \ ['zshrc', '~/.config/zsh/.zshrc'],
+  "       \ ['zshenv', '~/.zshenv'],
+  "       \ ]
 
-  let s:menus.my_commands = {
-        \ 'description': 'Example commands'
-        \ }
-  let s:menus.my_commands.command_candidates = [
-        \ ['Split the window', 'vnew'],
-        \ ['Open zsh menu', 'Denite menu:zsh'],
-        \ ['Format code', 'FormatCode', 'go,python'],
-        \ ]
+  " let s:menus.my_commands = {
+  "       \ 'description': 'Example commands'
+  "       \ }
+  " let s:menus.my_commands.command_candidates = [
+  "       \ ['Split the window', 'vnew'],
+  "       \ ['Open zsh menu', 'Denite menu:zsh'],
+  "       \ ['Format code', 'FormatCode', 'go,python'],
+  "       \ ]
 
-  call denite#custom#var('menu', 'menus', s:menus)
+  " call denite#custom#var('menu', 'menus', s:menus)
 
   " Pt command on grep source
   call denite#custom#var('grep', 'command', ['pt'])
@@ -466,7 +466,6 @@ if dein#is_sourced('denite.nvim')
   " Change default prompt
   call denite#custom#option('_', {
         \ 'auto_resize': v:true,
-        \ 'auto_resume': v:true,
         \ 'empty': v:false,
         \ 'direction': 'dynamicbottom',
         \ })
@@ -484,15 +483,15 @@ if dein#is_sourced('denite.nvim')
   " Custom action
   " Note: lambda function is not supported in Vim8.
   if has('nvim')
-    call denite#custom#action('file', 'test',
-          \ {context -> execute('let g:foo = 1')})
-    call denite#custom#action('file', 'test2',
-          \ {context -> denite#do_action(
-          \  context, 'open', context['targets'])})
+    " call denite#custom#action('file', 'test',
+    "       \ {context -> execute('let g:foo = 1')})
+    " call denite#custom#action('file', 'test2',
+    "       \ {context -> denite#do_action(
+    "       \  context, 'open', context['targets'])})
   endif
 
   nnoremap [denite] <Nop>
-  " nmap , [denite]
+  nmap , [denite]
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]bb :<C-u>Denite buffer<CR>
