@@ -401,6 +401,11 @@ if dein#is_sourced('denite.nvim')
           \ line('.') == 1 ? 'G' : 'k'
   endfunction
 
+  autocmd FileType denite-filter call s:denite_filter_my_settings()
+  function! s:denite_filter_my_settings() abort
+	  imap <silent><buffer> <C-[> <Plug>(denite_filter_quit)
+  endfunction
+
   " For Pt(the platinum searcher)
   " NOTE: It also supports windows.
   call denite#custom#var('file/rec', 'command',
@@ -417,30 +422,11 @@ if dein#is_sourced('denite.nvim')
         \ '_', 'matchers', ['matcher/fruzzy'])
 
   " Change sorters.
-  " call denite#custom#source(
-  " \ '_', 'sorters', ['sorter/sublime'])
+  call denite#custom#source(
+        \ '_', 'sorters', ['sorter/sublime'])
 
-  " Add custom menus
-  " let s:menus = {}
-
-  " let s:menus.zsh = {
-  "       \ 'description': 'Edit your import zsh configuration'
-  "       \ }
-  " let s:menus.zsh.file_candidates = [
-  "       \ ['zshrc', '~/.config/zsh/.zshrc'],
-  "       \ ['zshenv', '~/.zshenv'],
-  "       \ ]
-
-  " let s:menus.my_commands = {
-  "       \ 'description': 'Example commands'
-  "       \ }
-  " let s:menus.my_commands.command_candidates = [
-  "       \ ['Split the window', 'vnew'],
-  "       \ ['Open zsh menu', 'Denite menu:zsh'],
-  "       \ ['Format code', 'FormatCode', 'go,python'],
-  "       \ ]
-
-  " call denite#custom#var('menu', 'menus', s:menus)
+  call denite#custom#source('grep',
+        \ 'converters', ['converter/abbr_word'])
 
   " Pt command on grep source
   call denite#custom#var('grep', 'command', ['pt'])
@@ -459,7 +445,13 @@ if dein#is_sourced('denite.nvim')
   call denite#custom#alias('source', 'file/rec/git', 'file/rec')
   call denite#custom#var('file/rec/git', 'command',
         \ ['git', 'ls-files', '-co', '--exclude-standard'])
-
+  call denite#custom#alias('source', 'grep/git', 'grep')
+  call denite#custom#var('grep/git', 'command',
+        \ ['git', 'grep', '-i'])
+  call denite#custom#var('grep/git', 'recursive_opts', [])
+  call denite#custom#var('grep/git', 'pattern_opt', [])
+  call denite#custom#var('grep/git', 'separator', ['--'])
+  call denite#custom#var('grep/git', 'final_opts', [])
   call denite#custom#alias('source', 'file/rec/py', 'file/rec')
   call denite#custom#var('file/rec/py', 'command',['scantree.py'])
 
@@ -482,33 +474,44 @@ if dein#is_sourced('denite.nvim')
 
   " Custom action
   " Note: lambda function is not supported in Vim8.
-  if has('nvim')
-    " call denite#custom#action('file', 'test',
-    "       \ {context -> execute('let g:foo = 1')})
-    " call denite#custom#action('file', 'test2',
-    "       \ {context -> denite#do_action(
-    "       \  context, 'open', context['targets'])})
-  endif
+	function! s:candidate_file_rec(context)
+	  let path = a:context['targets'][0]['action__path']
+	  let narrow_dir = denite#util#path2directory(path)
+	  let sources_queue = a:context['sources_queue'] + [[
+	        \ {'name': 'file/rec', 'args': [narrow_dir]},
+	        \ ]]
+	  return {'sources_queue': sources_queue}
+	endfunction
+	call denite#custom#action('buffer,directory,file,openable',
+	        \ 'candidate_file_rec', function('s:candidate_file_rec'))
+
+  " 候補にコマンドを実行
+  " :Denite -resume -do='normal! A;'
 
   nnoremap [denite] <Nop>
   nmap , [denite]
+  nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
+  nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]bb :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]bf :<C-u>DeniteBufferDir file<CR>
   nnoremap <silent> [denite]br :<C-u>DeniteBufferDir file/rec<CR>
-  nnoremap <silent> [denite]g :<C-u>Denite grep:. <CR>
-  nnoremap [denite]w :<C-u>Denite grep:. <CR><C-R><C-W>
+  nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
+  nnoremap [denite]w :<C-u>Denite grep<CR><C-R><C-W>
   nnoremap <silent> [denite]m :<C-u>Denite unite:bookmark<CR>
   nnoremap <silent> [denite]a :<C-u>UniteBookmarkAdd<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
   nnoremap <silent> [denite]fg :<C-u>Denite
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
+  nnoremap <silent> [denite]rg :<C-u>Denite
+        \ `finddir('.git', ';') != '' ? 'grep/git' : 'grep'`<CR>
   nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
   nnoremap <silent> [denite]co :<C-u>Denite command<CR>
   nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
+  nnoremap <silent> [denite]h :<C-u>Denite file_mru<CR>
   nnoremap <silent> [denite]j :<C-u>Denite jump<CR>
   nnoremap <silent> [denite]l :<C-u>Denite line<CR>
   nnoremap <silent> [denite]e :<C-u>Denite menu<CR>
