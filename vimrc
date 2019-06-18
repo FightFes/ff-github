@@ -85,6 +85,8 @@ if dein#load_state(s:base_dir)
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy')
   call dein#add('skanehira/translate.vim')
+  call dein#add('previm/previm')
+  call dein#add('glidenote/memolist.vim')
   call dein#end()
   call dein#save_state()
 endif
@@ -120,7 +122,7 @@ if dein#is_sourced('unite.vim')
   call unite#custom#source('buffer,file,file_rec,bookmark', 
         \ 'sorter', 'sorter_selecta')
   nnoremap [unite] <Nop>
-  " nmap , [unite]
+  nmap , [unite]
   nnoremap <silent> [unite]f :<C-u>Unite file<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
   nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
@@ -489,7 +491,7 @@ if dein#is_sourced('denite.nvim')
   " :Denite -resume -do='normal! A;'
 
   nnoremap [denite] <Nop>
-  nmap , [denite]
+  " nmap , [denite]
   nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
@@ -695,6 +697,9 @@ cnoremap <C-p> <Up>
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 vnoremap <C-a> <C-a>gv
 vnoremap <C-x> <C-x>gv
+" ドットコマンドが使えない
+" nnoremap go :<C-u>call append(expand('.'), '')<CR>j
+nnoremap go o<ESC>
 " :r! date
 " 再度コマンドを打つときはq:がいい気がする
 " v_g_CTRL-A
