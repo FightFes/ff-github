@@ -79,7 +79,7 @@ if dein#load_state(s:base_dir)
   call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
   call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
   call dein#add('simeji/winresizer')
-  call dein#add('davidhalter/jedi-vim')
+  " call dein#add('davidhalter/jedi-vim')
   call dein#add('dhruvasagar/vim-table-mode')
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
@@ -87,6 +87,7 @@ if dein#load_state(s:base_dir)
   call dein#add('skanehira/translate.vim')
   call dein#add('previm/previm')
   call dein#add('glidenote/memolist.vim')
+  call dein#add('kmnk/denite-dirmark')
   call dein#end()
   call dein#save_state()
 endif
@@ -122,7 +123,7 @@ if dein#is_sourced('unite.vim')
   call unite#custom#source('buffer,file,file_rec,bookmark', 
         \ 'sorter', 'sorter_selecta')
   nnoremap [unite] <Nop>
-  nmap , [unite]
+  " nmap , [unite]
   nnoremap <silent> [unite]f :<C-u>Unite file<CR>
   nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
   nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
@@ -281,12 +282,17 @@ if dein#is_sourced('nerdcommenter')
 endif
 
 if dein#is_sourced('defx.nvim')
+  nnoremap <silent> <Leader>d :<C-u>Defx<CR>
   call defx#custom#option('_', {
         \ 'auto_cd': v:true,
         \ 'columns': 'mark:indent:icon:filename:type:size:time',
         \ 'show_ignored_files': v:false,
-        \ 'split': 'no',
         \ })
+  if has('nvim')
+    call defx#custom#option('_', {
+          \ 'split': 'floating'
+          \ })
+  endif
   call defx#custom#column('time', {
         \ 'format': '%y/%m/%d %H:%M',
         \ })
@@ -491,7 +497,7 @@ if dein#is_sourced('denite.nvim')
   " :Denite -resume -do='normal! A;'
 
   nnoremap [denite] <Nop>
-  " nmap , [denite]
+  nmap , [denite]
   nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
