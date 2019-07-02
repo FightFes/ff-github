@@ -10,12 +10,6 @@ if has('nvim')
     elseif has('win64') || has('win32')
       GuiFont! Cica:h9
     endif
-  " else
-  "   if has('mac')
-  "     set guifont=Cica:h14
-  "   elseif has('win64') || has('win32')
-  "     set guifont=Cica:h11
-  "   endif
   endif
 else
   if has('mac')

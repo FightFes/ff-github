@@ -14,7 +14,6 @@ call :makelink ..\.hyper.js %USERPROFILE%\ff-github\.hyper.js
 call :makelink ..\vimfiles\vimrc %USERPROFILE%\ff-github\vimrc
 call :makelink ..\vimfiles\gvimrc %USERPROFILE%\ff-github\gvimrc
 call :makelink ..\AppData\Local\nvim\init.vim %USERPROFILE%\ff-github\init.vim
-call :makelink ..\AppData\Local\nvim\ginit.vim %USERPROFILE%\ff-github\ginit.vim
 exit /b
 
 :makelink

@@ -6,6 +6,3 @@ elseif has('win32') || has('win64')
 endif
 
 execute('source ~/' . s:init_file_dir . '/vimrc')
-if has('mac')
-  execute('source ~/' . s:init_file_dir . '/gvimrc')
-endif

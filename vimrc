@@ -83,7 +83,7 @@ if dein#load_state(s:base_dir)
   call dein#add('dhruvasagar/vim-table-mode')
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
-  call dein#add('raghur/fruzzy')
+  call dein#add('raghur/fruzzy', {'hook_post_update': 'call fruzzy#install()'})
   call dein#add('skanehira/translate.vim')
   call dein#add('previm/previm')
   call dein#add('glidenote/memolist.vim')
@@ -502,13 +502,13 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
-  nnoremap <silent> [denite]bb :<C-u>Denite buffer<CR>
-  nnoremap <silent> [denite]bf :<C-u>DeniteBufferDir file<CR>
-  nnoremap <silent> [denite]br :<C-u>DeniteBufferDir file/rec<CR>
+  nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
+  nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
+  nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
   nnoremap [denite]w :<C-u>Denite grep<CR><C-R><C-W>
-  nnoremap <silent> [denite]m :<C-u>Denite unite:bookmark<CR>
-  nnoremap <silent> [denite]a :<C-u>UniteBookmarkAdd<CR>
+  nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
+  nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
   nnoremap <silent> [denite]fg :<C-u>Denite
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
@@ -743,3 +743,53 @@ nnoremap go o<ESC>
 " eval
 " functions
 " function-list
+
+" gvim==========================================================================
+syntax on	            "シンタックスカラーリング
+colorscheme eva01
+"set background=dark
+if has('nvim')  
+  if exists('g:GuiLoaded')
+    GuiTabline v:false
+    if has('mac')
+      GuiFont! Cica:h14
+    elseif has('win64') || has('win32')
+      GuiFont! Cica:h9
+    endif
+  endif
+else
+  if has('mac')
+    set guifont=Cica:h14
+    set antialias
+  elseif has('win64') || has('win32')
+    set guifont=Cica:h11
+    set renderoptions=type:directx,renmode:5
+  endif
+  set guioptions-=T    "ツールバー非表示
+  set guioptions-=m    "メニュー非表示
+  "set guioptions-=r    "右スクロールバー非表示
+  set guioptions-=R    
+  set guioptions-=l    "左スクロールバー非表示
+  set guioptions-=L    
+  set guioptions-=e    "gvimでもテキストベースのタブを使用する
+  winpos 424 217  " 表示位置
+  set lines=73    " 縦幅
+  set columns=272 " 横
+endif
+set ambiwidth=double
+"autocmd FocusGained * set transparency=100
+"autocmd FocusLost * set transparency=30
+
+"eva01
+hi Comment cterm=NONE gui=NONE
+hi Visual cterm=NONE gui=NONE
+"hi Search ctermfg=97  ctermbg=119 cterm=NONE guifg=#875FAF guibg=#87FF5F gui=NONE
+"hi Search cterm=NONE guifg=#D0D0D0 guibg=#875FAF gui=NONE
+hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
+hi IncSearch cterm=NONE gui=NONE
+hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
+" vimdiffの色設定
+hi DiffAdd    gui=NONE guifg=#AF5FFF guibg=#87FF5F
+hi DiffChange gui=NONE guifg=#AF5FFF guibg=#87FF5F
+hi DiffDelete gui=NONE guifg=#87FF5F guibg=#D75F87
+hi DiffText   gui=NONE guifg=#D7AF5F guibg=#87FF5F
