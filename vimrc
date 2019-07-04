@@ -490,7 +490,7 @@ if dein#is_sourced('denite.nvim')
 	        \ ]]
 	  return {'sources_queue': sources_queue}
 	endfunction
-	call denite#custom#action('buffer,directory,file,openable',
+	call denite#custom#action('buffer,directory,file,openable,dirmark',
 	        \ 'candidate_file_rec', function('s:candidate_file_rec'))
 
   " 候補にコマンドを実行
@@ -506,7 +506,9 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
-  nnoremap [denite]w :<C-u>Denite grep<CR><C-R><C-W>
+  nnoremap <silent> [denite]pg :<C-u>Denite grep::-w<CR>
+  nnoremap <silent> [denite]w :<C-u>DeniteCursorWord grep<CR>
+  nnoremap <silent> [denite]pw :<C-u>DeniteCursorWord grep::-w<CR>
   nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
   nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
