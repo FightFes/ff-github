@@ -470,6 +470,8 @@ if dein#is_sourced('denite.nvim')
         \ 'auto_resize': v:true,
         \ 'empty': v:false,
         \ 'direction': 'dynamicbottom',
+        \ 'max_candidate_width': 600,
+        \ 'winwidth': &columns / 2 + 20,
         \ })
   if has('nvim')
     call denite#custom#option('_', {
@@ -509,8 +511,8 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
   nnoremap <silent> [denite]pg :<C-u>Denite grep::-w<CR>
-  nnoremap <silent> [denite]w :<C-u>DeniteCursorWord grep<CR>
-  nnoremap <silent> [denite]pw :<C-u>DeniteCursorWord grep::-w<CR>
+  nnoremap <silent> [denite]w :<C-u>Denite `'grep:::' . expand('<cword>')`<CR>
+  nnoremap <silent> [denite]pw :<C-u>Denite `'grep::-w:' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
   nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
