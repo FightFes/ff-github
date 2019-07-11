@@ -433,6 +433,9 @@ if dein#is_sourced('denite.nvim')
   call denite#custom#source(
         \ '_', 'sorters', ['sorter/sublime'])
 
+  call denite#custom#source(
+        \ '_', 'max_candidates', 2000)
+
   call denite#custom#source('grep',
         \ 'converters', ['converter/abbr_word'])
 
@@ -472,6 +475,7 @@ if dein#is_sourced('denite.nvim')
         \ 'direction': 'dynamicbottom',
         \ 'max_candidate_width': 600,
         \ 'winwidth': &columns / 2 + 20,
+        \ 'winheight': 30,
         \ })
   if has('nvim')
     call denite#custom#option('_', {
@@ -504,6 +508,7 @@ if dein#is_sourced('denite.nvim')
   nmap , [denite]
   nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
+  nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
@@ -582,6 +587,8 @@ set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=
 set cmdheight=2   "コマンドラインに使われる画面上の行数
 set listchars+=tab:>-,space:\|,trail:-,nbsp:%
+set pumblend=10
+set winblend=10
 " set iminsert=0
 "set scrolljump=5 "画面外に出た時にスクロールする行数
 "set fileformat?  "e ++ff=dos "(CRLF) "e ++ff=mac "(LF)
