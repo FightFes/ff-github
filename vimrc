@@ -412,6 +412,7 @@ if dein#is_sourced('denite.nvim')
   autocmd FileType denite-filter call s:denite_filter_my_settings()
   function! s:denite_filter_my_settings() abort
 	  imap <silent><buffer> <C-[> <Plug>(denite_filter_quit)
+	  imap <silent><buffer> <CR> <Plug>(denite_filter_update)
   endfunction
 
   " For Pt(the platinum searcher)
@@ -430,8 +431,8 @@ if dein#is_sourced('denite.nvim')
         \ '_', 'matchers', ['matcher/fruzzy'])
 
   " Change sorters.
-  call denite#custom#source(
-        \ '_', 'sorters', ['sorter/sublime'])
+  " call denite#custom#source(
+  "       \ '_', 'sorters', ['sorter/sublime'])
 
   call denite#custom#source(
         \ '_', 'max_candidates', 2000)
