@@ -88,6 +88,7 @@ if dein#load_state(s:base_dir)
   call dein#add('previm/previm')
   call dein#add('glidenote/memolist.vim')
   call dein#add('kmnk/denite-dirmark')
+  call dein#add('tpope/vim-markdown')
   call dein#end()
   call dein#save_state()
 endif
@@ -282,11 +283,11 @@ if dein#is_sourced('nerdcommenter')
 endif
 
 if dein#is_sourced('defx.nvim')
-  nnoremap <silent> <Leader>d :<C-u>Defx<CR>
+  nnoremap <silent> <Leader>d :<C-u>Defx `expand('%:h')`<CR>
   call defx#custom#option('_', {
         \ 'auto_cd': v:true,
         \ 'columns': 'mark:indent:icon:filename:type:size:time',
-        \ 'show_ignored_files': v:false,
+        \ 'show_ignored_files': v:true,
         \ })
   if has('nvim')
     call defx#custom#option('_', {
@@ -564,6 +565,10 @@ endif
 "   nnoremap <silent> sp :GitGutterPrevHunk<CR>
 " endif
 
+if dein#is_sourced('previm')
+  let g:previm_open_cmd = '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
+endif
+
 " packadd
 if !has('nvim')
   packadd! matchit
@@ -588,8 +593,8 @@ set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=
 set cmdheight=2   "コマンドラインに使われる画面上の行数
 set listchars+=tab:>-,space:\|,trail:-,nbsp:%
-set pumblend=10
-set winblend=10
+set pumblend=15
+set winblend=15
 " set iminsert=0
 "set scrolljump=5 "画面外に出た時にスクロールする行数
 "set fileformat?  "e ++ff=dos "(CRLF) "e ++ff=mac "(LF)
@@ -625,7 +630,7 @@ function! s:MyTabLine()
   endfor
   let str .= '%#TabLineFill#%T%=%#TabLine#'
   if tabpagenr('$') > 1
-    let str .= '%999X[ X ]'
+    let str .= '%999X[X]'
   endif
   return str
 endfunction
@@ -639,7 +644,7 @@ augroup END
 augroup filetype_per_setting
   autocmd!
   autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:elseif:else,switch:case:default'
-  autocmd FileType python setl shiftwidth=2 softtabstop=2 tabstop=2
+  autocmd FileType markdown setl shiftwidth=4 softtabstop=4 tabstop=4
 augroup END
 "set cindent       "C言語インデントに従って自動インデント
 "set cinoptions=g1,N-s "スコープ宣言をブロックのインデントから１の位置に，namespaceはインデントしない
