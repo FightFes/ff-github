@@ -808,10 +808,10 @@ hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 hi IncSearch cterm=NONE gui=NONE
 hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 " vimdiffの色設定
-hi DiffAdd    gui=NONE guifg=#AF5FFF guibg=#87FF5F
-hi DiffChange gui=NONE guifg=#AF5FFF guibg=#87FF5F
-hi DiffDelete gui=NONE guifg=#87FF5F guibg=#D75F87
-hi DiffText   gui=NONE guifg=#D7AF5F guibg=#87FF5F
+hi DiffAdd    gui=NONE guifg=#87FF5F guibg=#228B22
+hi DiffDelete gui=NONE guifg=#87FF5F guibg=#B22222
+hi DiffChange gui=NONE guifg=#87FF5F guibg=#3333CC
+hi DiffText   gui=NONE guifg=#87FF5F guibg=#0066FF
 " floating window
 " hi NormalFloat gui=NONE guifg=#87FF5F guibg=#585858
 hi NormalFloat gui=NONE guifg=#D0D0D0 guibg=#585858
