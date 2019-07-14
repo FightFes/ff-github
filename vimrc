@@ -590,7 +590,7 @@ set previewheight=36
 set cindent 
 set cinoptions=g1,N-s,h1,l1,j1 "| setl foldmethod=indent
 set scrolloff=8  "カーソルの上または下に表示される最低行数
-set diffopt=
+set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set cmdheight=2   "コマンドラインに使われる画面上の行数
 set listchars+=tab:>-,space:\|,trail:-,nbsp:%
 set pumblend=15
