@@ -75,7 +75,7 @@ if dein#load_state(s:base_dir)
   " call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
   " call dein#add('kristijanhusak/defx-git')    " なんかアイコンのやつがneovimでも表示できるようなやつ
   call dein#add('fatih/vim-go')
-  call dein#add('easymotion/vim-easymotion')  " 移動するやつ
+  " call dein#add('easymotion/vim-easymotion')  " 移動するやつ
   call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
   call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
   call dein#add('simeji/winresizer')
@@ -108,100 +108,101 @@ noremap s <Nop>
 let g:mapleader = "s"
 
 " plugin
-" if dein#is_sourced('unite.vim')
 if 0
-  call unite#custom#profile('default', 'context', {
-        \   'start_insert' : 0,
-        \   'direction' : 'dynamicbottom'
-        \ })
-  call unite#custom#profile('action', 'context', {
-        \   'start_insert' : 1
-        \ })
-  call unite#custom#profile('source/grep', 'context', {
-        \   'buffer_name' : 'search-buffer',
-        \   'empty' : 0
-        \ })
-  call unite#custom#profile('source/file_rec', 'context', {
-        \   'buffer_name' : 'file-buffer',
-        \ })
-  call unite#custom#source('buffer,file,file_rec,bookmark', 
-        \ 'sorter', 'sorter_selecta')
-  nnoremap [unite] <Nop>
-  " nmap , [unite]
-  nnoremap <silent> [unite]f :<C-u>Unite file<CR>
-  nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
-  nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
-  nnoremap <silent> [unite]tg :<C-u>Unite grep: <CR>
-  nnoremap <silent> [unite]ptg :<C-u>Unite grep::-w <CR>
-  nnoremap [unite]tw :<C-u>Unite grep:. <CR><C-R><C-W>
-  nnoremap [unite]w :<C-u>Unite grep:. <CR><C-R><C-W>
-  nnoremap [unite]pw :<C-u>Unite grep:.:-w <CR><C-R><C-W>
-  nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
-  nnoremap <silent> [unite]ta :<C-u>Unite tab<CR>
-  nnoremap <silent> [unite]m :<C-u>Unite bookmark<CR>
-  nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
-  nnoremap <silent> [unite]h :<C-u>Unite file_mru<CR>
-  nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
-  nnoremap <silent> [unite]e :<C-u>Unite register<CR>
-  nnoremap <silent> [unite]ch :<C-u>Unite change<CR>
-  nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
-  nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
-  nnoremap <silent> [unite]l :<C-u>Unite launcher<CR>
-  nnoremap <silent> [unite]k :<C-u>Unite mark<CR>
-  nnoremap <silent> [unite]cu :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-  nnoremap <silent> [unite]rs :<C-u>UniteResume search-buffer<CR>
-  nnoremap <silent> [unite]rf :<C-u>UniteResume file-buffer<CR>
-  nnoremap <silent> [unite]i :<C-u>Unite giti<CR>
-  nnoremap <silent> [unite]pi :<C-u>Unite mapping<CR>
-  nnoremap <silent> [unite]s :<C-u>Unite output:message<CR>
+  if dein#is_sourced('unite.vim')
+    call unite#custom#profile('default', 'context', {
+          \   'start_insert' : 0,
+          \   'direction' : 'dynamicbottom'
+          \ })
+    call unite#custom#profile('action', 'context', {
+          \   'start_insert' : 1
+          \ })
+    call unite#custom#profile('source/grep', 'context', {
+          \   'buffer_name' : 'search-buffer',
+          \   'empty' : 0
+          \ })
+    call unite#custom#profile('source/file_rec', 'context', {
+          \   'buffer_name' : 'file-buffer',
+          \ })
+    call unite#custom#source('buffer,file,file_rec,bookmark', 
+          \ 'sorter', 'sorter_selecta')
+    nnoremap [unite] <Nop>
+    " nmap , [unite]
+    nnoremap <silent> [unite]f :<C-u>Unite file<CR>
+    nnoremap <silent> [unite]g :<C-u>Unite grep:. <CR>
+    nnoremap <silent> [unite]pg :<C-u>Unite grep:.:-w <CR>
+    nnoremap <silent> [unite]tg :<C-u>Unite grep: <CR>
+    nnoremap <silent> [unite]ptg :<C-u>Unite grep::-w <CR>
+    nnoremap [unite]tw :<C-u>Unite grep:. <CR><C-R><C-W>
+    nnoremap [unite]w :<C-u>Unite grep:. <CR><C-R><C-W>
+    nnoremap [unite]pw :<C-u>Unite grep:.:-w <CR><C-R><C-W>
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+    nnoremap <silent> [unite]ta :<C-u>Unite tab<CR>
+    nnoremap <silent> [unite]m :<C-u>Unite bookmark<CR>
+    nnoremap <silent> [unite]a :<C-u>UniteBookmarkAdd<CR>
+    nnoremap <silent> [unite]h :<C-u>Unite file_mru<CR>
+    nnoremap <silent> [unite]y :<C-u>Unite history/yank<CR>
+    nnoremap <silent> [unite]e :<C-u>Unite register<CR>
+    nnoremap <silent> [unite]ch :<C-u>Unite change<CR>
+    nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
+    nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
+    nnoremap <silent> [unite]l :<C-u>Unite launcher<CR>
+    nnoremap <silent> [unite]k :<C-u>Unite mark<CR>
+    nnoremap <silent> [unite]cu :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+    nnoremap <silent> [unite]rs :<C-u>UniteResume search-buffer<CR>
+    nnoremap <silent> [unite]rf :<C-u>UniteResume file-buffer<CR>
+    nnoremap <silent> [unite]i :<C-u>Unite giti<CR>
+    nnoremap <silent> [unite]pi :<C-u>Unite mapping<CR>
+    nnoremap <silent> [unite]s :<C-u>Unite output:message<CR>
 
-  if executable('pt')
-    " \でエスケープ -wで完全一致 正規表現とかスペースを入れるときは''か""で囲む
-    let g:unite_source_grep_command = 'pt'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case -e'
-    let g:unite_source_grep_recursive_opt = ''
-    let g:unite_source_grep_encoding = 'utf-8'
+    if executable('pt')
+      " \でエスケープ -wで完全一致 正規表現とかスペースを入れるときは''か""で囲む
+      let g:unite_source_grep_command = 'pt'
+      let g:unite_source_grep_default_opts = '--nogroup --nocolor --smart-case -e'
+      let g:unite_source_grep_recursive_opt = ''
+      let g:unite_source_grep_encoding = 'utf-8'
+    endif
+
+    augroup unite_setting
+      autocmd!
+      autocmd FileType unite call s:unite_my_settings()
+    augroup END
+    function! s:unite_my_settings()
+      nnoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+      inoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+      nnoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+      inoremap <silent><buffer><expr> <C-s> unite#do_action('split')
+      nnoremap <silent><buffer><expr> <C-o> unite#do_action('open')
+      inoremap <silent><buffer><expr> <C-o> unite#do_action('open')
+      nnoremap <silent><buffer><expr> <C-e> unite#do_action('narrow')
+      inoremap <silent><buffer><expr> <C-e> unite#do_action('narrow')
+      nnoremap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+      inoremap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+    endfunction
+
+    let s:unite_action_file_rec = {}
+    function! s:unite_action_file_rec.func(candidate)
+      call unite#start([['file_rec', a:candidate.action__path]])
+    endfunction
+    call unite#custom_action('directory', 'custom_file_rec', s:unite_action_file_rec)
+    unlet! s:unite_action_file_rec
+
+    let s:unite_action_directory_rec = {}
+    function! s:unite_action_directory_rec.func(candidate)
+      call unite#start([['directory_rec', a:candidate.action__path]])
+    endfunction
+    call unite#custom_action('directory', 'custom_directory_rec', s:unite_action_directory_rec)
+    unlet! s:unite_action_directory_rec
+
+    let s:unite_action_grep = {}
+    function! s:unite_action_grep.func(candidate)
+      call unite#start([['grep', a:candidate.action__path]])
+    endfunction
+    call unite#custom_action('directory', 'custom_grep', s:unite_action_grep)
+    unlet! s:unite_action_grep
+
+    call unite#custom#default_action('directory' , 'vimfiler')
   endif
-
-  augroup unite_setting
-    autocmd!
-    autocmd FileType unite call s:unite_my_settings()
-  augroup END
-  function! s:unite_my_settings()
-    nnoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-    inoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-    nnoremap <silent><buffer><expr> <C-s> unite#do_action('split')
-    inoremap <silent><buffer><expr> <C-s> unite#do_action('split')
-    nnoremap <silent><buffer><expr> <C-o> unite#do_action('open')
-    inoremap <silent><buffer><expr> <C-o> unite#do_action('open')
-    nnoremap <silent><buffer><expr> <C-e> unite#do_action('narrow')
-    inoremap <silent><buffer><expr> <C-e> unite#do_action('narrow')
-    nnoremap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-    inoremap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-  endfunction
-
-  let s:unite_action_file_rec = {}
-  function! s:unite_action_file_rec.func(candidate)
-    call unite#start([['file_rec', a:candidate.action__path]])
-  endfunction
-  call unite#custom_action('directory', 'custom_file_rec', s:unite_action_file_rec)
-  unlet! s:unite_action_file_rec
-
-  let s:unite_action_directory_rec = {}
-  function! s:unite_action_directory_rec.func(candidate)
-    call unite#start([['directory_rec', a:candidate.action__path]])
-  endfunction
-  call unite#custom_action('directory', 'custom_directory_rec', s:unite_action_directory_rec)
-  unlet! s:unite_action_directory_rec
-
-  let s:unite_action_grep = {}
-  function! s:unite_action_grep.func(candidate)
-    call unite#start([['grep', a:candidate.action__path]])
-  endfunction
-  call unite#custom_action('directory', 'custom_grep', s:unite_action_grep)
-  unlet! s:unite_action_grep
-
-  call unite#custom#default_action('directory' , 'vimfiler')
 endif
 
 if dein#is_sourced('unite-session')
@@ -263,13 +264,15 @@ if dein#is_sourced('agit.vim')
   let g:agit_enable_auto_show_commit=0
 endif
 
-if dein#is_sourced('vim-easymotion')
-  let g:EasyMotion_startofline=0
-  let g:EasyMotion_do_mapping=0
-  let g:EasyMotion_smartcase=1
-  map <Leader>s <Plug>(easymotion-s)
-  map <Leader>f <Plug>(easymotion-bd-f2)
-  map <Leader>j <Plug>(easymotion-bd-jk)
+if 0
+  if dein#is_sourced('vim-easymotion')
+    let g:EasyMotion_startofline=0
+    let g:EasyMotion_do_mapping=0
+    let g:EasyMotion_smartcase=1
+    map <Leader>s <Plug>(easymotion-s)
+    map <Leader>f <Plug>(easymotion-bd-f2)
+    map <Leader>j <Plug>(easymotion-bd-jk)
+  endif
 endif
 
 if dein#is_sourced('vim-localrc')
