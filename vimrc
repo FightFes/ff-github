@@ -89,6 +89,8 @@ if dein#load_state(s:base_dir)
   call dein#add('glidenote/memolist.vim')
   call dein#add('kmnk/denite-dirmark')
   call dein#add('tpope/vim-markdown')
+  " call dein#add('callmekohei/defx-icons')
+  " call dein#add('ryanoasis/vim-devicons')
   call dein#end()
   call dein#save_state()
 endif
@@ -106,7 +108,8 @@ noremap s <Nop>
 let g:mapleader = "s"
 
 " plugin
-if dein#is_sourced('unite.vim')
+" if dein#is_sourced('unite.vim')
+if 0
   call unite#custom#profile('default', 'context', {
         \   'start_insert' : 0,
         \   'direction' : 'dynamicbottom'
@@ -283,20 +286,7 @@ if dein#is_sourced('nerdcommenter')
 endif
 
 if dein#is_sourced('defx.nvim')
-  nnoremap <silent> <Leader>d :<C-u>Defx `expand('%:h')`<CR>
-  call defx#custom#option('_', {
-        \ 'auto_cd': v:true,
-        \ 'columns': 'mark:indent:icon:filename:type:size:time',
-        \ 'show_ignored_files': v:true,
-        \ })
-  if has('nvim')
-    call defx#custom#option('_', {
-          \ 'split': 'floating'
-          \ })
-  endif
-  call defx#custom#column('time', {
-        \ 'format': '%y/%m/%d %H:%M',
-        \ })
+  nnoremap <silent> <Leader>d :<C-u>Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
   augroup defx_settings
     autocmd!
     autocmd FileType defx call s:defx_my_settings()
@@ -334,10 +324,10 @@ if dein#is_sourced('defx.nvim')
 	  nnoremap <silent><buffer><expr> C
 	  \ defx#do_action('toggle_columns',
 	  \                'mark:indent:icon:filename:type:size:time')
-		" nnoremap <buffer><expr> S
-		" \ defx#do_action('toggle_sort', ['time'])
-		" nnoremap <buffer><expr> s
-		" \ defx#do_action('search', '.')
+    nnoremap <silent><buffer><expr> S
+    \ defx#do_action('toggle_sort', ['time'])
+    nnoremap <buffer><expr> s
+    \ defx#do_action('search', '.')
 	  nnoremap <silent><buffer><expr> d
 	  \ defx#do_action('remove')
 	  nnoremap <silent><buffer><expr> r
@@ -375,6 +365,23 @@ if dein#is_sourced('defx.nvim')
 	  nnoremap <silent><buffer><expr> cd
 	  \ defx#do_action('change_vim_cwd')
 	endfunction
+  call defx#custom#option('_', {
+        \ 'auto_cd': v:true,
+        \ 'columns': 'mark:indent:icon:filename:type:size:time',
+        \ 'show_ignored_files': v:true,
+        \ })
+  if has('nvim')
+    call defx#custom#option('_', {
+          \ 'split': 'floating'
+          \ })
+  endif
+  call defx#custom#column('time', {
+        \ 'format': '%y/%m/%d %H:%M',
+        \ })
+  call defx#custom#column('filename', {
+        \ 'min_width': 50,
+        \ 'max_width': 50,
+        \ })
 endif
 
 if dein#is_sourced('denite.nvim')
@@ -593,8 +600,10 @@ set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set cmdheight=2   "コマンドラインに使われる画面上の行数
 set listchars+=tab:>-,space:\|,trail:-,nbsp:%
-set pumblend=15
-set winblend=15
+if has('nvim') 
+  set pumblend=15
+  set winblend=15
+endif
 " set iminsert=0
 "set scrolljump=5 "画面外に出た時にスクロールする行数
 "set fileformat?  "e ++ff=dos "(CRLF) "e ++ff=mac "(LF)
