@@ -85,6 +85,7 @@ if dein#load_state(s:base_dir)
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy', {'hook_post_update': 'call fruzzy#install()'})
   call dein#add('skanehira/translate.vim')
+  call dein#add('skanehira/vsession')
   call dein#add('previm/previm')
   call dein#add('glidenote/memolist.vim')
   call dein#add('kmnk/denite-dirmark')
@@ -576,7 +577,11 @@ endif
 " endif
 
 if dein#is_sourced('previm')
-  let g:previm_open_cmd = '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
+  if has('win32') || has('win64')
+    let g:previm_open_cmd = '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
+  elseif has('mac')
+    let g:previm_open_cmd = 'open -a Google\ Chrome'
+  endif
 endif
 
 " packadd
