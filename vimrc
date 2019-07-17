@@ -575,19 +575,6 @@ if dein#is_sourced('deoplete.nvim')
   inoremap <expr><BS>
         \ deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g>     deoplete#undo_completion()
-
-  call deoplete#custom#option('candidate_marks',
-        \ ['A', 'S', 'D', 'F', 'G'])
-  inoremap <expr>A       pumvisible() ?
-        \ deoplete#insert_candidate(0) : 'A'
-  inoremap <expr>S       pumvisible() ?
-        \ deoplete#insert_candidate(1) : 'S'
-  inoremap <expr>D       pumvisible() ?
-        \ deoplete#insert_candidate(2) : 'D'
-  inoremap <expr>F       pumvisible() ?
-        \ deoplete#insert_candidate(3) : 'F'
-  inoremap <expr>G       pumvisible() ?
-        \ deoplete#insert_candidate(4) : 'G'
 endif
 
 " if dein#is_sourced('vim-gitgutter')
