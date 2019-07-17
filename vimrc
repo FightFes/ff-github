@@ -92,6 +92,9 @@ if dein#load_state(s:base_dir)
   call dein#add('tpope/vim-markdown')
   " call dein#add('callmekohei/defx-icons')
   " call dein#add('ryanoasis/vim-devicons')
+  call dein#add('deoplete-plugins/deoplete-tag')
+  call dein#add('deoplete-plugins/deoplete-dictionary')
+  call dein#add('Shougo/deoplete-clangx')
   call dein#end()
   call dein#save_state()
 endif
@@ -563,18 +566,17 @@ if dein#is_sourced('deoplete.nvim')
 	let g:deoplete#enable_at_startup = 1
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
+	call deoplete#custom#option('sources', {'_': []})
 
 	" <CR>: close popup and save indent.
 	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 	function! s:my_cr_function() abort
 	  return deoplete#close_popup() . "\<CR>"
 	endfunction
-  inoremap <expr><C-l>     deoplete#refresh()
-  inoremap <expr><C-h>
-        \ deoplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS>
-        \ deoplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><C-g>     deoplete#undo_completion()
+  inoremap <expr><C-l> deoplete#refresh()
+  inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+  inoremap <expr><C-g> deoplete#undo_completion()
 endif
 
 " if dein#is_sourced('vim-gitgutter')
