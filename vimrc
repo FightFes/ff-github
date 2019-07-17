@@ -717,11 +717,13 @@ nnoremap <silent> <C-]> g<C-]>
 nnoremap <silent> <C-w>} <C-w>g}
 noremap ; :
 noremap : ;
-cnoremap ; :
-cnoremap : ;
+" cnoremap ; :
+" cnoremap : ;
 nnoremap ' `
 nnoremap <C-n> gt
 nnoremap <C-p> gT
+nnoremap gT :tabfirst
+nnoremap gt :tablast
 nnoremap <C-k> :tablast <bar> tabnew<CR>
 tnoremap <C-[> <C-W>N
 if has('gui_macvim')
