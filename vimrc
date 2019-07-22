@@ -92,7 +92,7 @@ if dein#load_state(s:base_dir)
   call dein#add('tpope/vim-markdown')
   " call dein#add('callmekohei/defx-icons')
   " call dein#add('ryanoasis/vim-devicons')
-  call dein#add('deoplete-plugins/deoplete-tag')
+  " call dein#add('deoplete-plugins/deoplete-tag')
   call dein#add('deoplete-plugins/deoplete-dictionary')
   call dein#add('Shougo/deoplete-clangx')
   call dein#end()
@@ -450,7 +450,7 @@ if dein#is_sourced('denite.nvim')
   "       \ '_', 'sorters', ['sorter/sublime'])
 
   call denite#custom#source(
-        \ '_', 'max_candidates', 2000)
+        \ '_', 'max_candidates', 4000)
 
   call denite#custom#source('grep',
         \ 'converters', ['converter/abbr_word'])
@@ -566,7 +566,7 @@ if dein#is_sourced('deoplete.nvim')
 	let g:deoplete#enable_at_startup = 1
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
-	call deoplete#custom#option('sources', {'_': []})
+  call deoplete#custom#option('sources', {'_': []})
   call deoplete#custom#var('around', {
         \   'mark_above': '[↑]',
         \   'mark_below': '[↓]',
