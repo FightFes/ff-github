@@ -19,6 +19,8 @@ else
   endif
 endif
 
+let g:vimproc#download_windows_dll = 1
+
 let s:base_dir = '~/.cache/dein'
 let s:dein_repos_dir = expand(s:base_dir) . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repos_dir)
@@ -603,6 +605,12 @@ if dein#is_sourced('previm')
   elseif has('mac')
     let g:previm_open_cmd = 'open -a Google\ Chrome'
   endif
+endif
+
+if dein#is_sourced('open-browser.vim')
+	let g:netrw_nogx = 1 " disable netrw's gx mapping.
+	nmap gx <Plug>(openbrowser-smart-search)
+	vmap gx <Plug>(openbrowser-smart-search)
 endif
 
 " packadd
