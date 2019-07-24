@@ -810,6 +810,15 @@ nnoremap go o<ESC>
 " eval
 " functions
 " function-list
+"
+let s:session_path = expand('~/.vim/sessions')
+if !isdirectory(s:session_path)
+  call mkdir(s:session_path, "p")
+endif
+command! -nargs=1 MakeSession call s:makeSession(<f-args>)
+function! s:makeSession(file_name)
+  execute 'mksession!' s:session_path . '/' . a:file_name
+endfunction
 
 " gvim==========================================================================
 syntax on	            "シンタックスカラーリング
