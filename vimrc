@@ -60,7 +60,6 @@ if dein#load_state(s:base_dir)
   call dein#add('Shougo/neoyank.vim')
   call dein#add('Shougo/neoinclude.vim')      " 重いから有効にしてない
   call dein#add('Shougo/unite-outline')
-  call dein#add('Shougo/unite-session')
   call dein#add('Shougo/vimproc.vim')
   call dein#add('Shougo/vimfiler')
   call dein#add('Shougo/vinarise.vim')
@@ -87,7 +86,6 @@ if dein#load_state(s:base_dir)
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy', {'hook_post_update': 'call fruzzy#install()'})
   call dein#add('skanehira/translate.vim')
-  call dein#add('skanehira/vsession')
   call dein#add('previm/previm')
   call dein#add('glidenote/memolist.vim')
   call dein#add('kmnk/denite-dirmark')
@@ -97,6 +95,8 @@ if dein#load_state(s:base_dir)
   " call dein#add('deoplete-plugins/deoplete-tag')
   call dein#add('deoplete-plugins/deoplete-dictionary')
   call dein#add('Shougo/deoplete-clangx')
+  call dein#add('cocopon/vaffle.vim')
+  call dein#add('kristijanhusak/defx-git')
   call dein#end()
   call dein#save_state()
 endif
@@ -211,12 +211,6 @@ if 0
   endif
 endif
 
-if dein#is_sourced('unite-session')
-  let g:unite_source_session_enable_auto_save = 0 " オートセーブを無効化する
-  nnoremap <C-s> :<C-u>UniteSessionSave<CR>
-  nnoremap g<C-l> :<C-u>UniteSessionLoad<CR>
-endif
-
 if dein#is_sourced('vimfiler')
   " カーソルが置かれているファイル、フォルダのパスを引数にしてコマンドを実行で
   " きるようしたい。
@@ -303,9 +297,10 @@ if dein#is_sourced('defx.nvim')
 	function! s:defx_my_settings() abort
 	  " Define mappings
 	  nnoremap <silent><buffer><expr> <CR>
-		\ defx#is_directory() ?
-		\ defx#do_action('open') :
-		\ defx#do_action('multi', ['drop', 'quit'])
+	  \ defx#do_action('open')
+		" \ defx#is_directory() ?
+		" \ defx#do_action('open') :
+		" \ defx#do_action('multi', ['drop', 'quit'])
 	  nnoremap <silent><buffer><expr> c
 	  \ defx#do_action('copy')
 	  nnoremap <silent><buffer><expr> m
@@ -313,9 +308,10 @@ if dein#is_sourced('defx.nvim')
 	  nnoremap <silent><buffer><expr> p
 	  \ defx#do_action('paste')
 	  nnoremap <silent><buffer><expr> l
-		\ defx#is_directory() ?
-		\ defx#do_action('open') :
-		\ defx#do_action('multi', ['drop', 'quit'])
+	  \ defx#do_action('open')
+		" \ defx#is_directory() ?
+		" \ defx#do_action('open') :
+		" \ defx#do_action('multi', ['drop', 'quit'])
 	  nnoremap <silent><buffer><expr> E
 	  \ defx#do_action('open', 'vsplit')
 	  nnoremap <silent><buffer><expr> P
@@ -334,7 +330,7 @@ if dein#is_sourced('defx.nvim')
 	  \ defx#do_action('toggle_columns',
 	  \                'mark:indent:icon:filename:type:size:time')
     nnoremap <silent><buffer><expr> S
-    \ defx#do_action('toggle_sort', ['time'])
+    \ defx#do_action('toggle_sort', 'time')
     nnoremap <buffer><expr> s
     \ defx#do_action('search', '.')
 	  nnoremap <silent><buffer><expr> d
@@ -373,16 +369,24 @@ if dein#is_sourced('defx.nvim')
 	  \ defx#do_action('print')
 	  nnoremap <silent><buffer><expr> cd
 	  \ defx#do_action('change_vim_cwd')
+	  nnoremap <silent><buffer><expr> a
+	  \ defx#do_action('add_session')
 	endfunction
+  let s:defx_sessions_path = expand('~/.vim/defx-sessions')
+  if !isdirectory(s:defx_sessions_path)
+    call mkdir(s:defx_sessions_path, "p")
+  endif
   call defx#custom#option('_', {
         \ 'auto_cd': v:true,
-        \ 'columns': 'mark:indent:icon:filename:type:size:time',
+        \ 'columns': 'git:mark:indent:icon:filename:type:size:time',
         \ 'show_ignored_files': v:true,
+        \ 'session_file': s:defx_sessions_path . '/default',
         \ })
+  unlet s:defx_sessions_path
   if has('nvim')
-    call defx#custom#option('_', {
-          \ 'split': 'floating'
-          \ })
+    " call defx#custom#option('_', {
+    "       \ 'split': 'floating'
+    "       \ })
   endif
   call defx#custom#column('time', {
         \ 'format': '%y/%m/%d %H:%M',
@@ -448,8 +452,8 @@ if dein#is_sourced('denite.nvim')
         \ '_', 'matchers', ['matcher/fruzzy'])
 
   " Change sorters.
-  " call denite#custom#source(
-  "       \ '_', 'sorters', ['sorter/sublime'])
+  call denite#custom#source(
+        \ '_', 'sorters', ['sorter/rank'])
 
   call denite#custom#source(
         \ '_', 'max_candidates', 4000)
@@ -815,10 +819,21 @@ let s:session_path = expand('~/.vim/sessions')
 if !isdirectory(s:session_path)
   call mkdir(s:session_path, "p")
 endif
-command! -nargs=1 MakeSession call s:makeSession(<f-args>)
-function! s:makeSession(file_name)
+command! -nargs=1 SaveSession call s:saveSession(<f-args>)
+function! s:saveSession(file_name)
   execute 'mksession!' s:session_path . '/' . a:file_name
 endfunction
+command! -nargs=1 LoadSession call s:loadSession(<f-args>)
+function! s:loadSession(file_name)
+  execute 'silent source' s:session_path . '/' . a:file_name
+endfunction
+command! -nargs=1 DeleteSession call s:deleteSession(<f-args>)
+function! s:deleteSession(file_name)
+  call delete(s:session_path . '/' . a:file_name)
+endfunction
+nnoremap <C-s> :<C-u>SaveSession default<CR>
+nnoremap g<C-l> :<C-u>LoadSession default<CR>
+nnoremap g<C-d> :<C-u>DeleteSession default<CR>
 
 " gvim==========================================================================
 syntax on	            "シンタックスカラーリング
