@@ -97,6 +97,9 @@ if dein#load_state(s:base_dir)
   call dein#add('Shougo/deoplete-clangx')
   call dein#add('cocopon/vaffle.vim')
   call dein#add('kristijanhusak/defx-git')
+  " call dein#add('junegunn/vim-easy-align')
+  call dein#add('mattn/sonictemplate-vim')
+  call dein#add('mechatroner/rainbow_csv')
   call dein#end()
   call dein#save_state()
 endif
@@ -648,6 +651,7 @@ endif
 " set iminsert=0
 "set scrolljump=5 "画面外に出た時にスクロールする行数
 "set fileformat?  "e ++ff=dos "(CRLF) "e ++ff=mac "(LF)
+"e ++enc=utf-8
 " Anywhere SID.
 function! s:SID_PREFIX()
   return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
@@ -693,7 +697,7 @@ augroup filetype_all_setting
 augroup END
 augroup filetype_per_setting
   autocmd!
-  autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:elseif:else,switch:case:default'
+  autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:else if:else,switch:case:default,#if:#else if:#else:#endif'
   autocmd FileType markdown setl shiftwidth=4 softtabstop=4 tabstop=4
 augroup END
 "set cindent       "C言語インデントに従って自動インデント
