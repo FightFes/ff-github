@@ -100,6 +100,7 @@ if dein#load_state(s:base_dir)
   " call dein#add('junegunn/vim-easy-align')
   call dein#add('mattn/sonictemplate-vim')
   call dein#add('mechatroner/rainbow_csv')
+  call dein#add('elzr/vim-json')
   call dein#end()
   call dein#save_state()
 endif
