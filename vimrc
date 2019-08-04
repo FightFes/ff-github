@@ -348,8 +348,8 @@ if dein#is_sourced('defx.nvim')
 	  \ defx#do_action('yank_path')
 	  nnoremap <silent><buffer><expr> .
 	  \ defx#do_action('toggle_ignored_files')
-	  nnoremap <silent><buffer><expr> ;
-	  \ defx#do_action('repeat')
+    nnoremap <silent><buffer><expr> ;
+    \ defx#do_action('repeat')
 	  nnoremap <silent><buffer><expr> h
 	  \ defx#do_action('cd', ['..'])
 	  nnoremap <silent><buffer><expr> ~
@@ -809,6 +809,19 @@ nnoremap go o<ESC>
 " inoremap <C-L> ]
 " inoremap <C-D> *
 " :%!python -m json.tool
+command! -nargs=? Jq call s:jq(<f-args>)
+function! s:jq(...)
+  if a:0 == 0
+    let arg = "."
+  else
+    let arg = a:1
+  endif
+  if executable('jq')
+    execute '%! jq "' . arg . '"'
+  else
+    echomsg 'not found jq command'
+  endif
+endfunction
 "
 " http://items.sjbach.com/319/configuring-vim-right	
 " nnoremap 0 ^
