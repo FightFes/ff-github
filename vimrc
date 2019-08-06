@@ -295,6 +295,7 @@ endif
 
 if dein#is_sourced('defx.nvim')
   nnoremap <silent> <Leader>d :<C-u>Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
+  nnoremap <silent> <Leader>f :<C-u>Defx -split=vertical -winwidth=30 -direction=topleft<CR>
   augroup defx_settings
     autocmd!
     autocmd FileType defx call s:defx_my_settings()
@@ -396,10 +397,10 @@ if dein#is_sourced('defx.nvim')
   call defx#custom#column('time', {
         \ 'format': '%y/%m/%d %H:%M',
         \ })
-  call defx#custom#column('filename', {
-        \ 'min_width': 50,
-        \ 'max_width': 50,
-        \ })
+  " call defx#custom#column('filename', {
+  "       \ 'min_width': 50,
+  "       \ 'max_width': 50,
+  "       \ })
 endif
 
 if dein#is_sourced('denite.nvim')
