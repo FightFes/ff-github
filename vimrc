@@ -64,6 +64,7 @@ if dein#load_state(s:base_dir)
   call dein#add('Shougo/vimproc.vim')
   call dein#add('Shougo/vimfiler')
   call dein#add('Shougo/vinarise.vim')
+  call dein#add('Shougo/neco-vim')
   " other
   call dein#add('hachy/eva01.vim')            " カラースキーム
   call dein#add('vim-scripts/DirDiff.vim')
@@ -85,7 +86,7 @@ if dein#load_state(s:base_dir)
   call dein#add('dhruvasagar/vim-table-mode')
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
-  call dein#add('raghur/fruzzy', {'hook_post_update': 'call fruzzy#install()'})
+  call dein#add('raghur/fruzzy')
   call dein#add('skanehira/translate.vim')
   call dein#add('previm/previm')
   call dein#add('glidenote/memolist.vim')
@@ -102,6 +103,7 @@ if dein#load_state(s:base_dir)
   call dein#add('mattn/sonictemplate-vim')
   call dein#add('mechatroner/rainbow_csv')
   call dein#add('elzr/vim-json')
+  call dein#add('kana/vim-altr')
   call dein#end()
   call dein#save_state()
 endif
@@ -303,7 +305,7 @@ if dein#is_sourced('defx.nvim')
 	function! s:defx_my_settings() abort
 	  " Define mappings
 	  nnoremap <silent><buffer><expr> <CR>
-	  \ defx#do_action('open')
+	  \ defx#do_action('drop')
 		" \ defx#is_directory() ?
 		" \ defx#do_action('open') :
 		" \ defx#do_action('multi', ['drop', 'quit'])
@@ -536,23 +538,26 @@ if dein#is_sourced('denite.nvim')
   nmap , [denite]
   nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
-  nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
+  " nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
+  nnoremap <silent> [denite]rg :<C-u>Denite -resume grep<CR>
+  nnoremap <silent> [denite]rr :<C-u>Denite -resume file/rec<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
+  nnoremap <silent> [denite]ig :<C-u>Denite -start-filter grep:::!<CR>
   nnoremap <silent> [denite]pg :<C-u>Denite grep::-w<CR>
   nnoremap <silent> [denite]w :<C-u>Denite `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite `'grep::-w:' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
   nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
-  nnoremap <silent> [denite]fg :<C-u>Denite
-        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
-  nnoremap <silent> [denite]rg :<C-u>Denite
-        \ `finddir('.git', ';') != '' ? 'grep/git' : 'grep'`<CR>
+  " nnoremap <silent> [denite]fg :<C-u>Denite
+  "       \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
+  " nnoremap <silent> [denite]rg :<C-u>Denite
+  "       \ `finddir('.git', ';') != '' ? 'grep/git' : 'grep'`<CR>
   nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
   nnoremap <silent> [denite]co :<C-u>Denite command<CR>
   nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
@@ -578,7 +583,7 @@ if dein#is_sourced('deoplete.nvim')
 	let g:deoplete#enable_at_startup = 1
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
-  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member']})
+  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include']})
   call deoplete#custom#var('around', {
         \   'mark_above': '[↑]',
         \   'mark_below': '[↓]',
@@ -621,6 +626,26 @@ if dein#is_sourced('open-browser.vim')
 	let g:netrw_nogx = 1 " disable netrw's gx mapping.
 	nmap gx <Plug>(openbrowser-smart-search)
 	vmap gx <Plug>(openbrowser-smart-search)
+endif
+
+if dein#is_sourced('vim-cpp-enhanced-highlight')
+  let g:cpp_class_scope_highlight = 1
+  let g:cpp_member_variable_highlight = 1
+  let g:cpp_class_decl_highlight = 1
+  let g:cpp_concepts_highlight = 1
+endif
+
+if dein#is_sourced('vim-altr')
+  call altr#define_defaults()
+  nmap <Leader>n <Plug>(altr-forward)
+  nmap <Leader>p <Plug>(altr-back)
+endif
+
+if dein#is_sourced('')
+  if !exists('g:neoinclude#exts')
+    let g:neoinclude#exts = {}
+  endif
+  let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
 endif
 
 " packadd
