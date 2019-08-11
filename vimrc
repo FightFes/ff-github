@@ -268,7 +268,7 @@ if dein#is_sourced('winresizer')
 endif
 
 if dein#is_sourced('agit.vim')
-  let g:agit_enable_auto_show_commit=0
+  let g:agit_enable_auto_show_commit=1
 endif
 
 if 0
