@@ -420,6 +420,14 @@ if dein#is_sourced('denite.nvim')
           \ denite#do_map('do_action')
     nnoremap <silent><buffer><expr> <CR>
           \ denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> s
+          \ denite#do_map('do_action', 'split')
+    nnoremap <silent><buffer><expr> v
+          \ denite#do_map('do_action', 'vsplit')
+    nnoremap <silent><buffer><expr> t
+          \ denite#do_map('do_action', 'tabopen')
+    nnoremap <silent><buffer><expr> w
+          \ denite#do_map('do_action', 'switch')
     nnoremap <silent><buffer><expr> d
           \ denite#do_map('do_action', 'delete')
     nnoremap <silent><buffer><expr> p
@@ -580,6 +588,8 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
+  nnoremap <silent> [denite]ds :<C-u>Denite defx/session<CR>
+  nnoremap <silent> [denite]dh :<C-u>Denite defx/history<CR>
 endif
 
 if dein#is_sourced('deoplete.nvim')
