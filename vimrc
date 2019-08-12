@@ -104,6 +104,7 @@ if dein#load_state(s:base_dir)
   call dein#add('mechatroner/rainbow_csv')
   call dein#add('elzr/vim-json')
   call dein#add('kana/vim-altr')
+  call dein#add('itchyny/lightline.vim')
   call dein#end()
   call dein#save_state()
 endif
@@ -641,11 +642,40 @@ if dein#is_sourced('vim-altr')
   nmap <Leader>p <Plug>(altr-back)
 endif
 
-if dein#is_sourced('')
+if dein#is_sourced('neoinclude.vim')
   if !exists('g:neoinclude#exts')
     let g:neoinclude#exts = {}
   endif
   let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
+endif
+
+if dein#is_sourced('lightline.vim')
+  let g:lightline = {
+        \ 'colorscheme': 'one',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+        \ },
+        \ 'component': {
+        \   'lineinfo': ' %3l:%-2v',
+        \ },
+        \ 'component_function': {
+        \   'readonly': 'LightlineReadonly',
+        \   'fugitive': 'LightlineFugitive'
+        \ },
+        \ 'separator': { 'left': '', 'right': '' },
+        \ 'subseparator': { 'left': '|', 'right': '|' }
+        \ }
+	function! LightlineReadonly()
+		return &readonly ? '' : ''
+	endfunction
+	function! LightlineFugitive()
+		if exists('*fugitive#head')
+			let branch = fugitive#head()
+			return branch !=# '' ? ''.branch : ''
+		endif
+		return ''
+	endfunction
 endif
 
 " packadd
