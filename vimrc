@@ -664,7 +664,14 @@ if dein#is_sourced('lightline.vim')
         \   'fugitive': 'LightlineFugitive'
         \ },
         \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '|', 'right': '|' }
+        \ 'subseparator': { 'left': '|', 'right': '|' },
+        \ 'tab': {
+        \   'active': [ 'tabnum', 'filename', 'fullpath', 'modified' ],
+        \   'inactive': [ 'tabnum', 'filename', 'modified' ] 
+        \ },
+        \ 'tab_component_function': {
+        \   'fullpath': 'LightlineFilename'
+        \ }
         \ }
 	function! LightlineReadonly()
 		return &readonly ? '' : ''
@@ -676,6 +683,10 @@ if dein#is_sourced('lightline.vim')
 		endif
 		return ''
 	endfunction
+  function! LightlineFilename(tabcount)
+    let path = expand('%:p')
+    return path !=# '' ? '(' . path . ')' : ''
+  endfunction
 endif
 
 " packadd
