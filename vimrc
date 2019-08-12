@@ -75,7 +75,7 @@ if dein#load_state(s:base_dir)
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
   call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
   " call dein#add('ryanoasis/vim-devicons')     " なんかアイコンのやつ
-  " call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
+  call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
   " call dein#add('kristijanhusak/defx-git')    " なんかアイコンのやつがneovimでも表示できるようなやつ
   call dein#add('fatih/vim-go')
   " call dein#add('easymotion/vim-easymotion')  " 移動するやつ
@@ -387,7 +387,7 @@ if dein#is_sourced('defx.nvim')
   endif
   call defx#custom#option('_', {
         \ 'auto_cd': v:true,
-        \ 'columns': 'mark:indent:icon:filename:type:size:time',
+        \ 'columns': 'mark:indent:icons:filename:type:size:time',
         \ 'show_ignored_files': v:true,
         \ 'session_file': s:defx_sessions_path . '/default',
         \ })
@@ -400,6 +400,9 @@ if dein#is_sourced('defx.nvim')
   call defx#custom#column('time', {
         \ 'format': '%y/%m/%d %H:%M',
         \ })
+  " call defx#custom#column('mark', {
+  "       \ 'length': 2,
+  "       \ })
   " call defx#custom#column('filename', {
   "       \ 'min_width': 50,
   "       \ 'max_width': 50,
@@ -687,6 +690,16 @@ if dein#is_sourced('lightline.vim')
     let path = expand('%:p')
     return path !=# '' ? '(' . path . ')' : ''
   endfunction
+endif
+
+if dein#is_sourced('defx-icons')
+  let g:defx_icons_enable_syntax_highlight = 1
+  let g:defx_icons_column_length = 2
+  let g:defx_icons_directory_icon = ''
+  let g:defx_icons_mark_icon = '*'
+  let g:defx_icons_parent_icon = ''
+  let g:defx_icons_default_icon = ''
+  let g:defx_icons_directory_symlink_icon = ''
 endif
 
 " packadd
