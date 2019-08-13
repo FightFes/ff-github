@@ -380,6 +380,8 @@ if dein#is_sourced('defx.nvim')
 	  \ defx#do_action('change_vim_cwd')
 	  nnoremap <silent><buffer><expr> a
 	  \ defx#do_action('add_session')
+    nnoremap <silent> [denite]ds :<C-u>Denite defx/session<CR>
+    nnoremap <silent> [denite]dh :<C-u>Denite defx/history<CR>
 	endfunction
   let s:defx_sessions_path = expand('~/.vim/defx-sessions')
   if !isdirectory(s:defx_sessions_path)
@@ -510,6 +512,17 @@ if dein#is_sourced('denite.nvim')
   call denite#custom#alias('source', 'file/rec/py', 'file/rec')
   call denite#custom#var('file/rec/py', 'command',['scantree.py'])
 
+  let s:menus = {}
+	let s:menus.my_commands = {
+		\ 'description': 'commands'
+		\ }
+	let s:menus.my_commands.command_candidates = [
+		\ ['Count character num', '%s/./&/gn'],
+		\ ['Count word num', '%s/\i\+/&/gn'],
+		\ ['Format Json', '%!python -m json.tool'],
+		\ ]
+  call denite#custom#var('menu', 'menus', s:menus)
+
   " Change default prompt
   call denite#custom#option('_', {
         \ 'auto_resize': v:true,
@@ -588,8 +601,6 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
-  nnoremap <silent> [denite]ds :<C-u>Denite defx/session<CR>
-  nnoremap <silent> [denite]dh :<C-u>Denite defx/history<CR>
 endif
 
 if dein#is_sourced('deoplete.nvim')
@@ -758,7 +769,7 @@ function! s:MyStatusLine()
   let str .= '%=%l/%L %4c %4P'
   return str
 endfunction
-let &statusline = '%!' . s:SID_PREFIX() . 'MyStatusLine()'
+" let &statusline = '%!' . s:SID_PREFIX() . 'MyStatusLine()'
 function! s:MyTabLine()
   let str = ''
   for i in range(1, tabpagenr('$'))
@@ -780,7 +791,7 @@ function! s:MyTabLine()
   endif
   return str
 endfunction
-let &tabline = '%!'. s:SID_PREFIX() . 'MyTabLine()'
+" let &tabline = '%!'. s:SID_PREFIX() . 'MyTabLine()'
 set showtabline=2 " 常にタブラインを表示
 set matchpairs+=<:>
 augroup filetype_all_setting
