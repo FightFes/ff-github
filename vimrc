@@ -287,7 +287,7 @@ if dein#is_sourced('vim-localrc')
   augroup vim_localrc_setting
     autocmd!
     autocmd BufWinEnter * nested
-    \   call localrc#load(g:localrc_filename)
+          \   call localrc#load(g:localrc_filename)
   augroup END
 endif
 
@@ -412,7 +412,10 @@ if dein#is_sourced('defx.nvim')
 endif
 
 if dein#is_sourced('denite.nvim')
-  autocmd FileType denite call s:denite_my_settings()
+  augroup denite_settings
+    autocmd!
+    autocmd FileType denite call s:denite_my_settings()
+  augroup END
   function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> a
           \ denite#do_map('choose_action')
@@ -452,11 +455,25 @@ if dein#is_sourced('denite.nvim')
           \ line('.') == 1 ? 'G' : 'k'
   endfunction
 
-  autocmd FileType denite-filter call s:denite_filter_my_settings()
+  augroup denite_filter_settings
+    autocmd!
+    autocmd FileType denite-filter call s:denite_filter_my_settings()
+  augroup END
   function! s:denite_filter_my_settings() abort
 	  imap <silent><buffer> <C-[> <Plug>(denite_filter_quit)
 	  imap <silent><buffer> <CR> <Plug>(denite_filter_update)
   endfunction
+  " augroup cwd_settings
+  "   autocmd!
+  "   autocmd BufWinEnter * call s:cwd_my_settings()
+  " augroup END
+  " function! s:cwd_my_settings() abort
+  "   let git_dir = finddir('.git', expand('%:p:h') . ';')
+  "   if git_dir !=# ''
+  "     execute('lcd ' . git_dir . '/../')
+  "     echomsg git_dir
+  "   endif
+  " endfunction
 
   " For Pt(the platinum searcher)
   " NOTE: It also supports windows.
