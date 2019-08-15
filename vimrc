@@ -79,7 +79,7 @@ if dein#load_state(s:base_dir)
   " call dein#add('kristijanhusak/defx-git')    " なんかアイコンのやつがneovimでも表示できるようなやつ
   call dein#add('fatih/vim-go')
   " call dein#add('easymotion/vim-easymotion')  " 移動するやつ
-  call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
+  " call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
   call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
   call dein#add('simeji/winresizer')
   " call dein#add('davidhalter/jedi-vim')
@@ -415,6 +415,7 @@ if dein#is_sourced('denite.nvim')
   augroup denite_settings
     autocmd!
     autocmd FileType denite call s:denite_my_settings()
+    autocmd BufWinEnter * call s:denite_project_my_settings()
   augroup END
   function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> a
@@ -454,6 +455,19 @@ if dein#is_sourced('denite.nvim')
     nnoremap <silent><buffer><expr> k
           \ line('.') == 1 ? 'G' : 'k'
   endfunction
+  function! s:denite_project_my_settings() abort
+    let git_dir = finddir('.git', expand('%:p:h') . ';')
+    if git_dir !=# ''
+      let project_path = fnamemodify(git_dir . '/../', ':p')
+      echomsg project_path
+      call denite#custom#option('_', {
+            \ 'path': project_path,
+            \ })
+      " execute('lcd ' . git_dir . '/../')
+      " echomsg git_dir
+      execute('setlocal path+=' . project_path . '\**')
+    endif
+  endfunction
 
   augroup denite_filter_settings
     autocmd!
@@ -463,17 +477,6 @@ if dein#is_sourced('denite.nvim')
 	  imap <silent><buffer> <C-[> <Plug>(denite_filter_quit)
 	  imap <silent><buffer> <CR> <Plug>(denite_filter_update)
   endfunction
-  " augroup cwd_settings
-  "   autocmd!
-  "   autocmd BufWinEnter * call s:cwd_my_settings()
-  " augroup END
-  " function! s:cwd_my_settings() abort
-  "   let git_dir = finddir('.git', expand('%:p:h') . ';')
-  "   if git_dir !=# ''
-  "     execute('lcd ' . git_dir . '/../')
-  "     echomsg git_dir
-  "   endif
-  " endfunction
 
   " For Pt(the platinum searcher)
   " NOTE: It also supports windows.
@@ -556,9 +559,9 @@ if dein#is_sourced('denite.nvim')
   endif
 
   " Change ignore_globs
-  call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-        \ [ '.git/', '.ropeproject/', '__pycache__/',
-        \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+  " call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+  "       \ [ '.git/', '.ropeproject/', '__pycache__/',
+  "       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
   " Custom action
   " Note: lambda function is not supported in Vim8.
