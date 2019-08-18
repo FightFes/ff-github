@@ -546,7 +546,7 @@ if dein#is_sourced('denite.nvim')
   " Change default prompt
   call denite#custom#option('_', {
         \ 'auto_resize': v:true,
-        \ 'empty': v:false,
+        \ 'empty': v:true,
         \ 'direction': 'dynamicbottom',
         \ 'max_candidate_width': 600,
         \ 'winwidth': &columns / 2 + 20,
