@@ -79,7 +79,7 @@ if dein#load_state(s:base_dir)
   " call dein#add('kristijanhusak/defx-git')    " なんかアイコンのやつがneovimでも表示できるようなやつ
   call dein#add('fatih/vim-go')
   " call dein#add('easymotion/vim-easymotion')  " 移動するやつ
-  " call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
+  call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
   call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
   call dein#add('simeji/winresizer')
   " call dein#add('davidhalter/jedi-vim')
@@ -283,14 +283,6 @@ if 0
   endif
 endif
 
-if dein#is_sourced('vim-localrc')
-  augroup vim_localrc_setting
-    autocmd!
-    autocmd BufWinEnter * nested
-          \   call localrc#load(g:localrc_filename)
-  augroup END
-endif
-
 if dein#is_sourced('nerdcommenter')
   let g:NERDSpaceDelims=1
   let g:NERDDefaultAlign='left'
@@ -411,6 +403,16 @@ if dein#is_sourced('defx.nvim')
   "       \ })
 endif
 
+if dein#is_sourced('vim-localrc')
+  augroup vim_localrc_setting
+    autocmd!
+    " autocmd BufWinEnter * nested
+    "       \   call localrc#load(g:localrc_filename)
+    autocmd BufWinEnter * nested
+          \   call s:denite_project_my_settings()
+  augroup END
+endif
+
 if dein#is_sourced('denite.nvim')
   augroup denite_settings
     autocmd!
@@ -456,16 +458,19 @@ if dein#is_sourced('denite.nvim')
           \ line('.') == 1 ? 'G' : 'k'
   endfunction
   function! s:denite_project_my_settings() abort
-    let git_dir = finddir('.git', expand('%:p:h') . ';')
-    if git_dir !=# ''
-      let project_path = fnamemodify(git_dir . '/../', ':p')
-      echomsg project_path
-      call denite#custom#option('_', {
-            \ 'path': project_path,
-            \ })
-      " execute('lcd ' . git_dir . '/../')
-      " echomsg git_dir
-      execute('setlocal path+=' . project_path . '\**')
+    let load_files = localrc#search(g:localrc_filename)
+    if empty(load_files)
+      let git_dir = finddir('.git', expand('%:p:h') . ';')
+      if git_dir !=# ''
+        let project_path = fnamemodify(git_dir . '/../', ':p')
+        echomsg project_path
+        call denite#custom#option('_', {
+              \ 'path': project_path,
+              \ })
+        " execute('lcd ' . git_dir . '/../')
+        " echomsg git_dir
+        execute('setlocal path+=' . project_path . '\**')
+      endif
     endif
   endfunction
 
@@ -741,6 +746,10 @@ if dein#is_sourced('defx-icons')
   let g:defx_icons_parent_icon = ''
   let g:defx_icons_default_icon = ''
   let g:defx_icons_directory_symlink_icon = ''
+endif
+
+if dein#is_sourced('neoinclude.vim')
+  let g:neoinclude#ctags_command = ""
 endif
 
 " packadd
