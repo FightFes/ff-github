@@ -463,12 +463,10 @@ if dein#is_sourced('denite.nvim')
       let git_dir = finddir('.git', expand('%:p:h') . ';')
       if git_dir !=# ''
         let project_path = fnamemodify(git_dir . '/../', ':p')
-        echomsg project_path
-        call denite#custom#option('_', {
-              \ 'path': project_path,
-              \ })
-        " execute('lcd ' . git_dir . '/../')
-        " echomsg git_dir
+        " call denite#custom#option('_', {
+        "       \ 'path': project_path,
+        "       \ })
+        execute('lcd ' . project_path)
         execute('setlocal path+=' . project_path . '\**')
       endif
     endif
