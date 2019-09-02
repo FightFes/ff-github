@@ -411,13 +411,27 @@ if dein#is_sourced('vim-localrc')
     autocmd BufWinEnter * nested
           \   call s:denite_project_my_settings()
   augroup END
+
+  function! s:denite_project_my_settings() abort
+    let load_files = localrc#search(g:localrc_filename)
+    if empty(load_files)
+      let git_dir = finddir('.git', expand('%:p:h') . ';')
+      if git_dir !=# ''
+        let project_path = fnamemodify(git_dir . '/../', ':p')
+        " call denite#custom#option('_', {
+        "       \ 'path': project_path,
+        "       \ })
+        execute('lcd ' . project_path)
+        execute('setlocal path+=' . project_path . '/**')
+      endif
+    endif
+  endfunction
 endif
 
 if dein#is_sourced('denite.nvim')
   augroup denite_settings
     autocmd!
     autocmd FileType denite call s:denite_my_settings()
-    autocmd BufWinEnter * call s:denite_project_my_settings()
   augroup END
   function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> a
@@ -456,20 +470,6 @@ if dein#is_sourced('denite.nvim')
           \ line('.') == line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><expr> k
           \ line('.') == 1 ? 'G' : 'k'
-  endfunction
-  function! s:denite_project_my_settings() abort
-    let load_files = localrc#search(g:localrc_filename)
-    if empty(load_files)
-      let git_dir = finddir('.git', expand('%:p:h') . ';')
-      if git_dir !=# ''
-        let project_path = fnamemodify(git_dir . '/../', ':p')
-        " call denite#custom#option('_', {
-        "       \ 'path': project_path,
-        "       \ })
-        execute('lcd ' . project_path)
-        execute('setlocal path+=' . project_path . '\**')
-      endif
-    endif
   endfunction
 
   augroup denite_filter_settings
@@ -731,7 +731,7 @@ if dein#is_sourced('lightline.vim')
 		return ''
 	endfunction
   function! LightlineFilename(tabcount)
-    let path = expand('%:p')
+    let path = expand('%:p:h')
     return path !=# '' ? '(' . path . ')' : ''
   endfunction
 endif
