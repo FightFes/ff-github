@@ -631,7 +631,8 @@ if dein#is_sourced('deoplete.nvim')
 	let g:deoplete#enable_at_startup = 1
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
-  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include']})
+  " call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include']})
+  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member']})
   call deoplete#custom#var('around', {
         \   'mark_above': '[↑]',
         \   'mark_below': '[↓]',
@@ -694,6 +695,7 @@ if dein#is_sourced('neoinclude.vim')
     let g:neoinclude#exts = {}
   endif
   let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
+  let g:neoinclude#ctags_command = ""
 endif
 
 if dein#is_sourced('lightline.vim')
@@ -746,9 +748,6 @@ if dein#is_sourced('defx-icons')
   let g:defx_icons_directory_symlink_icon = ''
 endif
 
-if dein#is_sourced('neoinclude.vim')
-  let g:neoinclude#ctags_command = ""
-endif
 
 " packadd
 if !has('nvim')
