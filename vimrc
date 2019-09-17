@@ -408,7 +408,7 @@ if dein#is_sourced('vim-localrc')
     autocmd!
     " autocmd BufWinEnter * nested
     "       \   call localrc#load(g:localrc_filename)
-    autocmd BufWinEnter * nested
+    autocmd BufEnter * nested
           \   call s:denite_project_my_settings()
   augroup END
 
@@ -424,6 +424,8 @@ if dein#is_sourced('vim-localrc')
         execute('lcd ' . project_path)
         execute('setlocal path+=' . project_path . '/**')
       endif
+    else
+      call localrc#load(g:localrc_filename)
     endif
   endfunction
 endif
