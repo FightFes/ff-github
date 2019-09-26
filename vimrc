@@ -12,8 +12,8 @@ if has('win32') || has('win64')
     set pythonthreehome=~\python3
   endif
 else
-  let g:python_host_prog = expand('~/python2/bin/python')
-  let g:python3_host_prog = expand('~/python3/bin/python3.7')
+  " let g:python_host_prog = expand('~/python2/bin/python')
+  " let g:python3_host_prog = expand('~/python3/bin/python3.7')
   if !has('nvim')
     " vim自体が3.7に対応していない見たなので3.6を入れないと無理っぽい
     " set pythonthreedll=~/homebrew/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/Python
@@ -589,18 +589,18 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   " nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
-  nnoremap <silent> [denite]rg :<C-u>Denite -resume grep<CR>
-  nnoremap <silent> [denite]rr :<C-u>Denite -resume file/rec<CR>
+  nnoremap <silent> [denite]rg :<C-u>Denite -resume -buffer-name=search-buffer<CR>
+  nnoremap <silent> [denite]rr :<C-u>Denite -resume -buffer-name=file-rec-buffer<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
-  nnoremap <silent> [denite]g :<C-u>Denite grep<CR>
-  nnoremap <silent> [denite]ig :<C-u>Denite -start-filter grep:::!<CR>
-  nnoremap <silent> [denite]pg :<C-u>Denite grep::-w<CR>
-  nnoremap <silent> [denite]w :<C-u>Denite `'grep:::' . expand('<cword>')`<CR>
-  nnoremap <silent> [denite]pw :<C-u>Denite `'grep::-w:' . expand('<cword>')`<CR>
+  nnoremap <silent> [denite]g :<C-u>Denite -buffer-name=search-buffer grep<CR>
+  nnoremap <silent> [denite]ig :<C-u>Denite -buffer-name=search-buffer -start-filter grep:::!<CR>
+  nnoremap <silent> [denite]pg :<C-u>Denite -buffer-name=search-buffer grep::-w<CR>
+  nnoremap <silent> [denite]w :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
+  nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
   nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
