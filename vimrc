@@ -106,6 +106,7 @@ if dein#load_state(s:base_dir)
   call dein#add('kana/vim-altr')
   call dein#add('itchyny/lightline.vim')
   call dein#add('jiangmiao/auto-pairs')
+  call dein#add('majutsushi/tagbar')
   call dein#end()
   call dein#save_state()
 endif
@@ -751,6 +752,12 @@ if dein#is_sourced('defx-icons')
   let g:defx_icons_directory_symlink_icon = ''
 endif
 
+if dein#is_sourced('tagbar')
+  let g:tagbar_left = 1
+  let g:tagbar_width = 90
+  let g:tagbar_show_linenumbers = -1
+  let g:tagbar_foldlevel = 1
+endif
 
 " packadd
 if !has('nvim')
