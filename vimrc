@@ -107,6 +107,7 @@ if dein#load_state(s:base_dir)
   call dein#add('itchyny/lightline.vim')
   call dein#add('jiangmiao/auto-pairs')
   call dein#add('majutsushi/tagbar')
+  call dein#add('pepo-le/win-ime-con.nvim')
   call dein#end()
   call dein#save_state()
 endif
