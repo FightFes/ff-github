@@ -4,6 +4,7 @@ scriptencoding utf-8
 " set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 set fileencodings=utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 
+" python{{{
 if has('win32') || has('win64')
   let g:python_host_prog = expand('~\python2\Scripts\python.exe')
   let g:python3_host_prog = expand('~\python3\Scripts\python.exe')
@@ -19,9 +20,11 @@ else
     " set pythonthreedll=~/homebrew/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/Python
   endif
 endif
+"}}}
 
 let g:vimproc#download_windows_dll = 1
 
+" dein {{{
 let s:base_dir = '~/.cache/dein'
 let s:dein_repos_dir = expand(s:base_dir) . '/repos/github.com/Shougo/dein.vim'
 if !isdirectory(s:dein_repos_dir)
@@ -108,7 +111,7 @@ if dein#load_state(s:base_dir)
   call dein#add('jiangmiao/auto-pairs')
   call dein#add('majutsushi/tagbar')
   call dein#add('pepo-le/win-ime-con.nvim')
-  call dein#add('jacquesbh/vim-showmarks')
+  " call dein#add('jacquesbh/vim-showmarks')
   call dein#end()
   call dein#save_state()
 endif
@@ -119,6 +122,7 @@ if len(dein#check_clean()) > 0
 	call map(dein#check_clean(), "delete(v:val, 'rf')")
 	call dein#recache_runtimepath()
 endif
+"}}}
 
 filetype plugin indent on   "ファイルタイプ用のインデント設定を自動読み込みする
 
@@ -127,7 +131,7 @@ let g:mapleader = "s"
 
 " plugin
 if 0
-  if dein#is_sourced('unite.vim')
+  if dein#is_sourced('unite.vim') " {{{
     call unite#custom#profile('default', 'context', {
           \   'start_insert' : 0,
           \   'direction' : 'dynamicbottom'
@@ -220,10 +224,11 @@ if 0
     unlet! s:unite_action_grep
 
     call unite#custom#default_action('directory' , 'vimfiler')
-  endif
+  endif 
+  " }}}
 endif
 
-if dein#is_sourced('vimfiler')
+if dein#is_sourced('vimfiler') " {{{
   " カーソルが置かれているファイル、フォルダのパスを引数にしてコマンドを実行で
   " きるようしたい。
   let g:vimfiler_as_default_explorer = 0 " vim標準のファイラを置き換える
@@ -233,9 +238,10 @@ if dein#is_sourced('vimfiler')
   let g:vimfiler_ignore_pattern = ['\.db$']
   let g:vimfiler_min_cache_files = 5000
   nnoremap <silent> <C-@> :<C-u>VimFilerBufferDir<CR>
-endif
+endif 
+" }}}
 
-if dein#is_sourced('neocomplete.vim') && !has('nvim')
+if dein#is_sourced('neocomplete.vim') && !has('nvim') "{{{
   " バッファ補完のみを有効に、他に重くない補完があればそれを使うようにしよう
 	let g:acp_enableAtStartup = 0
   let g:neocomplete#enable_at_startup = 1 " 起動時に有効化
@@ -266,18 +272,21 @@ if dein#is_sourced('neocomplete.vim') && !has('nvim')
     let g:neocomplete#sources = {}
   endif
   let g:neocomplete#sources._ = ['buffer', 'member', 'file']
-endif
+endif 
+"}}}
 
-if dein#is_sourced('winresizer')
+if dein#is_sourced('winresizer') "{{{
   let g:winresizer_start_key="\<Leader>e"
 endif
+"}}}
 
-if dein#is_sourced('agit.vim')
+if dein#is_sourced('agit.vim') "{{{
   let g:agit_enable_auto_show_commit=1
 endif
+"}}}
 
 if 0
-  if dein#is_sourced('vim-easymotion')
+  if dein#is_sourced('vim-easymotion') "{{{
     let g:EasyMotion_startofline=0
     let g:EasyMotion_do_mapping=0
     let g:EasyMotion_smartcase=1
@@ -285,14 +294,16 @@ if 0
     map <Leader>f <Plug>(easymotion-bd-f2)
     map <Leader>j <Plug>(easymotion-bd-jk)
   endif
+  "}}}
 endif
 
-if dein#is_sourced('nerdcommenter')
+if dein#is_sourced('nerdcommenter') "{{{
   let g:NERDSpaceDelims=1
   let g:NERDDefaultAlign='left'
 endif
+"}}}
 
-if dein#is_sourced('defx.nvim')
+if dein#is_sourced('defx.nvim') "{{{
   nnoremap <silent> <Leader>d :<C-u>Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
   nnoremap <silent> <Leader>f :<C-u>Defx -split=vertical -winwidth=30 -direction=topleft<CR>
   augroup defx_settings
@@ -406,8 +417,9 @@ if dein#is_sourced('defx.nvim')
   "       \ 'max_width': 50,
   "       \ })
 endif
+"}}}
 
-if dein#is_sourced('vim-localrc')
+if dein#is_sourced('vim-localrc') "{{{
   augroup vim_localrc_setting
     autocmd!
     " autocmd BufWinEnter * nested
@@ -433,8 +445,9 @@ if dein#is_sourced('vim-localrc')
     endif
   endfunction
 endif
+"}}}
 
-if dein#is_sourced('denite.nvim')
+if dein#is_sourced('denite.nvim') "{{{
   augroup denite_settings
     autocmd!
     autocmd FileType denite call s:denite_my_settings()
@@ -631,8 +644,9 @@ if dein#is_sourced('denite.nvim')
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
 endif
+"}}}
 
-if dein#is_sourced('deoplete.nvim')
+if dein#is_sourced('deoplete.nvim') "{{{
 	" Use deoplete.
 	let g:deoplete#enable_at_startup = 1
 	" Use smartcase.
@@ -654,57 +668,64 @@ if dein#is_sourced('deoplete.nvim')
         \ pumvisible() ? "\<C-n>" :
         \ <SID>check_back_space() ? "\<TAB>" :
         \ deoplete#manual_complete()
-  function! s:check_back_space() abort "{{{
+  function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction"}}}
+  endfunction
   inoremap <expr><C-l> deoplete#refresh()
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()
 endif
+"}}}
 
-" if dein#is_sourced('vim-gitgutter')
-"   nnoremap <silent> sn :GitGutterNextHunk<CR>
-"   nnoremap <silent> sp :GitGutterPrevHunk<CR>
-" endif
+if dein#is_sourced('vim-gitgutter') "{{{
+  " nnoremap <silent> sn :GitGutterNextHunk<CR>
+  " nnoremap <silent> sp :GitGutterPrevHunk<CR>
+endif
+"}}}
 
-if dein#is_sourced('previm')
+if dein#is_sourced('previm') "{{{
   if has('win32') || has('win64')
     let g:previm_open_cmd = '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
   elseif has('mac')
     let g:previm_open_cmd = 'open -a Google\ Chrome'
   endif
 endif
+"}}}
 
-if dein#is_sourced('open-browser.vim')
+if dein#is_sourced('open-browser.vim') "{{{
 	let g:netrw_nogx = 1 " disable netrw's gx mapping.
 	nmap gx <Plug>(openbrowser-smart-search)
 	vmap gx <Plug>(openbrowser-smart-search)
 endif
+"}}}
 
-if dein#is_sourced('vim-cpp-enhanced-highlight')
+if dein#is_sourced('vim-cpp-enhanced-highlight') "{{{
   let g:cpp_class_scope_highlight = 1
   let g:cpp_member_variable_highlight = 1
   let g:cpp_class_decl_highlight = 1
   let g:cpp_concepts_highlight = 1
 endif
+"}}}
 
-if dein#is_sourced('vim-altr')
+if dein#is_sourced('vim-altr') "{{{
   call altr#define_defaults()
   nmap <Leader>n <Plug>(altr-forward)
   nmap <Leader>p <Plug>(altr-back)
 endif
+"}}}
 
-if dein#is_sourced('neoinclude.vim')
+if dein#is_sourced('neoinclude.vim') "{{{
   if !exists('g:neoinclude#exts')
     let g:neoinclude#exts = {}
   endif
   let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
   let g:neoinclude#ctags_command = ""
 endif
+"}}}
 
-if dein#is_sourced('lightline.vim')
+if dein#is_sourced('lightline.vim') "{{{
   let g:lightline = {
         \ 'colorscheme': 'one',
         \ 'active': {
@@ -743,8 +764,9 @@ if dein#is_sourced('lightline.vim')
     return path !=# '' ? '(' . path . ')' : ''
   endfunction
 endif
+"}}}
 
-if dein#is_sourced('defx-icons')
+if dein#is_sourced('defx-icons') "{{{
   let g:defx_icons_enable_syntax_highlight = 1
   let g:defx_icons_column_length = 2
   let g:defx_icons_directory_icon = ''
@@ -753,14 +775,17 @@ if dein#is_sourced('defx-icons')
   let g:defx_icons_default_icon = ''
   let g:defx_icons_directory_symlink_icon = ''
 endif
+"}}}
 
-if dein#is_sourced('tagbar')
+if dein#is_sourced('tagbar') "{{{
   let g:tagbar_left = 1
   let g:tagbar_width = 90
   let g:tagbar_show_linenumbers = -1
   let g:tagbar_foldlevel = 1
-endif
+endif 
+"}}}
 
+" 設定{{{
 " packadd
 if !has('nvim')
   packadd! matchit
@@ -832,14 +857,11 @@ endfunction
 " let &tabline = '%!'. s:SID_PREFIX() . 'MyTabLine()'
 set showtabline=2 " 常にタブラインを表示
 set matchpairs+=<:>
-augroup filetype_all_setting
-  autocmd!
-  "autocmd BufReadPost * if &fileencoding == 'utf-8' | setl bomb | endif
-augroup END
-augroup filetype_per_setting
+augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:else if:else,switch:case:default,#if:#else if:#else:#endif'
   autocmd FileType markdown setl shiftwidth=4 softtabstop=4 tabstop=4
+  autocmd FileType vim setl foldmethod=marker
 augroup END
 "set cindent       "C言語インデントに従って自動インデント
 "set cinoptions=g1,N-s "スコープ宣言をブロックのインデントから１の位置に，namespaceはインデントしない
@@ -881,7 +903,43 @@ augroup Binary
   autocmd BufWritePost *.bin if &bin | %!xxd
   autocmd BufWritePost *.bin set nomod | endif
 augroup END
-" プラグインに関係ないキーマップ
+
+command! -nargs=? Jq call s:jq(<f-args>)
+function! s:jq(...)
+  if a:0 == 0
+    let arg = "."
+  else
+    let arg = a:1
+  endif
+  if executable('jq')
+    execute '%! jq "' . arg . '"'
+  else
+    echomsg 'not found jq command'
+  endif
+endfunction
+
+let s:session_path = expand('~/.vim/sessions')
+if !isdirectory(s:session_path)
+  call mkdir(s:session_path, "p")
+endif
+command! -nargs=1 SaveSession call s:saveSession(<f-args>)
+function! s:saveSession(file_name)
+  execute 'mksession!' s:session_path . '/' . a:file_name
+endfunction
+command! -nargs=1 LoadSession call s:loadSession(<f-args>)
+function! s:loadSession(file_name)
+  execute 'silent source' s:session_path . '/' . a:file_name
+endfunction
+command! -nargs=1 DeleteSession call s:deleteSession(<f-args>)
+function! s:deleteSession(file_name)
+  call delete(s:session_path . '/' . a:file_name)
+endfunction
+nnoremap <C-s> :<C-u>SaveSession default<CR>
+nnoremap g<C-l> :<C-u>LoadSession default<CR>
+nnoremap g<C-d> :<C-u>DeleteSession default<CR>
+"}}}
+
+" プラグインに関係ないキーマップ{{{
 nnoremap / /\v
 nnoremap ? ?\v
 " 挙動をC、Dと同じにする
@@ -922,6 +980,9 @@ vnoremap <C-x> <C-x>gv
 " ドットコマンドが使えない
 " nnoremap go :<C-u>call append(expand('.'), '')<CR>j
 nnoremap go o<ESC>
+"}}}
+
+" MEMO{{{
 " :r! date
 " 再度コマンドを打つときはq:がいい気がする
 " v_g_CTRL-A
@@ -950,20 +1011,6 @@ nnoremap go o<ESC>
 " inoremap <C-L> ]
 " inoremap <C-D> *
 " :%!python -m json.tool
-command! -nargs=? Jq call s:jq(<f-args>)
-function! s:jq(...)
-  if a:0 == 0
-    let arg = "."
-  else
-    let arg = a:1
-  endif
-  if executable('jq')
-    execute '%! jq "' . arg . '"'
-  else
-    echomsg 'not found jq command'
-  endif
-endfunction
-"
 " http://items.sjbach.com/319/configuring-vim-right	
 " nnoremap 0 ^
 " nnoremap ^ 0
@@ -972,28 +1019,9 @@ endfunction
 " eval
 " functions
 " function-list
-"
-let s:session_path = expand('~/.vim/sessions')
-if !isdirectory(s:session_path)
-  call mkdir(s:session_path, "p")
-endif
-command! -nargs=1 SaveSession call s:saveSession(<f-args>)
-function! s:saveSession(file_name)
-  execute 'mksession!' s:session_path . '/' . a:file_name
-endfunction
-command! -nargs=1 LoadSession call s:loadSession(<f-args>)
-function! s:loadSession(file_name)
-  execute 'silent source' s:session_path . '/' . a:file_name
-endfunction
-command! -nargs=1 DeleteSession call s:deleteSession(<f-args>)
-function! s:deleteSession(file_name)
-  call delete(s:session_path . '/' . a:file_name)
-endfunction
-nnoremap <C-s> :<C-u>SaveSession default<CR>
-nnoremap g<C-l> :<C-u>LoadSession default<CR>
-nnoremap g<C-d> :<C-u>DeleteSession default<CR>
+"}}}
 
-" gvim==========================================================================
+" gvim=========================================================================={{{
 syntax on	            "シンタックスカラーリング
 colorscheme eva01
 "set background=dark
@@ -1028,8 +1056,9 @@ endif
 set ambiwidth=double
 "autocmd FocusGained * set transparency=100
 "autocmd FocusLost * set transparency=30
+"}}}
 
-"eva01
+"eva01{{{
 hi Comment cterm=NONE gui=NONE
 hi Visual cterm=NONE gui=NONE
 "hi Search ctermfg=97  ctermbg=119 cterm=NONE guifg=#875FAF guibg=#87FF5F gui=NONE
@@ -1045,3 +1074,4 @@ hi DiffText   gui=NONE guifg=#87FF5F guibg=#0066FF
 " floating window
 " hi NormalFloat gui=NONE guifg=#87FF5F guibg=#585858
 hi NormalFloat gui=NONE guifg=#D0D0D0 guibg=#585858
+"}}}
