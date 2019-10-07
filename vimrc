@@ -4,7 +4,7 @@ scriptencoding utf-8
 " set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 set fileencodings=utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 
-" python{{{
+" python setting{{{
 if has('win32') || has('win64')
   let g:python_host_prog = expand('~\python2\Scripts\python.exe')
   let g:python3_host_prog = expand('~\python3\Scripts\python.exe')
@@ -228,18 +228,19 @@ if 0
   " }}}
 endif
 
-if dein#is_sourced('vimfiler') " {{{
-  " カーソルが置かれているファイル、フォルダのパスを引数にしてコマンドを実行で
-  " きるようしたい。
-  let g:vimfiler_as_default_explorer = 0 " vim標準のファイラを置き換える
-  let g:vimfiler_enable_auto_cd = 1      " 自動でカレントディレクトリ移動
-  let g:vimfiler_safe_mode_by_default = 0
-  "let g:vimfiler_ignore_pattern = ['^\.', '\.db$']
-  let g:vimfiler_ignore_pattern = ['\.db$']
-  let g:vimfiler_min_cache_files = 5000
-  nnoremap <silent> <C-@> :<C-u>VimFilerBufferDir<CR>
-endif 
-" }}}
+if 0
+  if dein#is_sourced('vimfiler') " {{{
+    " カーソルが置かれているファイル、フォルダのパスを引数にしてコマンドを実行で
+    " きるようしたい。
+    let g:vimfiler_as_default_explorer = 0 " vim標準のファイラを置き換える
+    let g:vimfiler_enable_auto_cd = 1      " 自動でカレントディレクトリ移動
+    let g:vimfiler_safe_mode_by_default = 0
+    "let g:vimfiler_ignore_pattern = ['^\.', '\.db$']
+    let g:vimfiler_ignore_pattern = ['\.db$']
+    let g:vimfiler_min_cache_files = 5000
+    nnoremap <silent> <C-@> :<C-u>VimFilerBufferDir<CR>
+  endif " }}}
+endif
 
 if dein#is_sourced('neocomplete.vim') && !has('nvim') "{{{
   " バッファ補完のみを有効に、他に重くない補完があればそれを使うようにしよう
@@ -272,18 +273,15 @@ if dein#is_sourced('neocomplete.vim') && !has('nvim') "{{{
     let g:neocomplete#sources = {}
   endif
   let g:neocomplete#sources._ = ['buffer', 'member', 'file']
-endif 
-"}}}
+endif "}}}
 
 if dein#is_sourced('winresizer') "{{{
   let g:winresizer_start_key="\<Leader>e"
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('agit.vim') "{{{
   let g:agit_enable_auto_show_commit=1
-endif
-"}}}
+endif "}}}
 
 if 0
   if dein#is_sourced('vim-easymotion') "{{{
@@ -293,15 +291,13 @@ if 0
     map <Leader>s <Plug>(easymotion-s)
     map <Leader>f <Plug>(easymotion-bd-f2)
     map <Leader>j <Plug>(easymotion-bd-jk)
-  endif
-  "}}}
+  endif "}}}
 endif
 
 if dein#is_sourced('nerdcommenter') "{{{
   let g:NERDSpaceDelims=1
   let g:NERDDefaultAlign='left'
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('defx.nvim') "{{{
   nnoremap <silent> <Leader>d :<C-u>Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
@@ -416,8 +412,7 @@ if dein#is_sourced('defx.nvim') "{{{
   "       \ 'min_width': 50,
   "       \ 'max_width': 50,
   "       \ })
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('vim-localrc') "{{{
   augroup vim_localrc_setting
@@ -444,8 +439,7 @@ if dein#is_sourced('vim-localrc') "{{{
       call localrc#load(g:localrc_filename)
     endif
   endfunction
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('denite.nvim') "{{{
   augroup denite_settings
@@ -643,8 +637,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{
 	" Use deoplete.
@@ -676,14 +669,12 @@ if dein#is_sourced('deoplete.nvim') "{{{
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('vim-gitgutter') "{{{
   " nnoremap <silent> sn :GitGutterNextHunk<CR>
   " nnoremap <silent> sp :GitGutterPrevHunk<CR>
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('previm') "{{{
   if has('win32') || has('win64')
@@ -691,30 +682,26 @@ if dein#is_sourced('previm') "{{{
   elseif has('mac')
     let g:previm_open_cmd = 'open -a Google\ Chrome'
   endif
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('open-browser.vim') "{{{
 	let g:netrw_nogx = 1 " disable netrw's gx mapping.
 	nmap gx <Plug>(openbrowser-smart-search)
 	vmap gx <Plug>(openbrowser-smart-search)
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('vim-cpp-enhanced-highlight') "{{{
   let g:cpp_class_scope_highlight = 1
   let g:cpp_member_variable_highlight = 1
   let g:cpp_class_decl_highlight = 1
   let g:cpp_concepts_highlight = 1
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('vim-altr') "{{{
   call altr#define_defaults()
   nmap <Leader>n <Plug>(altr-forward)
   nmap <Leader>p <Plug>(altr-back)
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('neoinclude.vim') "{{{
   if !exists('g:neoinclude#exts')
@@ -722,8 +709,7 @@ if dein#is_sourced('neoinclude.vim') "{{{
   endif
   let g:neoinclude#exts.cpp = ['', 'h', 'hpp', 'hxx']
   let g:neoinclude#ctags_command = ""
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('lightline.vim') "{{{
   let g:lightline = {
@@ -763,8 +749,7 @@ if dein#is_sourced('lightline.vim') "{{{
     let path = expand('%:p:h')
     return path !=# '' ? '(' . path . ')' : ''
   endfunction
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('defx-icons') "{{{
   let g:defx_icons_enable_syntax_highlight = 1
@@ -774,16 +759,14 @@ if dein#is_sourced('defx-icons') "{{{
   let g:defx_icons_parent_icon = ''
   let g:defx_icons_default_icon = ''
   let g:defx_icons_directory_symlink_icon = ''
-endif
-"}}}
+endif "}}}
 
 if dein#is_sourced('tagbar') "{{{
   let g:tagbar_left = 1
   let g:tagbar_width = 90
   let g:tagbar_show_linenumbers = -1
   let g:tagbar_foldlevel = 1
-endif 
-"}}}
+endif "}}}
 
 " 設定{{{
 " packadd
@@ -1021,7 +1004,7 @@ nnoremap go o<ESC>
 " function-list
 "}}}
 
-" gvim=========================================================================={{{
+" gvim{{{
 syntax on	            "シンタックスカラーリング
 colorscheme eva01
 "set background=dark
