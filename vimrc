@@ -524,7 +524,8 @@ if dein#is_sourced('denite.nvim') "{{{
   " Pt command on grep source
   call denite#custom#var('grep', 'command', ['pt'])
   call denite#custom#var('grep', 'default_opts',
-        \ ['-i', '--nogroup', '--nocolor', '--smart-case'])
+        \ ['--nogroup', '--nocolor', '--smart-case', '--ignore=tags'])
+        "\ ['-i', '--nogroup', '--nocolor', '--smart-case'])
   call denite#custom#var('grep', 'recursive_opts', [])
   call denite#custom#var('grep', 'pattern_opt', [])
   call denite#custom#var('grep', 'separator', ['--'])
@@ -562,11 +563,12 @@ if dein#is_sourced('denite.nvim') "{{{
   " Change default prompt
   call denite#custom#option('_', {
         \ 'auto_resize': v:true,
-        \ 'empty': v:true,
+        \ 'empty': v:false,
         \ 'direction': 'dynamicbottom',
         \ 'max_candidate_width': 600,
         \ 'winwidth': &columns / 2 + 20,
         \ 'winheight': 30,
+        \ 'smartcase': v:true,
         \ })
   if has('nvim')
     call denite#custom#option('_', {
@@ -1006,7 +1008,7 @@ nnoremap go o<ESC>
 
 " gvim{{{
 syntax on	            "シンタックスカラーリング
-colorscheme eva01
+colorscheme eva01-LCL
 "set background=dark
 if has('nvim')  
   if exists('g:GuiLoaded')
@@ -1046,14 +1048,15 @@ hi Comment cterm=NONE gui=NONE
 hi Visual cterm=NONE gui=NONE
 "hi Search ctermfg=97  ctermbg=119 cterm=NONE guifg=#875FAF guibg=#87FF5F gui=NONE
 "hi Search cterm=NONE guifg=#D0D0D0 guibg=#875FAF gui=NONE
-hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
+" hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
+hi Search cterm=NONE gui=NONE
 hi IncSearch cterm=NONE gui=NONE
 hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 " vimdiffの色設定
-hi DiffAdd    gui=NONE guifg=#87FF5F guibg=#228B22
-hi DiffDelete gui=NONE guifg=#87FF5F guibg=#B22222
-hi DiffChange gui=NONE guifg=#87FF5F guibg=#3333CC
-hi DiffText   gui=NONE guifg=#87FF5F guibg=#0066FF
+" hi DiffAdd    gui=NONE guifg=#87FF5F guibg=#228B22
+" hi DiffDelete gui=NONE guifg=#87FF5F guibg=#B22222
+" hi DiffChange gui=NONE guifg=#87FF5F guibg=#3333CC
+" hi DiffText   gui=NONE guifg=#87FF5F guibg=#0066FF
 " floating window
 " hi NormalFloat gui=NONE guifg=#87FF5F guibg=#585858
 hi NormalFloat gui=NONE guifg=#D0D0D0 guibg=#585858
