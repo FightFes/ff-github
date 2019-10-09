@@ -434,12 +434,10 @@ if dein#is_sourced('vim-localrc') "{{{
         " call denite#custom#option('_', {
         "       \ 'path': project_path,
         "       \ })
-        echomsg project_path
         execute('lcd ' . project_path)
         execute('setlocal path+=' . project_path . '**')
       endif
     else
-      echomsg g:localrc_filename
       call localrc#load(g:localrc_filename)
     endif
   endfunction
