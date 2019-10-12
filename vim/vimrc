@@ -678,7 +678,8 @@ endif "}}}
 if dein#is_sourced('vim-gitgutter') "{{{
   " nnoremap <silent> sn :GitGutterNextHunk<CR>
   " nnoremap <silent> sp :GitGutterPrevHunk<CR>
-  let g:gitgutter_git_executable = 'C:\Users\taiki\scoop\shims\git.exe'
+  let g:gitgutter_git_executable = expand('~\scoop\shims\git.exe')
+  let g:gitgutter_diff_args = '-w'
 endif "}}}
 
 if dein#is_sourced('previm') "{{{
