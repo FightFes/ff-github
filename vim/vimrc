@@ -111,7 +111,9 @@ if dein#load_state(s:base_dir)
   call dein#add('jiangmiao/auto-pairs')
   call dein#add('majutsushi/tagbar')
   call dein#add('pepo-le/win-ime-con.nvim')
-  " call dein#add('jacquesbh/vim-showmarks')
+  call dein#add('tpope/vim-dispatch')
+  call dein#add('janko-m/vim-test')
+  call dein#add('tlvince/vim-compiler-python')
   call dein#end()
   call dein#save_state()
 endif
@@ -433,7 +435,7 @@ if dein#is_sourced('vim-localrc') "{{{
         "       \ 'path': project_path,
         "       \ })
         execute('lcd ' . project_path)
-        execute('setlocal path+=' . project_path . '/**')
+        execute('setlocal path+=' . project_path . '**')
       endif
     else
       call localrc#load(g:localrc_filename)
