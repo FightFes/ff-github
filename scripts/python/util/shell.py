@@ -23,4 +23,13 @@ def command(cmd):
         print cmd[0]
         run_cmd = cmd
 
-    return subprocess.call(run_cmd)
+    subprocess.call(run_cmd)
+
+#------------------------------------------------------------------------------
+# command_with_cd
+#------------------------------------------------------------------------------
+def command_with_cd(cmd, exe_dir):
+    cwd = os.getcwd()
+    cd(exe_dir)
+    command(cmd)
+    cd(cwd)
