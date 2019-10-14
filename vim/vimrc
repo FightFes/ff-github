@@ -851,7 +851,7 @@ set matchpairs+=<:>
 augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:else if:else,switch:case:default,#if:#else if:#else:#endif'
-  autocmd FileType markdown setl shiftwidth=4 softtabstop=4 tabstop=4
+  autocmd FileType markdown,python setl shiftwidth=4 softtabstop=4 tabstop=4
   autocmd FileType vim setl foldmethod=marker
 augroup END
 "set cindent       "C言語インデントに従って自動インデント

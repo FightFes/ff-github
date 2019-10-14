@@ -8,7 +8,7 @@ import subprocess
 #------------------------------------------------------------------------------
 # 削除
 #------------------------------------------------------------------------------
-def rm(path):
+def remove(path):
     print 'remove ' + os.path.relpath(path)
     if os.path.isdir(path):
         shutil.rmtree(path)
@@ -18,7 +18,7 @@ def rm(path):
 #------------------------------------------------------------------------------
 # コピー
 #------------------------------------------------------------------------------
-def cp(origin, target):
+def copy(origin, target):
     print 'copy %s %s' % (origin, target)
     if os.path.isdir(origin):
         shutil.copytree(origin, target)
@@ -28,14 +28,14 @@ def cp(origin, target):
 #------------------------------------------------------------------------------
 # 移動
 #------------------------------------------------------------------------------
-def mv(origin, target):
+def move(origin, target):
     print 'move %s %s' % (origin, target)
     shutil.move(origin, target)
 
 #------------------------------------------------------------------------------
 # フォルダ作成
 #------------------------------------------------------------------------------
-def md(path):
+def make_dir(path):
     print 'make dir ' + os.path.relpath(path)
     os.makedirs(path)
 
