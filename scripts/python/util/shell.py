@@ -15,11 +15,12 @@ def cd(path):
 # command
 #------------------------------------------------------------------------------
 def command(cmd):
-    print cmd
 
     if isinstance(cmd, str):
-        run_cmd = cmd
-    elif isinstance(cmd, list):
         run_cmd = cmd.split()
+    elif isinstance(cmd, list):
+        cmd[0] = normpath(cmd[0])
+        print cmd[0]
+        run_cmd = cmd
 
-    return subprocess.call(cmd.split())
+    return subprocess.call(run_cmd)
