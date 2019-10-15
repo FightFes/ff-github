@@ -6,14 +6,11 @@ import shutil
 import subprocess
 
 #------------------------------------------------------------------------------
-# 削除
+# フォルダ作成
 #------------------------------------------------------------------------------
-def remove(path):
-    print 'remove ' + os.path.relpath(path)
-    if os.path.isdir(path):
-        shutil.rmtree(path)
-    else:
-        os.remove(path)
+def make_dir(path):
+    print 'make dir ' + path
+    os.makedirs(path)
 
 #------------------------------------------------------------------------------
 # コピー
@@ -33,17 +30,20 @@ def move(origin, target):
     shutil.move(origin, target)
 
 #------------------------------------------------------------------------------
-# フォルダ作成
+# 削除
 #------------------------------------------------------------------------------
-def make_dir(path):
-    print 'make dir ' + os.path.relpath(path)
-    os.makedirs(path)
+def remove(path):
+    print 'remove ' + path
+    if os.path.isdir(path):
+        shutil.rmtree(path)
+    else:
+        os.remove(path)
 
 #------------------------------------------------------------------------------
 # ファイル読み込み
 #------------------------------------------------------------------------------
 def read_file(path):
-    print 'read file ' + os.path.relpath(path)
+    print 'read file ' + path
     file = open(path, 'r')
     content = file.read()
     file.close()
@@ -53,7 +53,7 @@ def read_file(path):
 # ファイル書き込み
 #------------------------------------------------------------------------------
 def write_file(path, content):
-    print 'write file ' + os.path.relpath(path)
+    print 'write file ' + path
     file = open(path, 'w')
     file.write(content)
     file.close()
