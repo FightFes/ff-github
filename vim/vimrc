@@ -971,6 +971,7 @@ vnoremap <C-x> <C-x>gv
 " ドットコマンドが使えない
 " nnoremap go :<C-u>call append(expand('.'), '')<CR>j
 nnoremap go o<ESC>
+inoremap jj <ESC>
 "}}}
 
 " MEMO{{{
