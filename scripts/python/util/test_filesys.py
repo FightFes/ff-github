@@ -4,7 +4,8 @@ import os
 
 class TestFilesys(unittest.TestCase):
     def test_make_dir(self):
-        filesys.make_dir('C:/User/taiki/ff-github/test')
+        path = os.path.expanduser('~/ff-github/test/test_sub/test_sub_sub')
+        filesys.make_dir(path)
         
 if __name__ == '__main__':
     unittest.main()
