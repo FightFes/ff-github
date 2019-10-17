@@ -1055,9 +1055,9 @@ hi Comment cterm=NONE gui=NONE
 hi Visual cterm=NONE gui=NONE
 "hi Search ctermfg=97  ctermbg=119 cterm=NONE guifg=#875FAF guibg=#87FF5F gui=NONE
 "hi Search cterm=NONE guifg=#D0D0D0 guibg=#875FAF gui=NONE
-" hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
-hi Search cterm=NONE gui=NONE
-hi IncSearch cterm=NONE gui=NONE
+hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
+" hi Search cterm=NONE gui=NONE
+" hi IncSearch cterm=NONE gui=NONE
 hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 " vimdiffの色設定
 " hi DiffAdd    gui=NONE guifg=#87FF5F guibg=#228B22
