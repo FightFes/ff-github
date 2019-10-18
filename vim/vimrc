@@ -949,8 +949,8 @@ noremap : ;
 nnoremap ' `
 nnoremap <C-n> gt
 nnoremap <C-p> gT
-nnoremap gT :tabfirst
-nnoremap gt :tablast
+nnoremap gT :tabfirst<CR>
+nnoremap gt :tablast<CR>
 nnoremap <C-k> :tablast <bar> tabnew<CR>
 tnoremap <C-[> <C-W>N
 if has('gui_macvim')
