@@ -113,7 +113,7 @@ if dein#load_state(s:base_dir)
   call dein#add('pepo-le/win-ime-con.nvim')
   call dein#add('tpope/vim-dispatch')
   call dein#add('janko-m/vim-test')
-  call dein#add('tlvince/vim-compiler-python')
+  call dein#add('aliev/vim-compiler-python')
   call dein#end()
   call dein#save_state()
 endif
@@ -776,6 +776,10 @@ if dein#is_sourced('tagbar') "{{{
   let g:tagbar_foldlevel = 1
 endif "}}}
 
+if dein#is_sourced('vim-test') "{{{
+  let g:test#strategy = 'dispatch'
+  let g:test#project_root = 'C:\Users\taiki\ff-github\scripts\python\util'
+endif "}}}
 " 設定{{{
 " packadd
 if !has('nvim')

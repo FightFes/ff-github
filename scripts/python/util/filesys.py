@@ -9,8 +9,11 @@ import subprocess
 # フォルダ作成
 #------------------------------------------------------------------------------
 def make_dir(path):
-    print 'make dir ' + path
-    os.makedirs(path)
+    if os.path.isdir(path):
+        print 'already exists directory'
+    else:
+        print 'make dir ' + path
+        os.makedirs(path)
 
 #------------------------------------------------------------------------------
 # コピー
