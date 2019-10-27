@@ -723,15 +723,21 @@ if dein#is_sourced('lightline.vim') "{{{
   let g:lightline = {
         \ 'colorscheme': 'one',
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+        \   'left': [['mode', 'paste'],
+        \            ['fugitive', 'readonly', 'filename', 'modified']],
+	      \   'right': [['syntastic', 'lineinfo'],
+        \             ['percent'], 
+        \             ['fileformat', 'fileencoding', 'filetype']]
         \ },
         \ 'component': {
         \   'lineinfo': ' %3l:%-2v',
         \ },
         \ 'component_function': {
         \   'readonly': 'LightlineReadonly',
-        \   'fugitive': 'LightlineFugitive'
+        \   'fugitive': 'LightlineFugitive',
+	      \   'fileformat': 'LightlineFileformat',
+	      \   'filetype': 'LightlineFiletype',
+	      \   'fileencoding': 'LightlineFileencoding',
         \ },
         \ 'separator': { 'left': '', 'right': '' },
         \ 'subseparator': { 'left': '|', 'right': '|' },
@@ -757,6 +763,16 @@ if dein#is_sourced('lightline.vim') "{{{
     let path = expand('%:p:h')
     return path !=# '' ? '(' . path . ')' : ''
   endfunction
+	function! LightlineFileformat()
+    let ff_table = {'dos' : 'CRLF', 'unix' : 'LF', 'mac' : 'CR' }
+	  return winwidth(0) > 70 ? ff_table[&fileformat] : ''
+	endfunction
+	function! LightlineFiletype()
+	  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+	endfunction
+	function! LightlineFileencoding()
+	  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+	endfunction
 endif "}}}
 
 if dein#is_sourced('defx-icons') "{{{
@@ -778,7 +794,7 @@ endif "}}}
 
 if dein#is_sourced('vim-test') "{{{
   let g:test#strategy = 'dispatch'
-  let g:test#project_root = 'C:\Users\taiki\ff-github\scripts\python\util'
+  " let g:test#project_root = 'C:\Users\taiki\ff-github\scripts\python\util'
 endif "}}}
 " 設定{{{
 " packadd
