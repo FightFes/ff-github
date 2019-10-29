@@ -431,11 +431,10 @@ if dein#is_sourced('vim-localrc') "{{{
       let git_dir = finddir('.git', expand('%:p:h') . ';')
       if git_dir !=# ''
         let project_path = fnamemodify(git_dir . '/../', ':p')
-        " call denite#custom#option('_', {
-        "       \ 'path': project_path,
-        "       \ })
-        execute('lcd ' . project_path)
-        execute('setlocal path+=' . project_path . '**')
+        if isdirectory(project_path)
+          execute('lcd ' . project_path)
+          execute('setlocal path+=' . project_path . '**')
+        endif
       endif
     else
       call localrc#load(g:localrc_filename)
@@ -972,7 +971,21 @@ nnoremap <C-p> gT
 nnoremap gT :tabfirst<CR>
 nnoremap gt :tablast<CR>
 nnoremap <C-k> :tablast <bar> tabnew<CR>
-tnoremap <C-[> <C-W>N
+" tnoremap <C-[> <C-W>N
+tnoremap <Esc> <C-\><C-n>
+tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+inoremap <A-h> <C-\><C-n><C-w>h
+inoremap <A-j> <C-\><C-n><C-w>j
+inoremap <A-k> <C-\><C-n><C-w>k
+inoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 if has('gui_macvim')
   set macmeta
 endif
