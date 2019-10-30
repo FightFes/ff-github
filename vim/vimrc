@@ -121,8 +121,8 @@ if dein#check_install()
   call dein#install()
 endif
 if len(dein#check_clean()) > 0
-	call map(dein#check_clean(), "delete(v:val, 'rf')")
-	call dein#recache_runtimepath()
+  call map(dein#check_clean(), "delete(v:val, 'rf')")
+  call dein#recache_runtimepath()
 endif
 "}}}
 
@@ -422,10 +422,10 @@ if dein#is_sourced('vim-localrc') "{{{
     " autocmd BufWinEnter * nested
     "       \   call localrc#load(g:localrc_filename)
     autocmd BufEnter * nested
-          \   call s:denite_project_my_settings()
+          \   call s:project_my_settings()
   augroup END
 
-  function! s:denite_project_my_settings() abort
+  function! s:project_my_settings() abort
     let load_files = localrc#search(g:localrc_filename)
     if empty(load_files)
       let git_dir = finddir('.git', expand('%:p:h') . ';')
@@ -800,10 +800,10 @@ endif "}}}
 if !has('nvim')
   packadd! matchit
 endif
-" 設定 
+" 設定
 " 表示
 set termguicolors
-set number	      "行番号表示
+set number        "行番号表示
 "set relativenumber " 相対行番号表示
 set title         "編集中のファイル名を表示
 set showcmd       "入力中のコマンド表示
@@ -814,13 +814,14 @@ set nowrap        "端で折り返さない
 set cursorline    "カーソルラインをハイライト
 set cursorcolumn  "縦にもハイライト
 set previewheight=36
-set cindent 
+set cindent
 set cinoptions=g1,N-s,h1,l1,j1 "| setl foldmethod=indent
 set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set cmdheight=2   "コマンドラインに使われる画面上の行数
-set listchars+=tab:>-,space:\|,trail:-,nbsp:%
-if has('nvim') 
+set listchars=tab:>-,trail:-,nbsp:+
+set list
+if has('nvim')
   set pumblend=15
   set winblend=15
 endif
@@ -873,6 +874,11 @@ augroup setting_per_filetype
   autocmd FileType markdown,python setl shiftwidth=4 softtabstop=4 tabstop=4
   autocmd FileType vim setl foldmethod=marker
 augroup END
+augroup terminal_setting
+  autocmd!
+  autocmd TermOpen * setlocal statusline=%{b:term_title}
+  autocmd TermOpen * setlocal list
+augroup END
 "set cindent       "C言語インデントに従って自動インデント
 "set cinoptions=g1,N-s "スコープ宣言をブロックのインデントから１の位置に，namespaceはインデントしない
 set expandtab     "タブをスペースに置き換え、タブ死すべし
@@ -884,7 +890,7 @@ set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,] "カーソルを行頭，行末で止まらないように
 set clipboard=unnamed "無名レジスタに
 set wildmenu      "コマンドモードの補完
-set wildmode=full      
+set wildmode=full
 set nofixeol      "最後に改行のないファイルを編集したときに改行を付けない
 set history=200   "コマンドラインモードの履歴を200に
 "set textwidth=80 "グーグルコーディング規約に従って
@@ -903,7 +909,7 @@ set ignorecase "大文字小文字を区別しない
 set smartcase "検索時に大文字を含んでいたら大小を区別
 set wrapscan  "検索をファイルの先頭へループ
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
-augroup Binary
+augroup binary_edit
   autocmd!
   autocmd BufReadPre  *.bin let &bin=1
   autocmd BufReadPost *.bin if &bin | %!xxd
@@ -972,6 +978,8 @@ nnoremap gT :tabfirst<CR>
 nnoremap gt :tablast<CR>
 nnoremap <C-k> :tablast <bar> tabnew<CR>
 " tnoremap <C-[> <C-W>N
+cnoremap <A-b> <S-Left>
+cnoremap <A-f> <S-Right>
 tnoremap <Esc> <C-\><C-n>
 tnoremap <expr> <C-R> '<C-\><C-N>"'.nr2char(getchar()).'pi'
 tnoremap <A-h> <C-\><C-n><C-w>h
@@ -1051,7 +1059,7 @@ inoremap っｊ <ESC>
 syntax on	            "シンタックスカラーリング
 colorscheme eva01-LCL
 "set background=dark
-if has('nvim')  
+if has('nvim')
   if exists('g:GuiLoaded')
     GuiTabline v:false
     if has('mac')
@@ -1071,9 +1079,9 @@ else
   set guioptions-=T    "ツールバー非表示
   set guioptions-=m    "メニュー非表示
   "set guioptions-=r    "右スクロールバー非表示
-  set guioptions-=R    
+  set guioptions-=R
   set guioptions-=l    "左スクロールバー非表示
-  set guioptions-=L    
+  set guioptions-=L
   set guioptions-=e    "gvimでもテキストベースのタブを使用する
   winpos 424 217  " 表示位置
   set lines=73    " 縦幅
