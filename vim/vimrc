@@ -820,7 +820,7 @@ set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set cmdheight=2   "コマンドラインに使われる画面上の行数
 set listchars=tab:>-,trail:-,nbsp:+
-set list
+" set list
 if has('nvim')
   set pumblend=15
   set winblend=15
@@ -994,9 +994,6 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-if has('gui_macvim')
-  set macmeta
-endif
 cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-d> <Del>
@@ -1004,14 +1001,15 @@ cnoremap <C-e> <End>
 cnoremap <C-f> <Right>
 cnoremap <C-n> <Down>
 cnoremap <C-p> <Up>
-" cnoremap <M-b> <S-Left>
-" cnoremap <M-f> <S-Right>
+cnoremap <A-b> <S-Left>
+cnoremap <A-f> <S-Right>
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 vnoremap <C-a> <C-a>gv
 vnoremap <C-x> <C-x>gv
 " ドットコマンドが使えない
 " nnoremap go :<C-u>call append(expand('.'), '')<CR>j
 nnoremap go o<ESC>
+nnoremap gO O<ESC>
 inoremap jj <ESC>
 inoremap っｊ <ESC>
 "}}}
