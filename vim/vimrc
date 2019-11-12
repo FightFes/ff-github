@@ -115,6 +115,7 @@ if dein#load_state(s:base_dir)
   call dein#add('janko-m/vim-test')
   call dein#add('aliev/vim-compiler-python')
   call dein#add('itchyny/calendar.vim')
+  call dein#add('AndrewRadev/switch.vim')
   call dein#end()
   call dein#save_state()
 endif
