@@ -102,13 +102,13 @@ if dein#load_state(s:base_dir)
   call dein#add('Shougo/deoplete-clangx')
   " call dein#add('cocopon/vaffle.vim')
   " call dein#add('kristijanhusak/defx-git')
-  " call dein#add('junegunn/vim-easy-align')
+  call dein#add('junegunn/vim-easy-align')
   call dein#add('mattn/sonictemplate-vim')
   call dein#add('mechatroner/rainbow_csv')
   call dein#add('elzr/vim-json')
   call dein#add('kana/vim-altr')
   call dein#add('itchyny/lightline.vim')
-  call dein#add('jiangmiao/auto-pairs')
+  " call dein#add('jiangmiao/auto-pairs')
   call dein#add('majutsushi/tagbar')
   call dein#add('pepo-le/win-ime-con.nvim')
   call dein#add('tpope/vim-dispatch')
@@ -116,6 +116,7 @@ if dein#load_state(s:base_dir)
   call dein#add('aliev/vim-compiler-python')
   call dein#add('itchyny/calendar.vim')
   call dein#add('AndrewRadev/switch.vim')
+  call dein#add('cohama/lexima.vim')
   call dein#end()
   call dein#save_state()
 endif
@@ -797,6 +798,12 @@ if dein#is_sourced('vim-test') "{{{
   let g:test#strategy = 'dispatch'
   " let g:test#project_root = 'C:\Users\taiki\ff-github\scripts\python\util'
 endif "}}}
+
+if dein#is_sourced('vim-easy-align')
+  xmap ga <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
+endif
+
 " 設定{{{
 " packadd
 if !has('nvim')
@@ -873,7 +880,7 @@ set matchpairs+=<:>
 augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:else if:else,switch:case:default,#if:#else if:#else:#endif'
-  autocmd FileType markdown,python setl shiftwidth=4 softtabstop=4 tabstop=4
+  autocmd FileType markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
   autocmd FileType vim setl foldmethod=marker
 augroup END
 augroup terminal_setting
