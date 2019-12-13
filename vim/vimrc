@@ -572,6 +572,7 @@ if dein#is_sourced('denite.nvim') "{{{
         \ 'max_candidate_width': 600,
         \ 'winwidth': &columns / 2 + 20,
         \ 'winheight': 30,
+        \ 'winrow': &lines / 2 - 30,
         \ 'smartcase': v:true,
         \ })
   if has('nvim')
