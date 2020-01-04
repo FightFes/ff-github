@@ -6,11 +6,11 @@ set fileencodings=utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 
 " python setting{{{
 if has('win32') || has('win64')
-  let g:python_host_prog = expand('~\python2\Scripts\python.exe')
-  let g:python3_host_prog = expand('~\python3\Scripts\python.exe')
+  " let g:python_host_prog = expand('~\python2\Scripts\python.exe')
+  " let g:python3_host_prog = expand('~\python3\Scripts\python.exe')
   if !has('nvim')
-    set pythonthreedll=~\python3\Scripts\python36.dll
-    set pythonthreehome=~\python3
+    " set pythonthreedll=~\python3\Scripts\python36.dll
+    " set pythonthreehome=~\python3
   endif
 else
   " let g:python_host_prog = expand('~/python2/bin/python')
@@ -568,13 +568,13 @@ if dein#is_sourced('denite.nvim') "{{{
   call denite#custom#option('_', {
         \ 'auto_resize': v:true,
         \ 'empty': v:false,
-        \ 'direction': 'dynamicbottom',
-        \ 'max_candidate_width': 600,
+        \ 'direction': 'dynamictop',
         \ 'winwidth': &columns / 2 + 20,
         \ 'winheight': 30,
         \ 'winrow': &lines / 2 - 18,
         \ 'smartcase': v:true,
         \ })
+  " \ 'max_candidate_width': 600,
   if has('nvim')
     call denite#custom#option('_', {
           \ 'split': 'floating',
@@ -608,7 +608,8 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   " nnoremap <silent> [denite]r :<C-u>Denite -resume<CR>
   nnoremap <silent> [denite]rg :<C-u>Denite -resume -buffer-name=search-buffer<CR>
-  nnoremap <silent> [denite]rr :<C-u>Denite -resume -buffer-name=file-rec-buffer<CR>
+  " nnoremap <silent> [denite]rr :<C-u>Denite -resume -buffer-name=file-rec-buffer<CR>
+  nnoremap <silent> [denite]rd :<C-u>Denite -resume -buffer-name=dirmark-buffer<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
@@ -619,7 +620,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]pg :<C-u>Denite -buffer-name=search-buffer grep::-w<CR>
   nnoremap <silent> [denite]w :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
-  nnoremap <silent> [denite]m :<C-u>Denite dirmark<CR>
+  nnoremap <silent> [denite]m :<C-u>Denite -buffer-name=dirmark-buffer dirmark<CR>
   nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
   " nnoremap <silent> [denite]fg :<C-u>Denite
@@ -803,6 +804,15 @@ endif "}}}
 if dein#is_sourced('vim-easy-align')
   xmap ga <Plug>(EasyAlign)
   nmap ga <Plug>(EasyAlign)
+endif
+
+if exists('g:loaded_netrw')
+  if g:loaded_netrw == 1
+    let g:netrw_liststyle = 1
+    let g:netrw_banner = 0
+    let g:netrw_sizestyle="H"
+    let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
+  endif
 endif
 
 " 設定{{{
@@ -1073,7 +1083,7 @@ if has('nvim')
     if has('mac')
       GuiFont! Cica:h14
     elseif has('win64') || has('win32')
-      GuiFont! Cica:h9
+      GuiFont! Cica:h10
     endif
   endif
 else
