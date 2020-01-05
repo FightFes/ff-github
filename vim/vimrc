@@ -117,6 +117,7 @@ if dein#load_state(s:base_dir)
   call dein#add('itchyny/calendar.vim')
   call dein#add('AndrewRadev/switch.vim')
   call dein#add('cohama/lexima.vim')
+  call dein#add('Jagua/vim-denite-ghq')
   call dein#end()
   call dein#save_state()
 endif
@@ -534,6 +535,8 @@ if dein#is_sourced('denite.nvim') "{{{
   call denite#custom#var('grep', 'pattern_opt', ['-e'])
   call denite#custom#var('grep', 'separator', ['--'])
   call denite#custom#var('grep', 'final_opts', [])
+
+  " ripgrepを試してみよう
 
   " Specify multiple paths in grep source
   "call denite#start([{'name': 'grep',
