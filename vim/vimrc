@@ -50,7 +50,6 @@ endif
 if dein#load_state(s:base_dir)
   call dein#begin(s:base_dir)
   unlet! s:base_dir
-  "call dein#load_toml(expand('<sfile>:h') . '/dein.toml')
   " Shougo
   call dein#add('Shougo/dein.vim')
   call dein#add('roxma/nvim-yarp')
@@ -59,7 +58,6 @@ if dein#load_state(s:base_dir)
   call dein#add('Shougo/denite.nvim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/neocomplete.vim')     " 補完
-  " call dein#add('Shougo/unite.vim')
   call dein#add('Shougo/neomru.vim')
   call dein#add('Shougo/neoyank.vim')
   call dein#add('Shougo/neoinclude.vim')      " 重いから有効にしてない
@@ -77,38 +75,27 @@ if dein#load_state(s:base_dir)
   call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
   call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
-  " call dein#add('ryanoasis/vim-devicons')     " なんかアイコンのやつ
   call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
-  " call dein#add('kristijanhusak/defx-git')    " なんかアイコンのやつがneovimでも表示できるようなやつ
   call dein#add('fatih/vim-go')
-  " call dein#add('easymotion/vim-easymotion')  " 移動するやつ
   call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
   call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
   call dein#add('simeji/winresizer')
-  " call dein#add('davidhalter/jedi-vim')
   call dein#add('dhruvasagar/vim-table-mode')
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy')
   call dein#add('skanehira/translate.vim')
   call dein#add('previm/previm')
-  " call dein#add('glidenote/memolist.vim')
   call dein#add('kmnk/denite-dirmark')
   call dein#add('tpope/vim-markdown')
-  " call dein#add('callmekohei/defx-icons')
-  " call dein#add('ryanoasis/vim-devicons')
-  " call dein#add('deoplete-plugins/deoplete-tag')
   call dein#add('deoplete-plugins/deoplete-dictionary')
   call dein#add('Shougo/deoplete-clangx')
-  " call dein#add('cocopon/vaffle.vim')
-  " call dein#add('kristijanhusak/defx-git')
   call dein#add('junegunn/vim-easy-align')
   call dein#add('mattn/sonictemplate-vim')
   call dein#add('mechatroner/rainbow_csv')
   call dein#add('elzr/vim-json')
   call dein#add('kana/vim-altr')
   call dein#add('itchyny/lightline.vim')
-  " call dein#add('jiangmiao/auto-pairs')
   call dein#add('majutsushi/tagbar')
   call dein#add('pepo-le/win-ime-con.nvim')
   call dein#add('tpope/vim-dispatch')
@@ -117,7 +104,11 @@ if dein#load_state(s:base_dir)
   call dein#add('itchyny/calendar.vim')
   call dein#add('AndrewRadev/switch.vim')
   call dein#add('cohama/lexima.vim')
+  " この辺の設定をする
   call dein#add('Jagua/vim-denite-ghq')
+  call dein#add('neoclide/denite-git')
+  call dein#add('MattesGroeger/vim-bookmarks')
+  "
   call dein#end()
   call dein#save_state()
 endif
