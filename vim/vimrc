@@ -633,6 +633,11 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
   nnoremap <silent> [denite]gl :<C-u>Denite gitlog<CR>
+  nnoremap <silent> [denite]gla :<C-u>Denite gitlog:all<CR>
+  nnoremap [denite]gls :<C-u>Denite gitlog::
+  nnoremap <silent> [denite]gs :<C-u>Denite gitstatus<CR>
+  nnoremap <silent> [denite]gc :<C-u>Denite gitchanged<CR>
+  nnoremap <silent> [denite]gb :<C-u>Denite gitbranch<CR>
 endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{
