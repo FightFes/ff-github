@@ -107,7 +107,6 @@ if dein#load_state(s:base_dir)
   " この辺の設定をする
   call dein#add('Jagua/vim-denite-ghq')
   call dein#add('neoclide/denite-git')
-  call dein#add('MattesGroeger/vim-bookmarks')
   "
   call dein#end()
   call dein#save_state()
