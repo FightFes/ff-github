@@ -551,7 +551,7 @@ if dein#is_sourced('denite.nvim') "{{{
         \ 'auto_resize': v:true,
         \ 'empty': v:false,
         \ 'direction': 'dynamictop',
-        \ 'winwidth': &columns / 2,
+        \ 'winwidth': &columns * 3 / 5,
         \ 'winrow': &lines / 2 - 18,
         \ 'smartcase': v:true,
         \ })
