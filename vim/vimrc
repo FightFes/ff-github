@@ -102,9 +102,12 @@ if dein#load_state(s:base_dir)
   call dein#add('itchyny/calendar.vim')
   call dein#add('AndrewRadev/switch.vim')
   call dein#add('cohama/lexima.vim')
-  " この辺の設定をする
   call dein#add('Jagua/vim-denite-ghq')
   call dein#add('neoclide/denite-git')
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('lighttiger2505/deoplete-vim-lsp')
+  call dein#add('mattn/vim-lsp-settings')
   "
   call dein#end()
   call dein#save_state()
@@ -632,7 +635,7 @@ if dein#is_sourced('deoplete.nvim') "{{{
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
   " call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include']})
-  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member']})
+  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'lsp']})
   call deoplete#custom#var('around', {
         \   'mark_above': '[↑]',
         \   'mark_below': '[↓]',
@@ -792,6 +795,10 @@ if exists('g:loaded_netrw')
     let g:netrw_sizestyle="H"
     let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
   endif
+endif
+
+if dein#is_sourced('vim-lsp-settings')
+  let g:lsp_settings_servers_dir=expand('~/.cache/vim_lsp_servers')
 endif
 
 " 設定{{{
