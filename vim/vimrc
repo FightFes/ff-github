@@ -1,5 +1,4 @@
-﻿
-set encoding=utf-8
+﻿set encoding=utf-8
 scriptencoding utf-8
 " set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 set fileencodings=utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
@@ -22,8 +21,6 @@ else
 endif
 "}}}
 
-let g:vimproc#download_windows_dll = 1
-
 " dein {{{
 let s:base_dir = '~/.cache/dein'
 let s:dein_repos_dir = expand(s:base_dir) . '/repos/github.com/Shougo/dein.vim'
@@ -34,6 +31,8 @@ if !isdirectory(s:dein_repos_dir)
     echomsg 'Not git'
   endif
 endif
+
+let g:vimproc#download_windows_dll = 1
 
 " deinの設定 
 let &runtimepath .= ',' . s:dein_repos_dir
@@ -681,8 +680,8 @@ endif "}}}
 
 if dein#is_sourced('open-browser.vim') "{{{
 	let g:netrw_nogx = 1 " disable netrw's gx mapping.
-	nmap gx <Plug>(openbrowser-smart-search)
-	vmap gx <Plug>(openbrowser-smart-search)
+	nmap <Leader>x <Plug>(openbrowser-smart-search)
+	vmap <Leader>x <Plug>(openbrowser-smart-search)
 endif "}}}
 
 if dein#is_sourced('vim-cpp-enhanced-highlight') "{{{
@@ -784,8 +783,9 @@ if dein#is_sourced('vim-test') "{{{
 endif "}}}
 
 if dein#is_sourced('vim-easy-align')
-  xmap ga <Plug>(EasyAlign)
-  nmap ga <Plug>(EasyAlign)
+  vmap <Enter> <Plug>(EasyAlign)
+  xmap <Leader>a <Plug>(EasyAlign)
+  nmap <Leader>a <Plug>(EasyAlign)
 endif
 
 if exists('g:loaded_netrw')
@@ -878,7 +878,7 @@ augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:else if:else,switch:case:default,#if:#else if:#else:#endif'
   autocmd FileType markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
-  autocmd FileType vim setl foldmethod=marker
+  " autocmd FileType vim setl foldmethod=marker
 augroup END
 augroup terminal_setting
   autocmd!
