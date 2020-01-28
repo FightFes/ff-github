@@ -750,13 +750,13 @@ if dein#is_sourced('lightline.vim') "{{{
   endfunction
 	function! LightlineFileformat()
     let ff_table = {'dos' : 'CRLF', 'unix' : 'LF', 'mac' : 'CR' }
-	  return winwidth(0) > 70 ? ff_table[&fileformat] : ''
+	  return winwidth(0) > 85 ? ff_table[&fileformat] : ''
 	endfunction
 	function! LightlineFiletype()
-	  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+	  return winwidth(0) > 85 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 	endfunction
 	function! LightlineFileencoding()
-	  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+	  return winwidth(0) > 85 ? (&fenc !=# '' ? &fenc : &enc) : ''
 	endfunction
 endif "}}}
 
