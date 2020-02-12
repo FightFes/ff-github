@@ -1021,6 +1021,8 @@ nnoremap go o<ESC>
 nnoremap gO O<ESC>
 inoremap jj <ESC>
 inoremap っｊ <ESC>
+nnoremap ^ 0
+nnoremap 0 ^
 " nnoremap p gp
 " nnoremap P gP
 " nnoremap gp p
