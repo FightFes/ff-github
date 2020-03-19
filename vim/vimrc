@@ -918,13 +918,24 @@ set wrapscan  "検索をファイルの先頭へループ
 augroup binary_edit
   autocmd!
   autocmd BufReadPre  *.bin let &bin=1
-  autocmd BufReadPost *.bin if &bin | %!xxd
-  autocmd BufReadPost *.bin set ft=xxd | endif
-  autocmd BufWritePre *.bin if &bin | %!xxd -r
-  autocmd BufWritePre *.bin endif
-  autocmd BufWritePost *.bin if &bin | %!xxd
-  autocmd BufWritePost *.bin set nomod | endif
+  autocmd BufReadPost * if &bin | %!xxd
+  autocmd BufReadPost * set ft=xxd | endif
+  autocmd BufWritePre * if &bin | %!xxd -r
+  autocmd BufWritePre * endif
+  autocmd BufWritePost * if &bin | %!xxd
+  autocmd BufWritePost * set nomod | endif
 augroup END
+" augroup binary_edit
+"   autocmd!
+"   autocmd BufReadPre  *.bin let &bin=1
+"   autocmd BufReadPost *.bin if &bin | %!xxd
+"   autocmd BufReadPost *.bin set ft=xxd | endif
+"   autocmd BufWritePre *.bin if &bin | %!xxd -r
+"   autocmd BufWritePre *.bin endif
+"   autocmd BufWritePost *.bin if &bin | %!xxd
+"   autocmd BufWritePost *.bin set nomod | endif
+" augroup END
+
 
 command! -nargs=* T split | resize 20 | terminal <args>
 command! -nargs=* VT vsplit | terminal <args>

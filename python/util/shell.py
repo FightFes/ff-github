@@ -15,7 +15,6 @@ def cd(path):
 # command
 #------------------------------------------------------------------------------
 def command(cmd):
-
     if isinstance(cmd, str):
         run_cmd = cmd.split()
     elif isinstance(cmd, list):
