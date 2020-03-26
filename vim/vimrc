@@ -633,7 +633,6 @@ if dein#is_sourced('deoplete.nvim') "{{{
 	let g:deoplete#enable_at_startup = 1
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
-  " call deoplete#custom#option('sources', {'_': []})
   " call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'file/include']})
   call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include']})
   call deoplete#custom#var('around', {
@@ -655,12 +654,10 @@ if dein#is_sourced('deoplete.nvim') "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
   endfunction
-  inoremap <expr><C-l> deoplete#refresh()
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()
 endif "}}}
-
 if dein#is_sourced('vim-gitgutter') "{{{
   " nnoremap <silent> sn :GitGutterNextHunk<CR>
   " nnoremap <silent> sp :GitGutterPrevHunk<CR>
@@ -825,7 +822,7 @@ set cinoptions=g1,N-s,h1,l1,j1 "| setl foldmethod=indent
 set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set cmdheight=2   "コマンドラインに使われる画面上の行数
-set listchars=tab:>-,trail:-,nbsp:+
+set listchars=eol:$,tab:>-,trail:-,nbsp:+
 " set list
 if has('nvim')
   set pumblend=15
