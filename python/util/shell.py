@@ -14,7 +14,7 @@ def cd(path):
 #------------------------------------------------------------------------------
 # command
 #------------------------------------------------------------------------------
-def command(cmd):
+def command(cmd, exe_dir=''):
     if isinstance(cmd, str):
         run_cmd = cmd.split()
     elif isinstance(cmd, list):
@@ -22,13 +22,10 @@ def command(cmd):
         print cmd[0]
         run_cmd = cmd
 
-    subprocess.call(run_cmd)
-
-#------------------------------------------------------------------------------
-# command_with_cd
-#------------------------------------------------------------------------------
-def command_with_cd(cmd, exe_dir):
-    cwd = os.getcwd()
-    cd(exe_dir)
-    command(cmd)
-    cd(cwd)
+    if exe_dir != '':
+        cwd = os.getcwd()
+        cd(exe_dir)
+        subprocess.call(run_cmd)
+        cd(cwd)
+    else:
+        subprocess.call(run_cmd)
