@@ -712,7 +712,7 @@ if dein#is_sourced('lightline.vim') "{{{
         \             ['fileformat', 'fileencoding', 'filetype']]
         \ },
         \ 'component': {
-        \   'lineinfo': '%3l:%-2v',
+        \   'lineinfo': ' %3l:%-2v',
         \ },
         \ 'component_function': {
         \   'readonly': 'LightlineReadonly',
@@ -721,7 +721,7 @@ if dein#is_sourced('lightline.vim') "{{{
 	      \   'filetype': 'LightlineFiletype',
 	      \   'fileencoding': 'LightlineFileencoding',
         \ },
-        \ 'separator': {'left': ' ', 'right': ' '},
+        \ 'separator': { 'left': ' ', 'right': ' ' },
         \ 'subseparator': { 'left': '|', 'right': '|' },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'fullpath', 'modified' ],
@@ -732,12 +732,12 @@ if dein#is_sourced('lightline.vim') "{{{
         \ }
         \ }
 	function! LightlineReadonly()
-		return &readonly ? ' ' : ''
+		return &readonly ? '' : ''
 	endfunction
 	function! LightlineFugitive()
 		if exists('*fugitive#head')
 			let branch = fugitive#head()
-			return branch !=# '' ? ' '.branch : ''
+			return branch !=# '' ? ''.branch : ''
 		endif
 		return ''
 	endfunction
@@ -1109,7 +1109,7 @@ else
   set lines=73    " 縦幅
   set columns=272 " 横
 endif
-set ambiwidth=double
+set ambiwidth=single
 "autocmd FocusGained * set transparency=100
 "autocmd FocusLost * set transparency=30
 "}}}
