@@ -721,7 +721,7 @@ if dein#is_sourced('lightline.vim') "{{{
 	      \   'filetype': 'LightlineFiletype',
 	      \   'fileencoding': 'LightlineFileencoding',
         \ },
-        \ 'separator': { 'left': ' ', 'right': ' ' },
+        \ 'separator': { 'left': ' ', 'right': ' ' },
         \ 'subseparator': { 'left': '|', 'right': '|' },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'fullpath', 'modified' ],
@@ -732,12 +732,12 @@ if dein#is_sourced('lightline.vim') "{{{
         \ }
         \ }
 	function! LightlineReadonly()
-		return &readonly ? '' : ''
+		return &readonly ? ' ' : ''
 	endfunction
 	function! LightlineFugitive()
 		if exists('*fugitive#head')
 			let branch = fugitive#head()
-			return branch !=# '' ? ''.branch : ''
+			return branch !=# '' ? ' '.branch : ''
 		endif
 		return ''
 	endfunction
