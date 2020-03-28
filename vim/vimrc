@@ -712,7 +712,7 @@ if dein#is_sourced('lightline.vim') "{{{
         \             ['fileformat', 'fileencoding', 'filetype']]
         \ },
         \ 'component': {
-        \   'lineinfo': ' %3l:%-2v',
+        \   'lineinfo': '%3l:%-2v',
         \ },
         \ 'component_function': {
         \   'readonly': 'LightlineReadonly',
@@ -721,7 +721,7 @@ if dein#is_sourced('lightline.vim') "{{{
 	      \   'filetype': 'LightlineFiletype',
 	      \   'fileencoding': 'LightlineFileencoding',
         \ },
-        \ 'separator': { 'left': '', 'right': '' },
+        \ 'separator': {'left': ' ', 'right': ' '},
         \ 'subseparator': { 'left': '|', 'right': '|' },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'fullpath', 'modified' ],
@@ -732,12 +732,12 @@ if dein#is_sourced('lightline.vim') "{{{
         \ }
         \ }
 	function! LightlineReadonly()
-		return &readonly ? '' : ''
+		return &readonly ? ' ' : ''
 	endfunction
 	function! LightlineFugitive()
 		if exists('*fugitive#head')
 			let branch = fugitive#head()
-			return branch !=# '' ? ''.branch : ''
+			return branch !=# '' ? ' '.branch : ''
 		endif
 		return ''
 	endfunction
@@ -1079,6 +1079,7 @@ nnoremap 0 ^
 " gvim{{{
 syntax on	            "シンタックスカラーリング
 colorscheme eva01-LCL
+" colorscheme eva01
 "set background=dark
 if has('nvim')
   if exists('g:GuiLoaded')
@@ -1115,6 +1116,7 @@ set ambiwidth=double
 
 "eva01{{{
 hi Comment cterm=NONE gui=NONE
+hi CursorLine ctermbg=235 guibg=#262626 cterm=NONE gui=NONE
 hi Visual cterm=NONE gui=NONE
 "hi Search ctermfg=97  ctermbg=119 cterm=NONE guifg=#875FAF guibg=#87FF5F gui=NONE
 "hi Search cterm=NONE guifg=#D0D0D0 guibg=#875FAF gui=NONE
