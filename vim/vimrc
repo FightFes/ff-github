@@ -103,6 +103,8 @@ if dein#load_state(s:base_dir)
   call dein#add('cohama/lexima.vim')
   call dein#add('Jagua/vim-denite-ghq')
   call dein#add('neoclide/denite-git')
+  call dein#add('fatih/vim-go')
+  " call dein#add('mattn/vim-goimports')
   " call dein#add('prabirshrestha/async.vim')
   " call dein#add('prabirshrestha/vim-lsp')
   " call dein#add('lighttiger2505/deoplete-vim-lsp')
@@ -822,7 +824,7 @@ set cinoptions=g1,N-s,h1,l1,j1 "| setl foldmethod=indent
 set scrolloff=8  "カーソルの上または下に表示される最低行数
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set cmdheight=2   "コマンドラインに使われる画面上の行数
-set listchars=eol:$,tab:>-,trail:-,nbsp:+
+set listchars=tab:>-,trail:-,nbsp:+
 " set list
 if has('nvim')
   set pumblend=15
