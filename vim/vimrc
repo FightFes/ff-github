@@ -704,6 +704,11 @@ if dein#is_sourced('neoinclude.vim') "{{{
 endif "}}}
 
 if dein#is_sourced('lightline.vim') "{{{
+  if has('win32') || has('win64')
+    let s:offset = ' '
+  elseif has('mac')
+    let s:offset = ''
+  endif
   let g:lightline = {
         \ 'colorscheme': 'one',
         \ 'active': {
@@ -723,7 +728,7 @@ if dein#is_sourced('lightline.vim') "{{{
 	      \   'filetype': 'LightlineFiletype',
 	      \   'fileencoding': 'LightlineFileencoding',
         \ },
-        \ 'separator': { 'left': ' ', 'right': ' ' },
+        \ 'separator': { 'left': ''. s:offset, 'right': ''. s:offset },
         \ 'subseparator': { 'left': '|', 'right': '|' },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'fullpath', 'modified' ],
@@ -734,12 +739,12 @@ if dein#is_sourced('lightline.vim') "{{{
         \ }
         \ }
 	function! LightlineReadonly()
-		return &readonly ? ' ' : ''
+		return &readonly ? ''. s:offset : ''
 	endfunction
 	function! LightlineFugitive()
 		if exists('*fugitive#head')
 			let branch = fugitive#head()
-			return branch !=# '' ? ' '.branch : ''
+			return branch !=# '' ? ''. s:offset . branch : ''
 		endif
 		return ''
 	endfunction
@@ -913,6 +918,8 @@ set hlsearch  "検索結果をハイライト
 set ignorecase "大文字小文字を区別しない
 set smartcase "検索時に大文字を含んでいたら大小を区別
 set wrapscan  "検索をファイルの先頭へループ
+" 入力
+set mouse=a
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup binary_edit
   autocmd!
@@ -1111,7 +1118,11 @@ else
   set lines=73    " 縦幅
   set columns=272 " 横
 endif
-set ambiwidth=single
+if has('win32') || has('win64')
+  set ambiwidth=single
+elseif has('mac')
+  set ambiwidth=double
+endif
 "autocmd FocusGained * set transparency=100
 "autocmd FocusLost * set transparency=30
 "}}}
