@@ -19,13 +19,14 @@ def command(cmd, exe_dir=''):
         run_cmd = cmd.split()
     elif isinstance(cmd, list):
         cmd[0] = normpath(cmd[0])
-        print cmd[0]
         run_cmd = cmd
 
     if exe_dir != '':
         cwd = os.getcwd()
         cd(exe_dir)
+        print run_cmd
         subprocess.call(run_cmd)
         cd(cwd)
     else:
+        print run_cmd
         subprocess.call(run_cmd)
