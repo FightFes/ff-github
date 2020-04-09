@@ -14,19 +14,29 @@ def cd(path):
 #------------------------------------------------------------------------------
 # command
 #------------------------------------------------------------------------------
-def command(cmd, exe_dir=''):
+def command(cmd, exe_dir='', shell_flag=True):
     if isinstance(cmd, str):
-        run_cmd = cmd.split()
+        if shell_flag:
+            run_cmd = cmd
+        else:
+            run_cmd = cmd.split()
     elif isinstance(cmd, list):
-        cmd[0] = normpath(cmd[0])
-        run_cmd = cmd
+        if shell_flag:
+            run_cmd = ' '.join(cmd)
+        else:
+            run_cmd = cmd
 
     if exe_dir != '':
+        exe_dir = os.path.normpath(exe_dir)
+        if sys.platform == 'win32':
+            # Winの日本語パス対策
+            exe_dir = unicode(exe_dir, 'utf8').encode('cp932')
         cwd = os.getcwd()
         cd(exe_dir)
         print run_cmd
-        subprocess.call(run_cmd)
+        subprocess.call(run_cmd, shell=shell_flag)
         cd(cwd)
     else:
         print run_cmd
-        subprocess.call(run_cmd)
+        subprocess.call(run_cmd, shell=shell_flag)
+
