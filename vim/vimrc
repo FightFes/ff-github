@@ -104,6 +104,7 @@ if dein#load_state(s:base_dir)
   call dein#add('Jagua/vim-denite-ghq')
   call dein#add('neoclide/denite-git')
   call dein#add('fatih/vim-go')
+  call dein#add('nathanaelkane/vim-indent-guides')
   " call dein#add('mattn/vim-goimports')
   " call dein#add('prabirshrestha/async.vim')
   " call dein#add('prabirshrestha/vim-lsp')
@@ -660,6 +661,12 @@ if dein#is_sourced('vim-lsp-settings')
   let g:lsp_settings_servers_dir=expand('~/.cache/vim_lsp_servers')
 endif
 
+if dein#is_sourced('vim-indent-guides')
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_start_level = 2
+  let g:indent_guides_guide_size = 1
+endif
+
 " 設定{{{
 " packadd
 if !has('nvim')
@@ -942,9 +949,9 @@ nnoremap 0 ^
 
 " gvim{{{
 syntax on	            "シンタックスカラーリング
+set background=dark
 colorscheme eva01-LCL
 " colorscheme eva01
-"set background=dark
 if has('nvim')
   if exists('g:GuiLoaded')
     GuiTabline v:false
