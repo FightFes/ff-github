@@ -805,8 +805,8 @@ augroup END
 " augroup END
 
 
-command! -nargs=* T split | resize 20 | terminal <args>
-command! -nargs=* VT vsplit | terminal <args>
+command! -nargs=* Terminal split | resize 20 | terminal <args>
+command! -nargs=* Vterminal vsplit | terminal <args>
 
 command! -nargs=? Jq call s:jq(<f-args>)
 function! s:jq(...)
