@@ -19,11 +19,16 @@ def make_dir(path):
 # コピー
 #------------------------------------------------------------------------------
 def copy(origin, target):
+    origin = os.path.normpath(origin)
+    target = os.path.normpath(target)
     print 'copy %s %s' % (origin, target)
-    if os.path.isdir(origin):
-        shutil.copytree(origin, target)
+    if os.path.exists(origin):
+        if os.path.isdir(origin):
+            shutil.copytree(origin, target)
+        else:
+            shutil.copy(origin, target)
     else:
-        shutil.cp(origin, target)
+        print 'Not exists ' + origin
 
 #------------------------------------------------------------------------------
 # 移動
@@ -36,11 +41,15 @@ def move(origin, target):
 # 削除
 #------------------------------------------------------------------------------
 def remove(path):
+    path = os.path.normpath(path)
     print 'remove ' + path
-    if os.path.isdir(path):
-        shutil.rmtree(path)
+    if os.path.exists(path):
+        if os.path.isdir(path):
+            shutil.rmtree(path)
+        else:
+            os.remove(path)
     else:
-        os.remove(path)
+        print 'Not exists ' + path
 
 #------------------------------------------------------------------------------
 # ファイル書き込み
