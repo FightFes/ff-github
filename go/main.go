@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/url"
 
+	"./screens"
 	"fyne.io/fyne"
 	"fyne.io/fyne/app"
 	"fyne.io/fyne/canvas"
@@ -62,7 +63,8 @@ func main() {
 	main_window.SetMaster()
 
 	tabs := widget.NewTabContainer(
-		widget.NewTabItemWithIcon("Welcome", theme.HomeIcon(), welcomeScreen(test_app)))
+		widget.NewTabItemWithIcon("Welcome", theme.HomeIcon(), welcomeScreen(test_app)),
+		widget.NewTabItemWithIcon("test", theme.DocumentCreateIcon(), screens.TestScreen()))
 	tabs.SetTabLocation(widget.TabLocationLeading)
 	tabs.SelectTabIndex(test_app.Preferences().Int(preferenceCurrentTab))
 	main_window.SetContent(tabs)
