@@ -662,7 +662,7 @@ if dein#is_sourced('vim-lsp-settings')
 endif
 
 if dein#is_sourced('vim-indent-guides')
-  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_enable_on_vim_startup = 0
   let g:indent_guides_start_level = 2
   let g:indent_guides_guide_size = 1
 endif
@@ -744,7 +744,6 @@ augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:else if:else,switch:case:default,#if:#else if:#else:#endif'
   autocmd FileType markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
-  " autocmd FileType vim setl foldmethod=marker
 augroup END
 augroup terminal_setting
   autocmd!
@@ -771,6 +770,7 @@ set history=200   "コマンドラインモードの履歴を200に
 " ファイル
 set hidden    "変更中でも他のファイルを開けるように
 set autoread  "ファイル内容が変更されると自動読み込み
+set undofile
 set undodir=~/.vim/undofile
 set directory=~/.vim/swapfile   "スワップファイル
 set backupdir=~/.vim/backupfile "バックアップファイル
@@ -807,6 +807,7 @@ augroup END
 
 command! -nargs=* Terminal split | resize 20 | terminal <args>
 command! -nargs=* Vterminal vsplit | terminal <args>
+command! Bd :bp | :sp | :bn | :bd   " ウィンドウを閉じずにバッファを閉じる
 
 command! -nargs=? Jq call s:jq(<f-args>)
 function! s:jq(...)
