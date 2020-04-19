@@ -32,19 +32,24 @@ func makeProjectTab() fyne.Widget {
 func makeRomTab() fyne.Widget {
 	return widget.NewVBox(
 		widget.NewGroup(
-			"Archive",
-			widget.NewSelect([]string{"Enterprise", "Adhoc", "Master"},
+			"IOS",
+			widget.NewSelect([]string{"Debug", "Adhoc", "Master"},
 				func(s string) {
 					fmt.Println("selected", s)
 				}),
-			fyne.NewContainerWithLayout(layout.NewAdaptiveGridLayout(2),
-				widget.NewButton("Clean", func() {}),
-				widget.NewButton("Build", func() {}),
+			fyne.NewContainerWithLayout(layout.NewAdaptiveGridLayout(1),
+				widget.NewButton("Archive", func() {}),
 			),
 		),
 		widget.NewGroup(
-			"Settings",
-			widget.NewButton("Open", func() {}),
+			"Android",
+			widget.NewSelect([]string{"Debug", "Master"},
+				func(s string) {
+					fmt.Println("selected", s)
+				}),
+			fyne.NewContainerWithLayout(layout.NewAdaptiveGridLayout(1),
+				widget.NewButton("Generate", func() {}),
+			),
 		),
 	)
 }
