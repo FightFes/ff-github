@@ -69,7 +69,6 @@ if dein#load_state(s:base_dir)
   " other
   call dein#add('hachy/eva01.vim')            " カラースキーム
   call dein#add('vim-scripts/DirDiff.vim')
-  call dein#add('tacroe/unite-mark')
   call dein#add('octol/vim-cpp-enhanced-highlight')
   call dein#add('tpope/vim-fugitive')         " 編集系、コマンドの直接実行
   call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
@@ -103,13 +102,9 @@ if dein#load_state(s:base_dir)
   call dein#add('cohama/lexima.vim')
   call dein#add('Jagua/vim-denite-ghq')
   call dein#add('neoclide/denite-git')
-  call dein#add('fatih/vim-go')
+  call dein#add('fatih/vim-go', {'on_ft': 'go'})
   call dein#add('nathanaelkane/vim-indent-guides')
   " call dein#add('mattn/vim-goimports')
-  " call dein#add('prabirshrestha/async.vim')
-  " call dein#add('prabirshrestha/vim-lsp')
-  " call dein#add('lighttiger2505/deoplete-vim-lsp')
-  " call dein#add('mattn/vim-lsp-settings')
   "
   call dein#end()
   call dein#save_state()
@@ -240,21 +235,9 @@ if dein#is_sourced('defx.nvim') "{{{
         \ 'session_file': s:defx_sessions_path . '/default',
         \ })
   unlet s:defx_sessions_path
-  if has('nvim')
-    " call defx#custom#option('_', {
-    "       \ 'split': 'floating'
-    "       \ })
-  endif
   call defx#custom#column('time', {
         \ 'format': '%y/%m/%d %H:%M',
         \ })
-  " call defx#custom#column('mark', {
-  "       \ 'length': 2,
-  "       \ })
-  " call defx#custom#column('filename', {
-  "       \ 'min_width': 50,
-  "       \ 'max_width': 50,
-  "       \ })
 endif "}}}
 
 if dein#is_sourced('vim-localrc') "{{{
@@ -675,8 +658,8 @@ endif
 " 設定
 " 表示
 set termguicolors
-set number        "行番号表示
-"set relativenumber " 相対行番号表示
+" set number        "行番号表示
+set relativenumber " 相対行番号表示
 set title         "編集中のファイル名を表示
 set showcmd       "入力中のコマンド表示
 set ruler         "座標を表示
@@ -688,7 +671,7 @@ set cursorline    "カーソルラインをハイライト
 set previewheight=36
 set cindent
 set cinoptions=g1,N-s,h1,l1,j1 "| setl foldmethod=indent
-set scrolloff=8  "カーソルの上または下に表示される最低行数
+set scrolloff=9  "カーソルの上または下に表示される最低行数
 set diffopt=internal,filler,indent-heuristic,algorithm:histogram
 set cmdheight=2   "コマンドラインに使われる画面上の行数
 set listchars=tab:>-,trail:-,nbsp:+
@@ -793,17 +776,6 @@ augroup binary_edit
   autocmd BufWritePost * if &bin | %!xxd
   autocmd BufWritePost * set nomod | endif
 augroup END
-" augroup binary_edit
-"   autocmd!
-"   autocmd BufReadPre  *.bin let &bin=1
-"   autocmd BufReadPost *.bin if &bin | %!xxd
-"   autocmd BufReadPost *.bin set ft=xxd | endif
-"   autocmd BufWritePre *.bin if &bin | %!xxd -r
-"   autocmd BufWritePre *.bin endif
-"   autocmd BufWritePost *.bin if &bin | %!xxd
-"   autocmd BufWritePost *.bin set nomod | endif
-" augroup END
-
 
 command! -nargs=* Terminal split | resize 20 | terminal <args>
 command! -nargs=* Vterminal vsplit | terminal <args>
