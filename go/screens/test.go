@@ -11,51 +11,46 @@ import (
 	"fyne.io/fyne/widget"
 )
 
-func makeButtonTab() fyne.Widget {
+func makeProjectTab() fyne.Widget {
 	return widget.NewVBox(
+		widget.NewButton("Launch", func() {}),
 		widget.NewGroup(
-			"run",
+			"Product",
 			widget.NewSelect([]string{"debug", "release"}, func(s string) { fmt.Println("selected", s) }),
-			widget.NewButton("run!!!!", func() {}),
-		),
-		widget.NewGroup(
-			"test",
 			fyne.NewContainerWithLayout(layout.NewAdaptiveGridLayout(2),
-				widget.NewSelect([]string{"debug", "release"}, func(s string) { fmt.Println("selected", s) }),
-				widget.NewSelect([]string{"build", "clean"}, func(s string) { fmt.Println("selected", s) }),
+				widget.NewButton("Clean", func() {}),
+				widget.NewButton("Build", func() {}),
 			),
-			widget.NewButton("decide", func() {}),
 		),
 		widget.NewGroup(
-			"debug setting",
-			widget.NewButton("open debug setting", func() {}),
+			"Settings",
+			widget.NewButton("Open", func() {}),
 		),
 	)
 }
 
-func makeInputTab() fyne.Widget {
-	entry := widget.NewEntry()
-	entry.SetPlaceHolder("Entry")
-	entryReadOnly := widget.NewEntry()
-	entryReadOnly.SetText("Entry (disabled)")
-	entryReadOnly.Disable()
-
-	disabledCheck := widget.NewCheck("Disabled check", func(bool) {})
-	disabledCheck.Disable()
-	radio := widget.NewRadio([]string{"Radio Item 1", "Radio Item 2"}, func(s string) { fmt.Println("selected", s) })
-	radio.Horizontal = true
-	disabledRadio := widget.NewRadio([]string{"Disabled radio"}, func(string) {})
-	disabledRadio.Disable()
-
+func makeRomTab() fyne.Widget {
 	return widget.NewVBox(
-		entry,
-		entryReadOnly,
-		widget.NewSelect([]string{"Option 1", "Option 2", "Option 3"}, func(s string) { fmt.Println("selected", s) }),
-		widget.NewCheck("Check", func(on bool) { fmt.Println("checked", on) }),
-		disabledCheck,
-		radio,
-		disabledRadio,
-		widget.NewSlider(0, 100),
+		widget.NewGroup(
+			"IOS",
+			widget.NewSelect([]string{"Debug", "Adhoc", "Master"},
+				func(s string) {
+					fmt.Println("selected", s)
+				}),
+			fyne.NewContainerWithLayout(layout.NewAdaptiveGridLayout(1),
+				widget.NewButton("Archive", func() {}),
+			),
+		),
+		widget.NewGroup(
+			"Android",
+			widget.NewSelect([]string{"Debug", "Master"},
+				func(s string) {
+					fmt.Println("selected", s)
+				}),
+			fyne.NewContainerWithLayout(layout.NewAdaptiveGridLayout(1),
+				widget.NewButton("Generate", func() {}),
+			),
+		),
 	)
 }
 
@@ -146,8 +141,8 @@ func makeScrollBothTab() fyne.CanvasObject {
 func TestScreen() fyne.CanvasObject {
 	return fyne.NewContainerWithLayout(layout.NewBorderLayout(nil, nil, nil, nil),
 		widget.NewTabContainer(
-			widget.NewTabItem("Buttons", makeButtonTab()),
-			widget.NewTabItem("Input", makeInputTab()),
+			widget.NewTabItem("Project", makeProjectTab()),
+			widget.NewTabItem("Rom", makeRomTab()),
 			widget.NewTabItem("Progress", makeProgressTab()),
 			widget.NewTabItem("Form", makeFormTab()),
 			widget.NewTabItem("Scroll", makeScrollTab()),
