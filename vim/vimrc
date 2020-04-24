@@ -658,7 +658,7 @@ endif
 " 設定
 " 表示
 set termguicolors
-" set number        "行番号表示
+set number        "行番号表示
 set relativenumber " 相対行番号表示
 set title         "編集中のファイル名を表示
 set showcmd       "入力中のコマンド表示
