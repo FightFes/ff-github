@@ -561,7 +561,7 @@ endif "}}}
 
 if dein#is_sourced('lightline.vim') "{{{
   if has('win32') || has('win64')
-    let s:offset = ' ' 
+    let s:offset = '' 
   elseif has('mac')
     let s:offset = ''
   endif
@@ -606,7 +606,7 @@ if dein#is_sourced('lightline.vim') "{{{
 	endfunction
   function! LightlineFilename(tabcount)
     let path = expand('%:p:h')
-    return path !=# '' ? '(' . path . ')' : ''
+    return path !=# '' ? '[' . path . ']' : ''
   endfunction
 	function! LightlineFileformat()
     let ff_table = {'dos' : 'CRLF', 'unix' : 'LF', 'mac' : 'CR' }
