@@ -2,20 +2,28 @@
 
 rem カレントディレクトリに移動
 cd /d %~dp0
+echo %~dp0
 
-rem if exist ..\.hyper.js (
-rem   echo すでにファイルが存在しています。
-rem ) else (
-rem   echo シンボリックリンクを作成
-rem   mklink ..\.hyper.js .\.hyper.js
-rem )
-
-call :MakeLink ..\vimfiles\vimrc %USERPROFILE%\ff-github\vim\vimrc
-call :MakeLink ..\AppData\Local\nvim\init.vim %USERPROFILE%\ff-github\vim\init.vim
+call :MakeDirLink %USERPROFILE%\AppData\Local\nvim %~dp0nvim
 exit /b
 
 :MakeLink
+rem ファイルを消す
+echo %1
+rd /q %1
+rem ないならフォルダを作成する
 md %~dp1
-del /Q %1
+rem リンクを貼る
 mklink %1 %2
+exit /b
+
+:MakeDirLink
+rem ファイルを消す
+echo %1
+echo %2
+rd /q /s %1
+rem ないならフォルダを作成する
+md %~dp1
+rem リンクを貼る
+mklink /d %1 %2
 exit /b
