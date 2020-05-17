@@ -1,4 +1,6 @@
+" vim内部の文字コード、バッファの内容はこの文字コードで扱われる
 set encoding=utf-8
+" vim scriptファイルの文字コードを指定
 scriptencoding utf-8
 " set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 set fileencodings=utf-8,ucs-bom,euc-jp,eucjp-ms,cp932

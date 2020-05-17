@@ -1,6 +1,6 @@
 @echo off
 
-rem ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ÉˆÚ“®
+rem ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ç§»å‹•
 cd /d %~dp0
 echo %~dp0
 
@@ -8,22 +8,22 @@ call :MakeDirLink %USERPROFILE%\AppData\Local\nvim %~dp0nvim
 exit /b
 
 :MakeLink
-rem ƒtƒ@ƒCƒ‹‚ğÁ‚·
+rem ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¶ˆã™
 echo %1
 rd /q %1
-rem ‚È‚¢‚È‚çƒtƒHƒ‹ƒ_‚ğì¬‚·‚é
+rem ãªã„ãªã‚‰ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆã™ã‚‹
 md %~dp1
-rem ƒŠƒ“ƒN‚ğ“\‚é
+rem ãƒªãƒ³ã‚¯ã‚’è²¼ã‚‹
 mklink %1 %2
 exit /b
 
 :MakeDirLink
-rem ƒtƒ@ƒCƒ‹‚ğÁ‚·
+rem ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¶ˆã™
 echo %1
 echo %2
 rd /q /s %1
-rem ‚È‚¢‚È‚çƒtƒHƒ‹ƒ_‚ğì¬‚·‚é
+rem ãªã„ãªã‚‰ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆã™ã‚‹
 md %~dp1
-rem ƒŠƒ“ƒN‚ğ“\‚é
+rem ãƒªãƒ³ã‚¯ã‚’è²¼ã‚‹
 mklink /d %1 %2
 exit /b
