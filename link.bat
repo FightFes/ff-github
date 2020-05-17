@@ -5,6 +5,7 @@ cd /d %~dp0
 echo %~dp0
 
 call :MakeDirLink %USERPROFILE%\AppData\Local\nvim %~dp0nvim
+pause
 exit /b
 
 :MakeLink
