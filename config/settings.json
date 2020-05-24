@@ -14,8 +14,9 @@
         "defaults":
         {
           "fontFace": "Cica",
-          "fontSize": 11,
+          "fontSize": 11.5,
           //"cursorColor": "#76ff03",
+          "antialiasingMode": "cleartype",
           "cursorShape": "filledBox",
           "padding": "0",
           "scrollbarState": "hidden",
