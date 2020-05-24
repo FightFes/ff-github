@@ -561,7 +561,7 @@ if dein#is_sourced('lightline.vim') "{{{
         \             ['fileformat', 'fileencoding', 'filetype']]
         \ },
         \ 'component': {
-        \   'lineinfo': ' %3l:%-2v',
+        \   'lineinfo': 'L:R %3l:%-2v',
         \ },
         \ 'component_function': {
         \   'readonly': 'LightlineReadonly',
@@ -570,7 +570,7 @@ if dein#is_sourced('lightline.vim') "{{{
 	      \   'filetype': 'LightlineFiletype',
 	      \   'fileencoding': 'LightlineFileencoding',
         \ },
-        \ 'separator': { 'left': ''. s:offset, 'right': ''. s:offset },
+        \ 'separator': { 'left': ''. s:offset, 'right': ''. s:offset },
         \ 'subseparator': { 'left': '|', 'right': '|' },
         \ 'tab': {
         \   'active': [ 'tabnum', 'filename', 'fullpath', 'modified' ],
@@ -580,13 +580,17 @@ if dein#is_sourced('lightline.vim') "{{{
         \   'fullpath': 'LightlineFilename'
         \ }
         \ }
+        "\   'lineinfo': ' %3l:%-2v',
+        "\ 'separator': { 'left': ''. s:offset, 'right': ''. s:offset },
 	function! LightlineReadonly()
-		return &readonly ? ''. s:offset : ''
+		return &readonly ? 'RO'. s:offset : ''
+		" return &readonly ? ''. s:offset : ''
 	endfunction
 	function! LightlineFugitive()
 		if exists('*fugitive#head')
 			let branch = fugitive#head()
-			return branch !=# '' ? ''. s:offset . branch : ''
+			return branch !=# '' ? '*'. s:offset . branch : ''
+			" return branch !=# '' ? ''. s:offset . branch : ''
 		endif
 		return ''
 	endfunction
