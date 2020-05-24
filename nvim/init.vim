@@ -561,7 +561,7 @@ if dein#is_sourced('lightline.vim') "{{{
         \             ['fileformat', 'fileencoding', 'filetype']]
         \ },
         \ 'component': {
-        \   'lineinfo': 'L:R %3l:%-2v',
+        \   'lineinfo': '%3l:%-2v',
         \ },
         \ 'component_function': {
         \   'readonly': 'LightlineReadonly',
