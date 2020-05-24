@@ -419,7 +419,7 @@ if dein#is_sourced('denite.nvim') "{{{
 	        \ ]]
 	  return {'sources_queue': sources_queue}
 	endfunction
-	call denite#custom#action('buffer,directory,file,openable,dirmark',
+	call denite#custom#action('buffer,directory,file,openable,bookmark_directory',
 	        \ 'candidate_file_rec', function('s:candidate_file_rec'))
 
   " 候補にコマンドを実行
@@ -430,7 +430,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   nnoremap <silent> [denite]rg :<C-u>Denite -resume -buffer-name=search-buffer<CR>
-  nnoremap <silent> [denite]rd :<C-u>Denite -resume -buffer-name=dirmark-buffer<CR>
+  nnoremap <silent> [denite]rd :<C-u>Denite -resume -buffer-name=bookmark-buffer<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
@@ -441,8 +441,8 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]pg :<C-u>Denite -buffer-name=search-buffer grep::-w<CR>
   nnoremap <silent> [denite]w :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
-  nnoremap <silent> [denite]m :<C-u>Denite -buffer-name=dirmark-buffer dirmark<CR>
-  nnoremap <silent> [denite]a :<C-u>Denite dirmark/add<CR>
+  nnoremap <silent> [denite]m :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
+  nnoremap <silent> [denite]a :<C-u>Denite bookmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
   nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
   nnoremap <silent> [denite]co :<C-u>Denite command<CR>
@@ -456,9 +456,9 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
   nnoremap <silent> [denite]ss :<C-u>Denite output:message<CR>
   nnoremap <silent> [denite]re :<C-u>Denite register<CR>
-  nnoremap <silent> [denite]so :<C-u>Denite source<CR>
+  " nnoremap <silent> [denite]so :<C-u>Denite source<CR>
   nnoremap <silent> [denite]t :<C-u>Denite tag<CR>
-  nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
+  " nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
   nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
