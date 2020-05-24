@@ -102,8 +102,6 @@ if dein#load_state(s:base_dir)
   call dein#add('itchyny/calendar.vim')
   call dein#add('AndrewRadev/switch.vim')
   call dein#add('cohama/lexima.vim')
-  call dein#add('Jagua/vim-denite-ghq')
-  call dein#add('neoclide/denite-git')
   call dein#add('fatih/vim-go', {'on_ft': 'go'})
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('sjl/gundo.vim')
@@ -453,7 +451,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
   nnoremap <silent> [denite]h :<C-u>Denite file_mru<CR>
   nnoremap <silent> [denite]j :<C-u>Denite jump<CR>
-  nnoremap <silent> [denite]l :<C-u>Denite line<CR>
+  " nnoremap <silent> [denite]l :<C-u>Denite line<CR>
   nnoremap <silent> [denite]e :<C-u>Denite menu<CR>
   nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
   nnoremap <silent> [denite]ss :<C-u>Denite output:message<CR>
@@ -464,12 +462,6 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
-  nnoremap <silent> [denite]gl :<C-u>Denite gitlog<CR>
-  nnoremap <silent> [denite]gla :<C-u>Denite gitlog:all<CR>
-  nnoremap [denite]gls :<C-u>Denite gitlog::
-  nnoremap <silent> [denite]gs :<C-u>Denite gitstatus<CR>
-  nnoremap <silent> [denite]gc :<C-u>Denite gitchanged<CR>
-  nnoremap <silent> [denite]gb :<C-u>Denite gitbranch<CR>
 endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{

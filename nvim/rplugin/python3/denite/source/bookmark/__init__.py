@@ -1,6 +1,6 @@
 # ============================================================================
 # FILE: bookmark.py
-# AUTHOR: Prabir Shrestha <mail at prabir.me>
+# AUTHOR: <kinntai at gmail.com>
 # License: MIT license
 # ============================================================================
 

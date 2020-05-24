@@ -1,7 +1,8 @@
-# add.py
-"""
-denite.nvim source: add
-"""
+# ============================================================================
+# FILE: add.py
+# AUTHOR: <kinntai at gmail.com>
+# License: MIT license
+# ============================================================================
 
 import os
 import json

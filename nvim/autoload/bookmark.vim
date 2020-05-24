@@ -1,6 +1,8 @@
-" File: denite-bookmark.vim
-" Author: FightFes <kinntaikun at gmail.com>
+" ============================================================================
+" FILE: bookmark.vim
+" AUTHOR: <kinntai at gmail.com>
 " License: MIT license
+" ============================================================================
 
 let s:cache_directory_path = "~/.cache/denite-bookmark"
 let s:cache_file_name = "bookmark.json"
