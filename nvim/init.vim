@@ -346,7 +346,7 @@ if dein#is_sourced('denite.nvim') "{{{
   call denite#custom#source('grep',
         \ 'converters', ['converter/abbr_word'])
 
-  call denite#custom#kind('dirmark', 'default_action', 'candidate_file_rec')
+  call denite#custom#kind('bookmark_directory', 'default_action', 'candidate_file_rec')
 
   " Pt command on grep source
   call denite#custom#var('grep', 'command', ['pt'])
