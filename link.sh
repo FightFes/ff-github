@@ -1,33 +1,19 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+
 # カレントディレクトリに移動
-echo $0
-cd `dirname $0`
+# cd `dirname $0` と同じ
+# コマンドの実行結果を取得できる
+cd $SCRIPT_DIR
 
-LINK_SOURCE_PATH_LIST=(~/ff-github/vim/vimrc
-                       ~/ff-github/vim/init.vim
-                       ~/ff-github/ranger)
-LINK_DEST_PATH_LIST=(~/.vim/vimrc 
-                     ~/.config/nvim/init.vim
-                     ~/.config/ranger) 
-
-for i in ${!LINK_SOURCE_PATH_LIST[@]}
-do
+function MakeLink() {
   #ないならディレクトリ作成
-  mkdir -p -v $(dirname ${LINK_DEST_PATH_LIST[i]})
+  mkdir -p -v $(dirname $2)
   #今あるファイルを削除
-  rm -f -r ${LINK_DEST_PATH_LIST[i]}
+  rm -f -r $2
   #シンボリックリンクを貼る
-  sudo ln -s ${LINK_SOURCE_PATH_LIST[i]} ${LINK_DEST_PATH_LIST[i]}
-done
+  sudo ln -s $1 $2
+}
 
-# -fでファイルのみ、-dでディレクトリのみ、-eで両方
-# if [ ! -e ~/.vim ]
-# fi
-
-# rm -f ~/.vim/vimrc ~/.vim/gvimrc ~/.config/nvim/init.vim
-
-# 絶対パスで指定した方がいい
-# sudo ln -s ~/ff-github/vimrc ~/.vim/vimrc
-# sudo ln -s ~/ff-github/gvimrc ~/.vim/gvimrc
-# sudo ln -s ~/ff-github/init.vim ~/.config/nvim/init.vim
+MakeLink $SCRIPT_DIR/nvim ~/.config/nvim
