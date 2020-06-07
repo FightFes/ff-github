@@ -1,5 +1,5 @@
 # ============================================================================
-# FILE: bookmark_file.py
+# FILE: bookmark/file.py
 # AUTHOR: <kinntai at gmail.com>
 # License: MIT license
 # ============================================================================
@@ -12,7 +12,7 @@ class Kind(File):
     def __init__(self, vim):
         super().__init__(vim)
 
-        self.name = 'bookmark_file'
+        self.name = 'bookmark/file'
         self.default_action = 'open'
 
     def action_delete(self, context):

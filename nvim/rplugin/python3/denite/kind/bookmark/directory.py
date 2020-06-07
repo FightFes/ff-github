@@ -1,5 +1,5 @@
 # ============================================================================
-# FILE: bookmark_directory.py
+# FILE: bookmark/directory.py
 # AUTHOR: <kinntai at gmail.com>
 # License: MIT license
 # ============================================================================
@@ -12,7 +12,7 @@ class Kind(Directory):
     def __init__(self, vim):
         super().__init__(vim)
 
-        self.name = 'bookmark_directory'
+        self.name = 'bookmark/directory'
         self.default_action = 'narrow'
 
     def action_delete(self, context):

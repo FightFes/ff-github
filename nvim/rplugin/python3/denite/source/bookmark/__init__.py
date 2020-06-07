@@ -58,7 +58,7 @@ class Source(File):
                 'action__name': v['name'],
                 'action__group': group,
                 'action__path': v['path'],
-                'kind': 'bookmark_directory' if os.path.isdir(v['path']) else 'bookmark_file'
+                'kind': 'bookmark/directory' if os.path.isdir(v['path']) else 'bookmark/file'
             }
             for v in group_dict['bookmarks']
         ]

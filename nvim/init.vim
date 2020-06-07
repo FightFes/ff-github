@@ -102,10 +102,10 @@ if dein#load_state(s:base_dir)
   call dein#add('itchyny/calendar.vim')
   call dein#add('AndrewRadev/switch.vim')
   call dein#add('cohama/lexima.vim')
-  call dein#add('fatih/vim-go', {'on_ft': 'go'})
+  " call dein#add('fatih/vim-go', {'on_ft': 'go'})
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('sjl/gundo.vim')
-  " call dein#add('mattn/vim-goimports')
+  call dein#add('mattn/vim-goimports')
   "
   call dein#end()
   call dein#save_state()
@@ -346,7 +346,7 @@ if dein#is_sourced('denite.nvim') "{{{
   call denite#custom#source('grep',
         \ 'converters', ['converter/abbr_word'])
 
-  call denite#custom#kind('bookmark_directory', 'default_action', 'candidate_file_rec')
+  call denite#custom#kind('bookmark/directory', 'default_action', 'candidate_file_rec')
 
   " Pt command on grep source
   call denite#custom#var('grep', 'command', ['pt'])
@@ -421,7 +421,7 @@ if dein#is_sourced('denite.nvim') "{{{
 	        \ ]]
 	  return {'sources_queue': sources_queue}
 	endfunction
-	call denite#custom#action('buffer,directory,file,openable,bookmark_directory',
+	call denite#custom#action('buffer,directory,file,openable,bookmark/directory',
 	        \ 'candidate_file_rec', function('s:candidate_file_rec'))
 
   " 候補にコマンドを実行
@@ -541,7 +541,7 @@ endif "}}}
 
 if dein#is_sourced('lightline.vim') "{{{
   if has('win32') || has('win64')
-    let s:offset = '' 
+    let s:offset = ' ' 
   elseif has('mac')
     let s:offset = ''
   endif
