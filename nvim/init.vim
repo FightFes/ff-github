@@ -85,27 +85,30 @@ if dein#load_state(s:base_dir)
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy')
   call dein#add('previm/previm')
-  call dein#add('kmnk/denite-dirmark')
-  call dein#add('tpope/vim-markdown')
+  " call dein#add('kmnk/denite-dirmark')
+  call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
   call dein#add('deoplete-plugins/deoplete-dictionary')
   call dein#add('junegunn/vim-easy-align')
   call dein#add('mattn/sonictemplate-vim')
-  call dein#add('mechatroner/rainbow_csv')
-  call dein#add('elzr/vim-json')
+  call dein#add('mechatroner/rainbow_csv', {'on_ft': 'csv'})
+  call dein#add('elzr/vim-json', {'on_ft': 'json'})
   call dein#add('kana/vim-altr')
   call dein#add('itchyny/lightline.vim')
   call dein#add('majutsushi/tagbar')
   call dein#add('pepo-le/win-ime-con.nvim')
-  call dein#add('tpope/vim-dispatch')
-  call dein#add('janko-m/vim-test')
-  call dein#add('aliev/vim-compiler-python')
+  " call dein#add('tpope/vim-dispatch')
+  " call dein#add('janko-m/vim-test')
+  " call dein#add('aliev/vim-compiler-python')
   call dein#add('itchyny/calendar.vim')
   call dein#add('AndrewRadev/switch.vim')
   call dein#add('cohama/lexima.vim')
   " call dein#add('fatih/vim-go', {'on_ft': 'go'})
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('sjl/gundo.vim')
-  call dein#add('mattn/vim-goimports')
+  call dein#add('mattn/vim-goimports', {'on_ft': 'go'})
+  call dein#add('tyru/columnskip.vim')
+  call dein#add('lambdalisue/fern.vim')
+  call dein#add('voldikss/vim-translator')
   "
   call dein#end()
   call dein#save_state()
@@ -651,6 +654,23 @@ if dein#is_sourced('gundo.vim')
   let g:gundo_width = 70
   let g:gundo_preview_height = 20
   let g:gundo_right = 0
+endif
+
+if dein#is_sourced('vim-translator')
+  let g:translator_target_lang = 'ja'
+  " let g:translator_window_max_width = 1.0
+  " let g:translator_window_max_height = 5.0
+  " Echo translation in the cmdline
+  nmap <silent> <Leader>t <Plug>Translate
+  vmap <silent> <Leader>t <Plug>TranslateV
+  " Display translation in a window
+  nmap <silent> <Leader>w <Plug>TranslateW
+  vmap <silent> <Leader>w <Plug>TranslateWV
+  " Replace the text with translation
+  nmap <silent> <Leader>r <Plug>TranslateR
+  vmap <silent> <Leader>r <Plug>TranslateRV
+  " Translate the text in clipboard
+  nmap <silent> <Leader>x <Plug>TranslateX
 endif
 
 " 設定{{{
