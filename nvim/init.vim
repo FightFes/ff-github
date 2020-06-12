@@ -544,7 +544,7 @@ endif "}}}
 
 if dein#is_sourced('lightline.vim') "{{{
   if has('win32') || has('win64')
-    let s:offset = ' ' 
+    let s:offset = '' 
   elseif has('mac')
     let s:offset = ''
   endif
