@@ -107,7 +107,7 @@ if dein#load_state(s:base_dir)
   call dein#add('sjl/gundo.vim')
   call dein#add('mattn/vim-goimports', {'on_ft': 'go'})
   call dein#add('tyru/columnskip.vim')
-  call dein#add('lambdalisue/fern.vim')
+  " call dein#add('lambdalisue/fern.vim')
   call dein#add('voldikss/vim-translator')
   "
   call dein#end()
@@ -670,7 +670,22 @@ if dein#is_sourced('vim-translator')
   nmap <silent> <Leader>r <Plug>TranslateR
   vmap <silent> <Leader>r <Plug>TranslateRV
   " Translate the text in clipboard
-  nmap <silent> <Leader>x <Plug>TranslateX
+  nmap <silent> <Leader>c <Plug>TranslateX
+endif
+
+if dein#is_sourced('columnskip.vim')
+  nmap <Leader>j <Plug>(columnskip:nonblank:next)
+  omap <Leader>j <Plug>(columnskip:nonblank:next)
+  xmap <Leader>j <Plug>(columnskip:nonblank:next)
+  nmap <Leader>k <Plug>(columnskip:nonblank:prev)
+  omap <Leader>k <Plug>(columnskip:nonblank:prev)
+  xmap <Leader>k <Plug>(columnskip:nonblank:prev)
+  nmap <Leader>] <Plug>(columnskip:first-nonblank:next)
+  omap <Leader>] <Plug>(columnskip:first-nonblank:next)
+  xmap <Leader>] <Plug>(columnskip:first-nonblank:next)
+  nmap <Leader>[ <Plug>(columnskip:first-nonblank:prev)
+  omap <Leader>[ <Plug>(columnskip:first-nonblank:prev)
+  xmap <Leader>[ <Plug>(columnskip:first-nonblank:prev)
 endif
 
 " 設定{{{
