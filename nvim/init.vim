@@ -393,16 +393,18 @@ if dein#is_sourced('denite.nvim') "{{{
   call denite#custom#var('menu', 'menus', s:menus)
 
   " Change default prompt
-  call denite#custom#option('_', {
-        \ 'auto_resize': v:true,
-        \ 'empty': v:false,
-        \ 'direction': 'dynamictop',
-        \ 'winheight': 35,
-        \ 'winwidth': &columns * 3 / 5,
-        \ 'winrow': &lines / 2 - 18,
-        \ 'smartcase': v:true,
-        \ })
-  " \ 'max_candidate_width': 600,
+  augroup denite_resize_settings
+    autocmd!
+    autocmd VimResized * call denite#custom#option('_', {
+                            \ 'auto_resize': v:true,
+                            \ 'empty': v:false,
+                            \ 'direction': 'dynamictop',
+                            \ 'winheight': 35,
+                            \ 'winwidth': &columns * 3 / 5,
+                            \ 'winrow': &lines / 2 - 18,
+                            \ 'smartcase': v:true,
+                            \ })
+  augroup END
   if has('nvim')
     call denite#custom#option('_', {
           \ 'split': 'floating',
@@ -718,6 +720,11 @@ if has('nvim')
   set pumblend=15
   set winblend=15
 endif
+if has('win32') || has('win64')
+  set ambiwidth=single
+elseif has('mac')
+  set ambiwidth=double
+endif
 " set iminsert=0
 "set scrolljump=5 "画面外に出た時にスクロールする行数
 "set fileformat?  "e ++ff=dos "(CRLF) "e ++ff=mac "(LF)
@@ -958,47 +965,10 @@ nnoremap 0 ^
 " function-list
 "}}}
 
-" gvim{{{
 syntax on	            "シンタックスカラーリング
 set background=dark
 colorscheme eva01-LCL
 " colorscheme eva01
-if has('nvim')
-  if exists('g:GuiLoaded')
-    GuiTabline v:false
-    if has('mac')
-      GuiFont! Cica:h14
-    elseif has('win64') || has('win32')
-      GuiFont! Cica:h10
-    endif
-  endif
-else
-  if has('mac')
-    set guifont=Cica:h14
-    set antialias
-  elseif has('win64') || has('win32')
-    set guifont=Cica:h11
-    set renderoptions=type:directx,renmode:5
-  endif
-  set guioptions-=T    "ツールバー非表示
-  set guioptions-=m    "メニュー非表示
-  "set guioptions-=r    "右スクロールバー非表示
-  set guioptions-=R
-  set guioptions-=l    "左スクロールバー非表示
-  set guioptions-=L
-  set guioptions-=e    "gvimでもテキストベースのタブを使用する
-  winpos 424 217  " 表示位置
-  set lines=73    " 縦幅
-  set columns=272 " 横
-endif
-if has('win32') || has('win64')
-  set ambiwidth=single
-elseif has('mac')
-  set ambiwidth=double
-endif
-"autocmd FocusGained * set transparency=100
-"autocmd FocusLost * set transparency=30
-"}}}
 
 "eva01{{{
 hi Comment cterm=NONE gui=NONE
