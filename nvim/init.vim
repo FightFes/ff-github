@@ -392,6 +392,16 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ ]
   call denite#custom#var('menu', 'menus', s:menus)
 
+  call denite#custom#option('_', {
+        \ 'auto_resize': v:true,
+        \ 'empty': v:false,
+        \ 'direction': 'dynamictop',
+        \ 'winheight': 35,
+        \ 'winwidth': &columns * 3 / 5,
+        \ 'winrow': &lines / 2 - 18,
+        \ 'smartcase': v:true,
+        \ })
+
   " Change default prompt
   augroup denite_resize_settings
     autocmd!
