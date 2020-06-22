@@ -6,6 +6,8 @@ echo %~dp0
 
 call :MakeDirLink %USERPROFILE%\AppData\Local\nvim %~dp0nvim
 call :MakeLink %USERPROFILE%\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json %~dp0config\settings.json
+call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY %~dp0config\AFXW.KEY
+call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY.TXT %~dp0config\AFXW.KEY.TXT
 pause
 exit /b
 
