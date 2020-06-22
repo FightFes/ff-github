@@ -384,9 +384,10 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ 'description': 'commands'
 		\ }
 	let s:menus.my_commands.command_candidates = [
+		\ ['Format Json', '%!python -m json.tool'],
+		\ ['Make tags file', '!ctags -R'],
 		\ ['Count character num', '%s/./&/gn'],
 		\ ['Count word num', '%s/\i\+/&/gn'],
-		\ ['Format Json', '%!python -m json.tool'],
 		\ ['Lcd current buffer dir', 'lcd %:h'],
 		\ ['Cd current buffer dir', 'cd %:h'],
 		\ ]
