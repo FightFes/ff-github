@@ -384,13 +384,24 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ 'description': 'commands'
 		\ }
 	let s:menus.my_commands.command_candidates = [
+		\ ['Format Json', '%!python -m json.tool'],
+		\ ['Make tags file', '!ctags -R'],
 		\ ['Count character num', '%s/./&/gn'],
 		\ ['Count word num', '%s/\i\+/&/gn'],
-		\ ['Format Json', '%!python -m json.tool'],
 		\ ['Lcd current buffer dir', 'lcd %:h'],
 		\ ['Cd current buffer dir', 'cd %:h'],
 		\ ]
   call denite#custom#var('menu', 'menus', s:menus)
+
+  call denite#custom#option('_', {
+        \ 'auto_resize': v:true,
+        \ 'empty': v:false,
+        \ 'direction': 'dynamictop',
+        \ 'winheight': 35,
+        \ 'winwidth': &columns * 3 / 5,
+        \ 'winrow': &lines / 2 - 18,
+        \ 'smartcase': v:true,
+        \ })
 
   " Change default prompt
   augroup denite_resize_settings
