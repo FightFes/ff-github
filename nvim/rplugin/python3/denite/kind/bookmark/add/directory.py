@@ -14,6 +14,8 @@ class Kind(Directory):
 
         self.name = 'bookmark/add/directory'
         self.default_action = 'narrow'
+        self.persist_actions: typing.List[str] = ['add']
+        self.redraw_actions: typing.List[str] = []
 
     def action_narrow(self, context):
         target = context['targets'][0]
@@ -24,6 +26,10 @@ class Kind(Directory):
 
     def action_add(self, context):
         _add_bookmark(self.vim, context['targets'][0])
+        self.vim.command('redraw')
+        self.vim.call('denite#util#echo',
+                      '',
+                      'Add bookmark!')
 
 
 def _add_bookmark(vim, target):

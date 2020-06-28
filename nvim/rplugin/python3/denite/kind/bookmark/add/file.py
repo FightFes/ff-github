@@ -14,9 +14,15 @@ class Kind(File):
 
         self.name = 'bookmark/add/file'
         self.default_action = 'add'
+        self.persist_actions: typing.List[str] = ['add']
+        self.redraw_actions: typing.List[str] = []
 
     def action_add(self, context):
         _add_bookmark(self.vim, context['targets'][0])
+        self.vim.command('redraw')
+        self.vim.call('denite#util#echo',
+                      '',
+                      'Add bookmark!')
 
 
 def _add_bookmark(vim, target):
