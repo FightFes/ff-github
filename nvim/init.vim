@@ -102,6 +102,9 @@ if dein#load_state(s:base_dir)
   call dein#add('mattn/vim-goimports', {'on_ft': 'go'})
   call dein#add('tyru/columnskip.vim')
   call dein#add('voldikss/vim-translator')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('mattn/vim-lsp-settings', {'merged': 0})
+  call dein#add('lighttiger2505/deoplete-vim-lsp')
   "
   call dein#end()
   call dein#save_state()
@@ -481,7 +484,7 @@ if dein#is_sourced('deoplete.nvim') "{{{
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
   " call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'file/include']})
-  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include']})
+  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include', 'lsp']})
   call deoplete#custom#var('around', {
         \   'mark_above': '[↑]',
         \   'mark_below': '[↓]',
@@ -649,7 +652,7 @@ if exists('g:loaded_netrw')
 endif
 
 if dein#is_sourced('vim-lsp-settings')
-  let g:lsp_settings_servers_dir=expand('~/.cache/vim_lsp_servers')
+  " let g:lsp_settings_servers_dir=expand('~/.cache/vim_lsp_servers')
 endif
 
 if dein#is_sourced('vim-indent-guides')

@@ -1,0 +1,55 @@
+﻿[AFXW]
+CFG=ON
+
+[EXT_NORMAL]
+E_000=pvr
+N_000=""D:\projects\tools\win64\PVRTexToolGUI.exe" "$P\$F""
+
+[KEY_DEF]
+KEY_00="cmd.exe"
+KEY_01=""$V"SystemRoot"\explorer.exe" "$P\""
+KEY_02="winmergeU.exe $MF $mO"
+KEY_03="cmd.exe /k fc /B $MF $mO"
+BTN_00="cmd"
+BTN_01="explorer"
+BTN_02="winmerge"
+BTN_03="binary compare"
+
+[REG_MSK]
+PRT_00="all"
+MSK_00="*.*"
+PRT_01="png"
+MSK_01="*.png"
+PRT_02="pvr"
+MSK_02="*.pvr"
+PRT_03="xml"
+MSK_03="*.xml"
+PRT_04="json"
+MSK_04="*.json"
+PRT_05="bin"
+MSK_05="*.bin"
+
+[REG_COL]
+COL_00=4227327
+EXT_00=opt bat
+COL_01=16711935
+EXT_01=py sh
+COL_02=255
+EXT_02=exe pdf
+COL_03=12632256
+EXT_03=txt
+COL_04=8454016
+EXT_04=xml
+COL_05=65280
+EXT_05=json
+COL_06=32768
+EXT_06=xlsm xlsx xls
+COL_07=16776960
+EXT_07=lib dll zip
+COL_08=16744448
+EXT_08=pdb ogg done exp docx
+COL_09=12615808
+EXT_09=pvr
+COL_10=65535
+EXT_10=png jpg
+
