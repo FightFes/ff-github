@@ -493,17 +493,19 @@ if dein#is_sourced('deoplete.nvim') "{{{
 	function! s:my_cr_function() abort
 	  return deoplete#close_popup() . "\<CR>"
 	endfunction
+  " inoremap <silent><expr> <TAB>
+  "       \ pumvisible() ? "\<C-n>" :
+  "       \ <SID>check_back_space() ? "\<TAB>" :
+  "       \ deoplete#manual_complete()
   inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#manual_complete()
+        \ pumvisible() ? "\<C-n>" : "\<TAB>"
   function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
   endfunction
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><C-g> deoplete#undo_completion()
+  inoremap <expr><C-g> deoplete#undo_completion()       
 endif "}}}
 if dein#is_sourced('vim-gitgutter') "{{{
   " nnoremap <silent> sn :GitGutterNextHunk<CR>
@@ -829,20 +831,6 @@ augroup END
 command! -nargs=* Terminal split | resize 20 | terminal <args>
 command! -nargs=* Vterminal vsplit | terminal <args>
 command! Bd :bp | :sp | :bn | :bd   " ウィンドウを閉じずにバッファを閉じる
-
-command! -nargs=? Jq call s:jq(<f-args>)
-function! s:jq(...)
-  if a:0 == 0
-    let arg = "."
-  else
-    let arg = a:1
-  endif
-  if executable('jq')
-    execute '%! jq "' . arg . '"'
-  else
-    echomsg 'not found jq command'
-  endif
-endfunction
 
 let s:session_path = expand('~/.vim/sessions')
 if !isdirectory(s:session_path)
