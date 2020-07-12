@@ -832,7 +832,9 @@ augroup binary_edit
 augroup END
 
 command! -nargs=* Terminal split | resize 20 | terminal <args>
+command! -nargs=* T split | resize 20 | terminal <args>
 command! -nargs=* Vterminal vsplit | terminal <args>
+command! -nargs=* V vsplit | terminal <args>
 command! Bd :bp | :sp | :bn | :bd   " ウィンドウを閉じずにバッファを閉じる
 
 let s:session_path = expand('~/.vim/sessions')
