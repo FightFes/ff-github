@@ -347,15 +347,35 @@ if dein#is_sourced('denite.nvim') "{{{
 
   call denite#custom#kind('bookmark/directory', 'default_action', 'candidate_file_rec')
 
+	" Ripgrep command on grep source
+	call denite#custom#var('grep', {
+		\ 'command': ['rg'],
+		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'recursive_opts': [],
+		\ 'pattern_opt': ['--regexp'],
+		\ 'separator': ['--'],
+		\ 'final_opts': [],
+		\ })
+
   " Pt command on grep source
-  call denite#custom#var('grep', 'command', ['pt'])
-  call denite#custom#var('grep', 'default_opts',
-        \ ['--nogroup', '--nocolor', '--smart-case', '--ignore=tags'])
-        "\ ['-i', '--nogroup', '--nocolor', '--smart-case'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'pattern_opt', ['-e'])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'final_opts', [])
+  " call denite#custom#var('grep', 'command', ['pt'])
+  " call denite#custom#var('grep', 'default_opts',
+  "       \ ['--nogroup', '--nocolor', '--smart-case', '--ignore=tags'])
+  "       "\ ['-i', '--nogroup', '--nocolor', '--smart-case'])
+  " call denite#custom#var('grep', 'recursive_opts', [])
+  " call denite#custom#var('grep', 'pattern_opt', ['-e'])
+  " call denite#custom#var('grep', 'separator', ['--'])
+  " call denite#custom#var('grep', 'final_opts', [])
+  "
+	" call denite#custom#var('grep', {
+	"   \ 'command': ['pt'],
+	"   \ 'default_opts': [
+	"   \   '-i', '--nogroup', '--nocolor', '--smart-case', '--ignore=tags'],
+	"   \ 'recursive_opts': [],
+	"   \ 'pattern_opt': ['-e'],
+	"   \ 'separator': ['--'],
+	"   \ 'final_opts': [],
+	"   \ })
 
   " Specify multiple paths in grep source
   "call denite#start([{'name': 'grep',
@@ -444,7 +464,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
   nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   nnoremap <silent> [denite]rg :<C-u>Denite -resume -buffer-name=search-buffer<CR>
-  nnoremap <silent> [denite]rd :<C-u>Denite -resume -buffer-name=bookmark-buffer<CR>
+  nnoremap <silent> [denite]rm :<C-u>Denite -resume -buffer-name=bookmark-buffer<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
   nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
@@ -458,24 +478,24 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]m :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
   nnoremap <silent> [denite]a :<C-u>Denite bookmark/add<CR>
   nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
-  nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
-  nnoremap <silent> [denite]co :<C-u>Denite command<CR>
   nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
   nnoremap <silent> [denite]h :<C-u>Denite file_mru<CR>
   nnoremap <silent> [denite]j :<C-u>Denite jump<CR>
-  " nnoremap <silent> [denite]l :<C-u>Denite line<CR>
   nnoremap <silent> [denite]e :<C-u>Denite menu<CR>
-  nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
-  nnoremap <silent> [denite]ss :<C-u>Denite output:message<CR>
+  nnoremap <silent> [denite]s :<C-u>Denite output:message<CR>
   nnoremap <silent> [denite]re :<C-u>Denite register<CR>
-  " nnoremap <silent> [denite]so :<C-u>Denite source<CR>
   nnoremap <silent> [denite]t :<C-u>Denite tag<CR>
-  " nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
   nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
   nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
+  " nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
+  " nnoremap <silent> [denite]co :<C-u>Denite command<CR>
+  " nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
+  " nnoremap <silent> [denite]l :<C-u>Denite line<CR>
+  " nnoremap <silent> [denite]so :<C-u>Denite source<CR>
+  " nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
 endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{
@@ -669,8 +689,8 @@ endif
 
 if dein#is_sourced('vim-translator')
   let g:translator_target_lang = 'ja'
-  " let g:translator_window_max_width = 1.0
-  " let g:translator_window_max_height = 5.0
+  let g:translator_window_max_width = 1*&columns
+  let g:translator_window_max_height = 1*&lines
   " Echo translation in the cmdline
   nmap <silent> <Leader>t <Plug>Translate
   vmap <silent> <Leader>t <Plug>TranslateV
