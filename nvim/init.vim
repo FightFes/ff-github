@@ -296,6 +296,10 @@ if dein#is_sourced('denite.nvim') "{{{
           \ denite#do_map('move_up_path')
     nnoremap <silent><buffer><expr> q
           \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> <ESC>
+          \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> <C-o>
+          \ denite#do_map('quit')
     nnoremap <silent><buffer><expr> i
           \ denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space>
@@ -317,21 +321,16 @@ if dein#is_sourced('denite.nvim') "{{{
   function! s:denite_filter_my_settings() abort
 	  imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
 	  imap <silent><buffer> <C-[> <Plug>(denite_filter_quit)
+	  imap <silent><buffer> <ESC> <Plug>(denite_filter_quit)
 	  imap <silent><buffer> <CR> <Plug>(denite_filter_update)
   endfunction
 
-  " For Pt(the platinum searcher)
-  " NOTE: It also supports windows.
-  call denite#custom#var('file/rec', 'command',
-        \ ['pt', '--follow', '--nocolor', '--nogroup',
-        \  (has('win32') ? '-g:' : '-g='), ''])
-  " For python script scantree.py
-  " Read bellow on this file to learn more about scantree.py
-  " call denite#custom#var('file/rec', 'command', ['scantree.py'])
+	" For ripgrep
+	" Note: rg is faster than ag
+	call denite#custom#var('file/rec', 'command',
+	\ ['rg', '--files', '--glob', '!.git', '--color', 'never'])
 
   " Change matchers.
-  " call denite#custom#source(
-  " \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
   call denite#custom#source(
         \ '_', 'matchers', ['matcher/fruzzy'])
 
@@ -356,30 +355,6 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ 'separator': ['--'],
 		\ 'final_opts': [],
 		\ })
-
-  " Pt command on grep source
-  " call denite#custom#var('grep', 'command', ['pt'])
-  " call denite#custom#var('grep', 'default_opts',
-  "       \ ['--nogroup', '--nocolor', '--smart-case', '--ignore=tags'])
-  "       "\ ['-i', '--nogroup', '--nocolor', '--smart-case'])
-  " call denite#custom#var('grep', 'recursive_opts', [])
-  " call denite#custom#var('grep', 'pattern_opt', ['-e'])
-  " call denite#custom#var('grep', 'separator', ['--'])
-  " call denite#custom#var('grep', 'final_opts', [])
-  "
-	" call denite#custom#var('grep', {
-	"   \ 'command': ['pt'],
-	"   \ 'default_opts': [
-	"   \   '-i', '--nogroup', '--nocolor', '--smart-case', '--ignore=tags'],
-	"   \ 'recursive_opts': [],
-	"   \ 'pattern_opt': ['-e'],
-	"   \ 'separator': ['--'],
-	"   \ 'final_opts': [],
-	"   \ })
-
-  " Specify multiple paths in grep source
-  "call denite#start([{'name': 'grep',
-  "      \ 'args': [['a.vim', 'b.vim'], '', 'pattern']}])
 
   " Define alias
   call denite#custom#alias('source', 'file/rec/git', 'file/rec')
@@ -439,9 +414,11 @@ if dein#is_sourced('denite.nvim') "{{{
   endif
 
   " Change ignore_globs
-  " call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-  "       \ [ '.git/', '.ropeproject/', '__pycache__/',
-  "       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+  call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+        \ ['*~', '*.o', '*.exe', '*.bak',
+        \  '.DS_Store', '*.pyc', '*.sw[po]', '*.class',
+        \  '.hg/', '.git/', '.bzr/', '.svn/',
+        \  'tags', 'tags-*', '__pycache__'])
 
   " Custom action
   " Note: lambda function is not supported in Vim8.
