@@ -339,7 +339,7 @@ if dein#is_sourced('denite.nvim') "{{{
         \ '_', 'sorters', ['sorter/rank'])
 
   call denite#custom#source(
-        \ '_', 'max_candidates', 4000)
+        \ '_', 'max_candidates', 5000)
 
   call denite#custom#source('grep',
         \ 'converters', ['converter/abbr_word'])
@@ -349,7 +349,7 @@ if dein#is_sourced('denite.nvim') "{{{
 	" Ripgrep command on grep source
 	call denite#custom#var('grep', {
 		\ 'command': ['rg'],
-		\ 'default_opts': ['-i', '--vimgrep', '--no-heading'],
+		\ 'default_opts': ['--vimgrep', '--no-heading', '--smart-case'],
 		\ 'recursive_opts': [],
 		\ 'pattern_opt': ['--regexp'],
 		\ 'separator': ['--'],
