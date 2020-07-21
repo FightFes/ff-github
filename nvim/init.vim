@@ -696,6 +696,17 @@ if dein#is_sourced('columnskip.vim')
   xmap <Leader>[ <Plug>(columnskip:first-nonblank:prev)
 endif
 
+if dein#is_sourced('vim-fugitive')
+  nnoremap <Leader>g :Gstatus<CR>
+  augroup gstatus_settings
+    autocmd!
+    autocmd FileType fugitive call s:gstatus_my_settings()
+  augroup END
+  function! s:gstatus_my_settings() abort
+    nnoremap <buffer> q <C-w>q
+  endfunction
+endif
+
 " 設定{{{
 " packadd
 if !has('nvim')
