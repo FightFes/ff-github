@@ -143,6 +143,7 @@ if dein#is_sourced('defx.nvim') "{{{
   augroup defx_settings
     autocmd!
     autocmd FileType defx call s:defx_my_settings()
+    autocmd BufWritePost * call defx#redraw()
   augroup END
 	function! s:defx_my_settings() abort
 	  " Define mappings
@@ -159,17 +160,12 @@ if dein#is_sourced('defx.nvim') "{{{
 	  \ defx#do_action('paste')
 	  nnoremap <silent><buffer><expr> l
 	  \ defx#do_action('open')
-		" \ defx#is_directory() ?
-		" \ defx#do_action('open') :
-		" \ defx#do_action('multi', ['drop', 'quit'])
 	  nnoremap <silent><buffer><expr> E
 	  \ defx#do_action('open', 'vsplit')
 	  nnoremap <silent><buffer><expr> P
 	  \ defx#do_action('open', 'pedit')
 	  nnoremap <silent><buffer><expr> o
-	  \ defx#do_action('open_or_close_tree')
-	  nnoremap <silent><buffer><expr> O
-	  \ defx#do_action('open_tree_recursive')
+	  \ defx#do_action('open_tree', 'toggle')
 	  nnoremap <silent><buffer><expr> K
 	  \ defx#do_action('new_directory')
 	  nnoremap <silent><buffer><expr> N
@@ -181,8 +177,6 @@ if dein#is_sourced('defx.nvim') "{{{
 	  \                'mark:indent:icon:filename:type:size:time')
     nnoremap <silent><buffer><expr> S
     \ defx#do_action('toggle_sort', 'time')
-    nnoremap <buffer><expr> s
-    \ defx#do_action('search', '.')
 	  nnoremap <silent><buffer><expr> d
 	  \ defx#do_action('remove')
 	  nnoremap <silent><buffer><expr> r
@@ -207,8 +201,6 @@ if dein#is_sourced('defx.nvim') "{{{
 	  \ defx#do_action('toggle_select') . 'j'
 	  nnoremap <silent><buffer><expr> *
 	  \ defx#do_action('toggle_select_all')
-	  vnoremap <silent><buffer><expr> *
-	  \ defx#do_action('toggle_select_visual')
 	  nnoremap <silent><buffer><expr> j
 	  \ line('.') == line('$') ? 'gg' : 'j'
 	  nnoremap <silent><buffer><expr> k
@@ -238,6 +230,14 @@ if dein#is_sourced('defx.nvim') "{{{
   call defx#custom#column('time', {
         \ 'format': '%y/%m/%d %H:%M',
         \ })
+	call defx#custom#column('filename', {
+	      \ 'min_width': 40,
+	      \ 'max_width': 40,
+	      \ })
+	call defx#custom#column('mark', {
+	      \ 'readonly_icon': '✗',
+	      \ 'selected_icon': '✓',
+	      \ })
 endif "}}}
 
 if dein#is_sourced('vim-localrc') "{{{
