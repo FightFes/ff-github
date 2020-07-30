@@ -304,6 +304,8 @@ if dein#is_sourced('denite.nvim') "{{{
           \ denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space>
           \ denite#do_map('toggle_select').'j'
+    nnoremap <silent><buffer><expr> *
+          \ denite#do_map('toggle_select_all')
     nnoremap <silent><buffer><expr> <C-l>
           \ denite#do_map('redraw')
     nnoremap <silent><buffer><expr> m
@@ -312,7 +314,13 @@ if dein#is_sourced('denite.nvim') "{{{
           \ line('.') == line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><expr> k
           \ line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer> <C-b>
+          \ :<C-u>call <SID>denite_quickfix()<CR>
   endfunction
+	function! s:denite_quickfix()
+	  call denite#call_map('toggle_select_all')
+	  call denite#call_map('do_action', 'quickfix')
+	endfunction
 
   augroup denite_filter_settings
     autocmd!
