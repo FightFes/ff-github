@@ -70,7 +70,7 @@ if dein#load_state(s:base_dir)
   " other
   call dein#add('hachy/eva01.vim')            " カラースキーム
   call dein#add('vim-scripts/DirDiff.vim')
-  call dein#add('octol/vim-cpp-enhanced-highlight')
+  call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
   call dein#add('tpope/vim-fugitive')         " 編集系、コマンドの直接実行
   call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
@@ -83,7 +83,7 @@ if dein#load_state(s:base_dir)
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy')
-  call dein#add('previm/previm')
+  call dein#add('previm/previm', {'on_ft': 'markdown'})
   call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
   call dein#add('deoplete-plugins/deoplete-dictionary')
   call dein#add('junegunn/vim-easy-align')
@@ -507,10 +507,12 @@ if dein#is_sourced('deoplete.nvim') "{{{
   "       \ deoplete#manual_complete()
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" : "\<TAB>"
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction
+  inoremap <silent><expr> <S-TAB>
+        \ pumvisible() ? "\<C-p>" : "\<S-TAB>"
+  " function! s:check_back_space() abort
+  "   let col = col('.') - 1
+  "   return !col || getline('.')[col - 1]  =~ '\s'
+  " endfunction
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()       
@@ -713,6 +715,10 @@ if dein#is_sourced('vim-fugitive')
   function! s:gstatus_my_settings() abort
     nnoremap <buffer> q <C-w>q
   endfunction
+endif
+
+if dein#is_sourced('switch.vim')
+  let g:switch_mapping = '<Leader>s'
 endif
 
 " 設定{{{
