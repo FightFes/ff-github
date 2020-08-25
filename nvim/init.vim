@@ -213,8 +213,9 @@ if dein#is_sourced('defx.nvim') "{{{
 	  \ defx#do_action('change_vim_cwd')
 	  nnoremap <silent><buffer><expr> a
 	  \ defx#do_action('add_session')
-    nnoremap <silent> [denite]ds :<C-u>Denite defx/session<CR>
-    nnoremap <silent> [denite]dh :<C-u>Denite defx/history<CR>
+    nnoremap <silent><buffer> [denite]d :<C-u>Denite defx/session<CR>
+    nnoremap <silent><buffer> [denite]i :<C-u>Denite defx/history<CR>
+    nnoremap <silent><buffer> e :<C-u>!start .<CR>
 	endfunction
   let s:defx_sessions_path = expand('~/.vim/defx-sessions')
   if !isdirectory(s:defx_sessions_path)
