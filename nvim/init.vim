@@ -70,7 +70,7 @@ if dein#load_state(s:base_dir)
   " other
   call dein#add('hachy/eva01.vim')            " カラースキーム
   call dein#add('vim-scripts/DirDiff.vim')
-  call dein#add('octol/vim-cpp-enhanced-highlight')
+  call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
   call dein#add('tpope/vim-fugitive')         " 編集系、コマンドの直接実行
   call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
@@ -83,7 +83,7 @@ if dein#load_state(s:base_dir)
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy')
-  call dein#add('previm/previm')
+  call dein#add('previm/previm', {'on_ft': 'markdown'})
   call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
   call dein#add('deoplete-plugins/deoplete-dictionary')
   call dein#add('junegunn/vim-easy-align')
@@ -143,6 +143,7 @@ if dein#is_sourced('defx.nvim') "{{{
   augroup defx_settings
     autocmd!
     autocmd FileType defx call s:defx_my_settings()
+    autocmd BufWritePost * call defx#redraw()
   augroup END
 	function! s:defx_my_settings() abort
 	  " Define mappings
@@ -159,17 +160,12 @@ if dein#is_sourced('defx.nvim') "{{{
 	  \ defx#do_action('paste')
 	  nnoremap <silent><buffer><expr> l
 	  \ defx#do_action('open')
-		" \ defx#is_directory() ?
-		" \ defx#do_action('open') :
-		" \ defx#do_action('multi', ['drop', 'quit'])
 	  nnoremap <silent><buffer><expr> E
 	  \ defx#do_action('open', 'vsplit')
 	  nnoremap <silent><buffer><expr> P
 	  \ defx#do_action('open', 'pedit')
 	  nnoremap <silent><buffer><expr> o
-	  \ defx#do_action('open_or_close_tree')
-	  nnoremap <silent><buffer><expr> O
-	  \ defx#do_action('open_tree_recursive')
+	  \ defx#do_action('open_tree', 'toggle')
 	  nnoremap <silent><buffer><expr> K
 	  \ defx#do_action('new_directory')
 	  nnoremap <silent><buffer><expr> N
@@ -181,8 +177,6 @@ if dein#is_sourced('defx.nvim') "{{{
 	  \                'mark:indent:icon:filename:type:size:time')
     nnoremap <silent><buffer><expr> S
     \ defx#do_action('toggle_sort', 'time')
-    nnoremap <buffer><expr> s
-    \ defx#do_action('search', '.')
 	  nnoremap <silent><buffer><expr> d
 	  \ defx#do_action('remove')
 	  nnoremap <silent><buffer><expr> r
@@ -207,8 +201,6 @@ if dein#is_sourced('defx.nvim') "{{{
 	  \ defx#do_action('toggle_select') . 'j'
 	  nnoremap <silent><buffer><expr> *
 	  \ defx#do_action('toggle_select_all')
-	  vnoremap <silent><buffer><expr> *
-	  \ defx#do_action('toggle_select_visual')
 	  nnoremap <silent><buffer><expr> j
 	  \ line('.') == line('$') ? 'gg' : 'j'
 	  nnoremap <silent><buffer><expr> k
@@ -238,6 +230,14 @@ if dein#is_sourced('defx.nvim') "{{{
   call defx#custom#column('time', {
         \ 'format': '%y/%m/%d %H:%M',
         \ })
+	call defx#custom#column('filename', {
+	      \ 'min_width': 40,
+	      \ 'max_width': 80,
+	      \ })
+	call defx#custom#column('mark', {
+	      \ 'readonly_icon': '✗',
+	      \ 'selected_icon': '✓',
+	      \ })
 endif "}}}
 
 if dein#is_sourced('vim-localrc') "{{{
@@ -304,6 +304,8 @@ if dein#is_sourced('denite.nvim') "{{{
           \ denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space>
           \ denite#do_map('toggle_select').'j'
+    nnoremap <silent><buffer><expr> *
+          \ denite#do_map('toggle_select_all')
     nnoremap <silent><buffer><expr> <C-l>
           \ denite#do_map('redraw')
     nnoremap <silent><buffer><expr> m
@@ -312,7 +314,13 @@ if dein#is_sourced('denite.nvim') "{{{
           \ line('.') == line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><expr> k
           \ line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer> <C-b>
+          \ :<C-u>call <SID>denite_quickfix()<CR>
   endfunction
+	function! s:denite_quickfix()
+	  call denite#call_map('toggle_select_all')
+	  call denite#call_map('do_action', 'quickfix')
+	endfunction
 
   augroup denite_filter_settings
     autocmd!
@@ -499,10 +507,12 @@ if dein#is_sourced('deoplete.nvim') "{{{
   "       \ deoplete#manual_complete()
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" : "\<TAB>"
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-  endfunction
+  inoremap <silent><expr> <S-TAB>
+        \ pumvisible() ? "\<C-p>" : "\<S-TAB>"
+  " function! s:check_back_space() abort
+  "   let col = col('.') - 1
+  "   return !col || getline('.')[col - 1]  =~ '\s'
+  " endfunction
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()       
@@ -713,6 +723,10 @@ if dein#is_sourced('vim-lsp')
   " let g:lsp_highlights_enabled = 0
   " let g:lsp_textprop_enabled = 0
   " let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+endif
+
+if dein#is_sourced('switch.vim')
+  let g:switch_mapping = '<Leader>s'
 endif
 
 " 設定{{{
