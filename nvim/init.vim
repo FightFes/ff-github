@@ -232,7 +232,7 @@ if dein#is_sourced('defx.nvim') "{{{
         \ })
 	call defx#custom#column('filename', {
 	      \ 'min_width': 40,
-	      \ 'max_width': 40,
+	      \ 'max_width': 80,
 	      \ })
 	call defx#custom#column('mark', {
 	      \ 'readonly_icon': '✗',
