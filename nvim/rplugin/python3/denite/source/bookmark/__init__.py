@@ -47,7 +47,7 @@ class Source(File):
         except FileNotFoundError:
             return []
 
-        group_dict = bookmark_dict.get(group)
+        group_dict = bookmark_dict.get(group, None)
 
         if not group_dict:
             return []

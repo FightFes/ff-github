@@ -707,6 +707,14 @@ if dein#is_sourced('vim-fugitive')
   endfunction
 endif
 
+if dein#is_sourced('vim-lsp')
+  " let g:lsp_signs_enabled = 0         " enable signs
+  " let g:lsp_diagnostics_echo_cursor = 0 " enable echo under cursor when in normal mode
+  " let g:lsp_highlights_enabled = 0
+  " let g:lsp_textprop_enabled = 0
+  " let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
+endif
+
 " 設定{{{
 " packadd
 if !has('nvim')
