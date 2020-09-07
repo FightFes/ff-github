@@ -41,13 +41,11 @@ let &runtimepath .= ',' . s:dein_repos_dir
 "let &runtimepath = s:dein_repos_dir . ',' . &runtimepath
 unlet! s:dein_repos_dir
 
-" テスト用
-if 0
-  call dein#begin(s:base_dir)
-  call dein#end()
-  finish
+let s:token_file = expand('<sfile>:h') . '/github_api_token.vim' 
+if filereadable(s:token_file)
+  execute 'source' s:token_file
+  unlet! s:token_file
 endif
-
 if dein#load_state(s:base_dir)
   call dein#begin(s:base_dir)
   unlet! s:base_dir
