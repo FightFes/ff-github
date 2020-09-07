@@ -445,41 +445,41 @@ if dein#is_sourced('denite.nvim') "{{{
 
   nnoremap [denite] <Nop>
   nmap , [denite]
-  nnoremap <silent> [denite]n :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
-  nnoremap <silent> [denite]p :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
+  nnoremap <silent> [denite]n  :<C-u>Denite -resume -cursor-pos=+1 -immediately<CR>
+  nnoremap <silent> [denite]p  :<C-u>Denite -resume -cursor-pos=-1 -immediately<CR>
   nnoremap <silent> [denite]rg :<C-u>Denite -resume -buffer-name=search-buffer<CR>
   nnoremap <silent> [denite]rm :<C-u>Denite -resume -buffer-name=bookmark-buffer<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
-  nnoremap <silent> [denite]b :<C-u>Denite buffer<CR>
+  nnoremap <silent> [denite]b  :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
   nnoremap <silent> [denite]gg :<C-u>Denite -buffer-name=search-buffer grep<CR>
   nnoremap <silent> [denite]ig :<C-u>Denite -buffer-name=search-buffer -start-filter grep:::!<CR>
   nnoremap <silent> [denite]pg :<C-u>Denite -buffer-name=search-buffer grep::-w<CR>
-  nnoremap <silent> [denite]w :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
+  nnoremap <silent> [denite]w  :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
-  nnoremap <silent> [denite]m :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
-  nnoremap <silent> [denite]a :<C-u>Denite bookmark/add<CR>
-  nnoremap <silent> [denite]cg :<C-u>Denite change<CR>
-  nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
+  nnoremap <silent> [denite]m  :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
+  nnoremap <silent> [denite]a  :<C-u>Denite bookmark/add<CR>
+  nnoremap <silent> [denite]ch :<C-u>Denite change<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
-  nnoremap <silent> [denite]h :<C-u>Denite file_mru<CR>
-  nnoremap <silent> [denite]j :<C-u>Denite jump<CR>
-  nnoremap <silent> [denite]e :<C-u>Denite menu<CR>
-  nnoremap <silent> [denite]s :<C-u>Denite output:message<CR>
+  nnoremap <silent> [denite]h  :<C-u>Denite file_mru<CR>
+  nnoremap <silent> [denite]j  :<C-u>Denite jump<CR>
+  nnoremap <silent> [denite]e  :<C-u>Denite menu<CR>
+  nnoremap <silent> [denite]s  :<C-u>Denite output:message<CR>
   nnoremap <silent> [denite]re :<C-u>Denite register<CR>
-  nnoremap <silent> [denite]t :<C-u>Denite tag<CR>
+  nnoremap <silent> [denite]t  :<C-u>Denite tag<CR>
   nnoremap <silent> [denite]dl :<C-u>Denite dein/log<CR>
-  nnoremap <silent> [denite]k :<C-u>Denite mark<CR>
-  nnoremap <silent> [denite]y :<C-u>Denite neoyank<CR>
+  nnoremap <silent> [denite]k  :<C-u>Denite mark<CR>
+  nnoremap <silent> [denite]y  :<C-u>Denite neoyank<CR>
+  nnoremap <silent> [denite]l  :<C-u>Denite line::noempty<CR>
   " nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
   " nnoremap <silent> [denite]co :<C-u>Denite command<CR>
   " nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
-  " nnoremap <silent> [denite]l :<C-u>Denite line<CR>
   " nnoremap <silent> [denite]so :<C-u>Denite source<CR>
   " nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
+  " nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
 endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{
