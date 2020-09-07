@@ -68,7 +68,6 @@ if dein#load_state(s:base_dir)
   " other
   call dein#add('hachy/eva01.vim')            " カラースキーム
   call dein#add('vim-scripts/DirDiff.vim')
-  call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
   call dein#add('tpope/vim-fugitive')         " 編集系、コマンドの直接実行
   call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
@@ -103,6 +102,8 @@ if dein#load_state(s:base_dir)
   call dein#add('prabirshrestha/vim-lsp')
   call dein#add('mattn/vim-lsp-settings', {'merged': 0})
   call dein#add('lighttiger2505/deoplete-vim-lsp')
+  call dein#add('sheerun/vim-polyglot')
+  " call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
   "
   call dein#end()
   call dein#save_state()
