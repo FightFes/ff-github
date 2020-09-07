@@ -810,7 +810,7 @@ set showtabline=2 " 常にタブラインを表示
 set matchpairs+=<:>
 augroup setting_per_filetype
   autocmd!
-  autocmd FileType c,cpp setl matchpairs+==:; | let b:match_words='if:else if:else,switch:case:default,#if:#else if:#else:#endif'
+  autocmd FileType c,cpp let b:match_words='private\::protected\::public\:,if:else,switch:case:default,#if:#else:#elif:#endif'
   autocmd FileType markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
 augroup END
 augroup terminal_setting
