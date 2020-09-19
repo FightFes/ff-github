@@ -104,6 +104,7 @@ if dein#load_state(s:base_dir)
   call dein#add('lighttiger2505/deoplete-vim-lsp')
   call dein#add('sheerun/vim-polyglot')
   call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
+  " call dein#add('Xuyuanp/scrollbar.nvim')
   "
   call dein#end()
   call dein#save_state()
@@ -733,6 +734,18 @@ if dein#is_sourced('switch.vim')
   let g:switch_mapping = '<Leader>s'
 endif
 
+if dein#is_sourced('scrollbar.nvim')
+  augroup scrollbar_nvim_settings
+    autocmd!
+    autocmd BufEnter    * silent! lua require('scrollbar').show()
+    autocmd BufLeave    * silent! lua require('scrollbar').clear()
+    autocmd CursorMoved * silent! lua require('scrollbar').show()
+    autocmd VimResized  * silent! lua require('scrollbar').show()
+    autocmd FocusGained * silent! lua require('scrollbar').show()
+    autocmd FocusLost   * silent! lua require('scrollbar').clear()
+  augroup end
+endif
+
 " 設定{{{
 " packadd
 if !has('nvim')
@@ -955,7 +968,7 @@ nnoremap 0 ^
 " nnoremap P gP
 " nnoremap gp p
 " nnoremap gP P
-nnoremap <f5> :!ctags -R<CR>
+nnoremap <F5> :call dein#check_update(v:true)<CR>
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
