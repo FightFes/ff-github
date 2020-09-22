@@ -104,7 +104,7 @@ if dein#load_state(s:base_dir)
   call dein#add('lighttiger2505/deoplete-vim-lsp')
   " call dein#add('sheerun/vim-polyglot')
   call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
-  " call dein#add('Xuyuanp/scrollbar.nvim')
+  call dein#add('Xuyuanp/scrollbar.nvim')
   "
   call dein#end()
   call dein#save_state()
