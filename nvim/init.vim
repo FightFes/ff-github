@@ -914,7 +914,7 @@ inoremap <silent> <ESC> <ESC>
 inoremap <silent> <C-[> <ESC>
 " inoremap <silent> <ESC> <ESC>:set iminsert=0<CR>
 " inoremap <silent> <C-[> <ESC>:set iminsert=0<CR>
-nnoremap <silent> <C-l> :<C-u>noh<CR><C-l>
+nnoremap <silent> <C-l> :<C-u>noh<CR><C-l>:GitGutter<CR>
 nnoremap <silent> <C-]> g<C-]>
 nnoremap <silent> <C-w>} <C-w>g}
 noremap ; :
