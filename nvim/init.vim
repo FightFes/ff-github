@@ -744,6 +744,7 @@ if dein#is_sourced('scrollbar.nvim')
     autocmd FocusGained * silent! lua require('scrollbar').show()
     autocmd FocusLost   * silent! lua require('scrollbar').clear()
   augroup end
+  let g:scrollbar_width = 2
 endif
 
 " 設定{{{
