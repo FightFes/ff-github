@@ -69,7 +69,7 @@ if dein#load_state(s:base_dir)
   call dein#add('hachy/eva01.vim')            " カラースキーム
   call dein#add('vim-scripts/DirDiff.vim')
   call dein#add('tpope/vim-fugitive')         " 編集系、コマンドの直接実行
-  call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
+  call dein#add('junegunn/gv.vim')            " コミットツリー表示、管理
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
   call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
   call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
@@ -128,10 +128,6 @@ if dein#is_sourced('winresizer') "{{{
   let g:winresizer_start_key="\<Leader>e"
 endif "}}}
 
-if dein#is_sourced('agit.vim') "{{{
-  let g:agit_enable_auto_show_commit=1
-endif "}}}
-
 if dein#is_sourced('nerdcommenter') "{{{
   let g:NERDSpaceDelims=1
   let g:NERDDefaultAlign='left'
@@ -149,9 +145,6 @@ if dein#is_sourced('defx.nvim') "{{{
 	  " Define mappings
     nnoremap <silent><buffer><expr> <CR>
           \ defx#do_action('drop')
-    " \ defx#is_directory() ?
-    " \ defx#do_action('open') :
-    " \ defx#do_action('multi', ['drop', 'quit'])
     nnoremap <silent><buffer><expr> c
           \ defx#do_action('copy')
     nnoremap <silent><buffer><expr> m
@@ -248,8 +241,6 @@ endif "}}}
 if dein#is_sourced('vim-localrc') "{{{
   augroup vim_localrc_setting
     autocmd!
-    " autocmd BufWinEnter * nested
-    "       \   call localrc#load(g:localrc_filename)
     autocmd BufEnter * nested
           \   call s:project_my_settings()
   augroup END
@@ -480,12 +471,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]k  :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y  :<C-u>Denite neoyank<CR>
   nnoremap <silent> [denite]l  :<C-u>Denite line::noempty<CR>
-  " nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
-  " nnoremap <silent> [denite]co :<C-u>Denite command<CR>
-  " nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
-  " nnoremap <silent> [denite]so :<C-u>Denite source<CR>
-  " nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
-  " nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
+  nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
 endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{
@@ -506,18 +492,10 @@ if dein#is_sourced('deoplete.nvim') "{{{
 	function! s:my_cr_function() abort
 	  return deoplete#close_popup() . "\<CR>"
 	endfunction
-  " inoremap <silent><expr> <TAB>
-  "       \ pumvisible() ? "\<C-n>" :
-  "       \ <SID>check_back_space() ? "\<TAB>" :
-  "       \ deoplete#manual_complete()
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" : "\<TAB>"
   inoremap <silent><expr> <S-TAB>
         \ pumvisible() ? "\<C-p>" : "\<S-TAB>"
-  " function! s:check_back_space() abort
-  "   let col = col('.') - 1
-  "   return !col || getline('.')[col - 1]  =~ '\s'
-  " endfunction
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()       
@@ -870,11 +848,11 @@ set mouse=a
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup binary_edit
   autocmd!
-  autocmd BufReadPre  *.bin let &bin=1
-  autocmd BufReadPost * if &bin | %!xxd
-  autocmd BufReadPost * set ft=xxd | endif
-  autocmd BufWritePre * if &bin | %!xxd -r
-  autocmd BufWritePre * endif
+  autocmd BufReadPre   *.bin let &bin=1
+  autocmd BufReadPost  * if &bin | %!xxd
+  autocmd BufReadPost  * set ft=xxd | endif
+  autocmd BufWritePre  * if &bin | %!xxd -r
+  autocmd BufWritePre  * endif
   autocmd BufWritePost * if &bin | %!xxd
   autocmd BufWritePost * set nomod | endif
 augroup END
