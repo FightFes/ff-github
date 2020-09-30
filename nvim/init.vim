@@ -210,7 +210,7 @@ if dein#is_sourced('defx.nvim') "{{{
           \ defx#do_action('resize', defx#get_context().winwidth + 10)
     nnoremap <silent><buffer><expr> < 
           \ defx#do_action('resize', defx#get_context().winwidth - 10)
-    nnoremap <silent><buffer> [denite]d :<C-u>Denite defx/session<CR>
+    nnoremap <silent><buffer> [denite]ds :<C-u>Denite defx/session<CR>
     nnoremap <silent><buffer> [denite]i :<C-u>Denite defx/history<CR>
     nnoremap <silent><buffer> e :<C-u>!start .<CR>
 	endfunction
@@ -385,6 +385,8 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ ['Count word num', '%s/\i\+/&/gn'],
 		\ ['Lcd current buffer dir', 'lcd %:h'],
 		\ ['Cd current buffer dir', 'cd %:h'],
+		\ ['Change CRLF', 'e ++ff=dos'],
+		\ ['Change LF', 'e ++ff=mac'],
 		\ ]
   call denite#custom#var('menu', 'menus', s:menus)
 
@@ -720,6 +722,7 @@ if dein#is_sourced('scrollbar.nvim')
     autocmd CursorMoved * silent! lua require('scrollbar').show()
     autocmd VimResized  * silent! lua require('scrollbar').show()
     autocmd FocusGained * silent! lua require('scrollbar').show()
+    autocmd QuitPre     * silent! lua require('scrollbar').show()
     autocmd FocusLost   * silent! lua require('scrollbar').clear()
   augroup end
   let g:scrollbar_width = 2
