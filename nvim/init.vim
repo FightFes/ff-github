@@ -692,7 +692,9 @@ if dein#is_sourced('columnskip.vim')
 endif
 
 if dein#is_sourced('vim-fugitive')
-  nnoremap <Leader>g :G<CR>
+  nnoremap <Leader>gs :<C-u>Git<CR>
+  nnoremap <Leader>gb :<C-u>Git blame<CR>
+  nnoremap <Leader>gd :<C-u>Gdiffsplit<CR>
   augroup gstatus_settings
     autocmd!
     autocmd FileType fugitive call s:gstatus_my_settings()
