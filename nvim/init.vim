@@ -660,9 +660,18 @@ if dein#is_sourced('gundo.vim')
 endif
 
 if dein#is_sourced('vim-translator')
+  " Text highlight of translator window
+  hi def link TranslatorQuery     Identifier
+  hi def link TranslatorPhonetic  Type
+  hi def link TranslatorExplain   Statement
+  hi def link TranslatorDelimiter Special
+  " Background of translator window border
+  hi def link TranslatorNF        NormalFloat
+  hi def link TranslatorBorderNF  NormalFloat
+
   let g:translator_target_lang = 'ja'
-  let g:translator_window_max_width = 1*&columns
-  let g:translator_window_max_height = 1*&lines
+  let g:translator_window_max_width = 0.3425
+  let g:translator_window_max_height = 0.8
   " Echo translation in the cmdline
   nmap <silent> <Leader>t <Plug>Translate
   vmap <silent> <Leader>t <Plug>TranslateV
