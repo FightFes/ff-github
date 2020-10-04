@@ -69,7 +69,7 @@ if dein#load_state(s:base_dir)
   call dein#add('hachy/eva01.vim')            " カラースキーム
   call dein#add('vim-scripts/DirDiff.vim')
   call dein#add('tpope/vim-fugitive')         " 編集系、コマンドの直接実行
-  call dein#add('cohama/agit.vim')            " コミットツリー表示、管理
+  call dein#add('junegunn/gv.vim')            " コミットツリー表示、管理
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
   call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
   call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
@@ -128,10 +128,6 @@ if dein#is_sourced('winresizer') "{{{
   let g:winresizer_start_key="\<Leader>e"
 endif "}}}
 
-if dein#is_sourced('agit.vim') "{{{
-  let g:agit_enable_auto_show_commit=1
-endif "}}}
-
 if dein#is_sourced('nerdcommenter') "{{{
   let g:NERDSpaceDelims=1
   let g:NERDDefaultAlign='left'
@@ -149,9 +145,6 @@ if dein#is_sourced('defx.nvim') "{{{
 	  " Define mappings
     nnoremap <silent><buffer><expr> <CR>
           \ defx#do_action('drop')
-    " \ defx#is_directory() ?
-    " \ defx#do_action('open') :
-    " \ defx#do_action('multi', ['drop', 'quit'])
     nnoremap <silent><buffer><expr> c
           \ defx#do_action('copy')
     nnoremap <silent><buffer><expr> m
@@ -217,7 +210,7 @@ if dein#is_sourced('defx.nvim') "{{{
           \ defx#do_action('resize', defx#get_context().winwidth + 10)
     nnoremap <silent><buffer><expr> < 
           \ defx#do_action('resize', defx#get_context().winwidth - 10)
-    nnoremap <silent><buffer> [denite]d :<C-u>Denite defx/session<CR>
+    nnoremap <silent><buffer> [denite]ds :<C-u>Denite defx/session<CR>
     nnoremap <silent><buffer> [denite]i :<C-u>Denite defx/history<CR>
     nnoremap <silent><buffer> e :<C-u>!start .<CR>
 	endfunction
@@ -248,8 +241,6 @@ endif "}}}
 if dein#is_sourced('vim-localrc') "{{{
   augroup vim_localrc_setting
     autocmd!
-    " autocmd BufWinEnter * nested
-    "       \   call localrc#load(g:localrc_filename)
     autocmd BufEnter * nested
           \   call s:project_my_settings()
   augroup END
@@ -394,6 +385,8 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ ['Count word num', '%s/\i\+/&/gn'],
 		\ ['Lcd current buffer dir', 'lcd %:h'],
 		\ ['Cd current buffer dir', 'cd %:h'],
+		\ ['Change CRLF', 'e ++ff=dos'],
+		\ ['Change LF', 'e ++ff=mac'],
 		\ ]
   call denite#custom#var('menu', 'menus', s:menus)
 
@@ -481,12 +474,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]k  :<C-u>Denite mark<CR>
   nnoremap <silent> [denite]y  :<C-u>Denite neoyank<CR>
   nnoremap <silent> [denite]l  :<C-u>Denite line::noempty<CR>
-  " nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
-  " nnoremap <silent> [denite]co :<C-u>Denite command<CR>
-  " nnoremap <silent> [denite]cs :<C-u>Denite colorscheme<CR>
-  " nnoremap <silent> [denite]so :<C-u>Denite source<CR>
-  " nnoremap <silent> [denite]de :<C-u>Denite dein<CR>
-  " nnoremap <silent> [denite]ch :<C-u>Denite command_history<CR>
+  nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
 endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{
@@ -507,18 +495,10 @@ if dein#is_sourced('deoplete.nvim') "{{{
 	function! s:my_cr_function() abort
 	  return deoplete#close_popup() . "\<CR>"
 	endfunction
-  " inoremap <silent><expr> <TAB>
-  "       \ pumvisible() ? "\<C-n>" :
-  "       \ <SID>check_back_space() ? "\<TAB>" :
-  "       \ deoplete#manual_complete()
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" : "\<TAB>"
   inoremap <silent><expr> <S-TAB>
         \ pumvisible() ? "\<C-p>" : "\<S-TAB>"
-  " function! s:check_back_space() abort
-  "   let col = col('.') - 1
-  "   return !col || getline('.')[col - 1]  =~ '\s'
-  " endfunction
   inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()       
@@ -681,9 +661,18 @@ if dein#is_sourced('gundo.vim')
 endif
 
 if dein#is_sourced('vim-translator')
+  " Text highlight of translator window
+  hi def link TranslatorQuery     Identifier
+  hi def link TranslatorPhonetic  Type
+  hi def link TranslatorExplain   Statement
+  hi def link TranslatorDelimiter Special
+  " Background of translator window border
+  hi def link TranslatorNF        NormalFloat
+  hi def link TranslatorBorderNF  NormalFloat
+
   let g:translator_target_lang = 'ja'
-  let g:translator_window_max_width = 1*&columns
-  let g:translator_window_max_height = 1*&lines
+  let g:translator_window_max_width = 0.3425
+  let g:translator_window_max_height = 0.8
   " Echo translation in the cmdline
   nmap <silent> <Leader>t <Plug>Translate
   vmap <silent> <Leader>t <Plug>TranslateV
@@ -713,7 +702,9 @@ if dein#is_sourced('columnskip.vim')
 endif
 
 if dein#is_sourced('vim-fugitive')
-  nnoremap <Leader>g :G<CR>
+  nnoremap <Leader>gs :<C-u>Git<CR>
+  nnoremap <Leader>gb :<C-u>Git blame<CR>
+  nnoremap <Leader>gd :<C-u>Gdiffsplit<CR>
   augroup gstatus_settings
     autocmd!
     autocmd FileType fugitive call s:gstatus_my_settings()
@@ -743,6 +734,7 @@ if dein#is_sourced('scrollbar.nvim')
     autocmd CursorMoved * silent! lua require('scrollbar').show()
     autocmd VimResized  * silent! lua require('scrollbar').show()
     autocmd FocusGained * silent! lua require('scrollbar').show()
+    autocmd QuitPre     * silent! lua require('scrollbar').show()
     autocmd FocusLost   * silent! lua require('scrollbar').clear()
   augroup end
   let g:scrollbar_width = 2
@@ -871,11 +863,11 @@ set mouse=a
 "バイナリ編集(xxd)モード（vim -b での起動、もしくは *.bin ファイルを開くと発動します）
 augroup binary_edit
   autocmd!
-  autocmd BufReadPre  *.bin let &bin=1
-  autocmd BufReadPost * if &bin | %!xxd
-  autocmd BufReadPost * set ft=xxd | endif
-  autocmd BufWritePre * if &bin | %!xxd -r
-  autocmd BufWritePre * endif
+  autocmd BufReadPre   *.bin let &bin=1
+  autocmd BufReadPost  * if &bin | %!xxd
+  autocmd BufReadPost  * set ft=xxd | endif
+  autocmd BufWritePre  * if &bin | %!xxd -r
+  autocmd BufWritePre  * endif
   autocmd BufWritePost * if &bin | %!xxd
   autocmd BufWritePost * set nomod | endif
 augroup END
