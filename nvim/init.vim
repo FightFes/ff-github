@@ -457,6 +457,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]rm :<C-u>Denite -resume -buffer-name=bookmark-buffer<CR>
   nnoremap <silent> [denite]ff :<C-u>Denite file<CR>
   nnoremap <silent> [denite]fr :<C-u>Denite file/rec<CR>
+  nnoremap <silent> [denite]fg :<C-u>Denite file/rec/git<CR>
   nnoremap <silent> [denite]b  :<C-u>Denite buffer<CR>
   nnoremap <silent> [denite]cf :<C-u>DeniteBufferDir file<CR>
   nnoremap <silent> [denite]cr :<C-u>DeniteBufferDir file/rec<CR>
