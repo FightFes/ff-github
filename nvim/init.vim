@@ -489,12 +489,24 @@ if dein#is_sourced('deoplete.nvim') "{{{
         \   'mark_below': '[↓]',
         \   'mark_changes': '[*]',
         \})
+  call deoplete#custom#option('candidate_marks',
+        \ ['A', 'S', 'D', 'F', 'G'])
+  inoremap <expr>A pumvisible() ?
+        \ deoplete#insert_candidate(0) : 'A'
+  inoremap <expr>S pumvisible() ?
+        \ deoplete#insert_candidate(1) : 'S'
+  inoremap <expr>D pumvisible() ?
+        \ deoplete#insert_candidate(2) : 'D'
+  inoremap <expr>F pumvisible() ?
+        \ deoplete#insert_candidate(3) : 'F'
+  inoremap <expr>G pumvisible() ?
+        \ deoplete#insert_candidate(4) : 'G'
 
 	" <CR>: close popup and save indent.
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function() abort
-	  return deoplete#close_popup() . "\<CR>"
-	endfunction
+  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+  function! s:my_cr_function() abort
+    return deoplete#close_popup() . "\<CR>"
+  endfunction
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" : "\<TAB>"
   inoremap <silent><expr> <S-TAB>
