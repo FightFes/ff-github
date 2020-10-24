@@ -1,34 +1,38 @@
 @echo off
 
-rem ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ç§»å‹•
+rem ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ÉˆÚ“®
 cd /d %~dp0
 echo %~dp0
 
-call :MakeDirLink %USERPROFILE%\AppData\Local\nvim %~dp0nvim
-call :MakeLink %USERPROFILE%\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json %~dp0config\settings.json
-call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY %~dp0config\AFXW.KEY
-call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY.TXT %~dp0config\AFXW.KEY.TXT
-call :MakeLink %USERPROFILE%\afxw64_163\AFXW.INI %~dp0config\AFXW.INI
-call :MakeLink %USERPROFILE%\afxw64_163\AFXW.DEF %~dp0config\AFXW.DEF
+call :MakeDirLink %USERPROFILE%\AppData\Local\nvim %~dp0nvim /d
+call :MakeLink %USERPROFILE%\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json %~dp0config\winterm\settings.json
+call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY %~dp0config\afxw\AFXW.KEY
+call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY.TXT %~dp0config\afxw\AFXW.KEY.TXT
+call :MakeLink %USERPROFILE%\afxw64_163\AFXW.INI %~dp0config\afxw\AFXW.INI
+call :MakeLink %USERPROFILE%\afxw64_163\AFXW.DEF %~dp0config\afxw\AFXW.DEF
 pause
 exit /b
 
 :MakeLink
-rem ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¶ˆã™
-echo %1
-echo %2
+echo ƒtƒ@ƒCƒ‹‚ÌƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬
+echo %1 %2
+rem ƒtƒ@ƒCƒ‹‚ğÁ‚·
 del /q %1
-rem ãªã„ãªã‚‰ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆã™ã‚‹
+rem ‚È‚¢‚È‚çƒtƒHƒ‹ƒ_‚ğì¬‚·‚é
 md %~dp1
-rem ãƒªãƒ³ã‚¯ã‚’è²¼ã‚‹
+rem ƒŠƒ“ƒN‚ğ“\‚é
 mklink %1 %2
+echo;
 exit /b
 
 :MakeDirLink
-rem ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ¶ˆã™
+echo ƒfƒBƒŒƒNƒgƒŠ‚ÌƒVƒ“ƒ{ƒŠƒbƒNƒŠƒ“ƒN‚ğì¬
+echo %1 %2
+rem ƒtƒHƒ‹ƒ_‚ğÁ‚·
 rd /q /s %1
-rem ãªã„ãªã‚‰ãƒ•ã‚©ãƒ«ãƒ€ã‚’ä½œæˆã™ã‚‹
+rem ‚È‚¢‚È‚çƒtƒHƒ‹ƒ_‚ğì¬‚·‚é
 md %~dp1
-rem ãƒªãƒ³ã‚¯ã‚’è²¼ã‚‹
+rem ƒŠƒ“ƒN‚ğ“\‚é
 mklink /d %1 %2
+echo;
 exit /b
