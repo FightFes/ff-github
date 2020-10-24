@@ -387,6 +387,7 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ ['Cd current buffer dir', 'cd %:h'],
 		\ ['Change CRLF', 'e ++ff=dos'],
 		\ ['Change LF', 'e ++ff=mac'],
+		\ ['Change cp932', 'set fenc=cp932'],
 		\ ]
   call denite#custom#var('menu', 'menus', s:menus)
 
@@ -503,6 +504,7 @@ if dein#is_sourced('deoplete.nvim') "{{{
   inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
   inoremap <expr><C-g> deoplete#undo_completion()       
 endif "}}}
+
 if dein#is_sourced('vim-gitgutter') "{{{
   " nnoremap <silent> sn :GitGutterNextHunk<CR>
   " nnoremap <silent> sp :GitGutterPrevHunk<CR>
