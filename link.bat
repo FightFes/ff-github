@@ -5,7 +5,7 @@ cd /d %~dp0
 echo %~dp0
 
 call :MakeDirLink %USERPROFILE%\AppData\Local\nvim %~dp0nvim
-call :MakeLink %USERPROFILE%\AppData\Local\Microsoft\Windows Terminal\settings.json %~dp0winterm\settings.json
+call :MakeLink "%USERPROFILE%\AppData\Local\Microsoft\Windows Terminal\settings.json" %~dp0winterm\settings.json
 call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY %~dp0afxw\AFXW.KEY
 call :MakeLink %USERPROFILE%\afxw64_163\AFXW.KEY.TXT %~dp0afxw\AFXW.KEY.TXT
 call :MakeLink %USERPROFILE%\afxw64_163\AFXW.INI %~dp0afxw\AFXW.INI
@@ -19,7 +19,7 @@ echo %1 %2
 rem ファイルを消す
 del /q %1
 rem ないならフォルダを作成する
-md %~dp1
+md "%~dp1"
 rem リンクを貼る
 mklink %1 %2
 echo;
