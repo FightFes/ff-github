@@ -6,7 +6,7 @@ if exists('g:GuiLoaded')
   if has('mac')
     GuiFont! Cica:h14
   elseif has('win64') || has('win32')
-    GuiFont! Cica:h10
+    GuiFont! Cica:h12
   endif
 
   nnoremap <silent> <C-6> <C-^>
