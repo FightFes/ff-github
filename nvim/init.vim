@@ -105,6 +105,7 @@ if dein#load_state(s:base_dir)
   " call dein#add('sheerun/vim-polyglot')
   call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
   " call dein#add('Xuyuanp/scrollbar.nvim')
+  call dein#add('chemzqm/denite-git')
   "
   call dein#end()
   call dein#save_state()
@@ -212,7 +213,6 @@ if dein#is_sourced('defx.nvim') "{{{
           \ defx#do_action('resize', defx#get_context().winwidth - 10)
     nnoremap <silent><buffer> [denite]ds :<C-u>Denite defx/session<CR>
     nnoremap <silent><buffer> [denite]i :<C-u>Denite defx/history<CR>
-    nnoremap <silent><buffer> e :<C-u>!start .<CR>
 	endfunction
   let s:defx_sessions_path = expand('~/.vim/defx-sessions')
   if !isdirectory(s:defx_sessions_path)
@@ -879,6 +879,7 @@ command! -nargs=* T split | resize 20 | terminal <args>
 command! -nargs=* Vterminal vsplit | terminal <args>
 command! -nargs=* V vsplit | terminal <args>
 command! Bd :bp | :sp | :bn | :bd   " ウィンドウを閉じずにバッファを閉じる
+nnoremap <silent> <F2> :<C-u>Terminal<CR>
 
 let s:session_path = expand('~/.vim/sessions')
 if !isdirectory(s:session_path)
@@ -975,6 +976,11 @@ function! s:VSetSearch()
   let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
   let @s = temp
 endfunction
+if has('win32') || has('win64')
+  nnoremap <silent> <F3> :<C-u>!start .<CR>
+elseif has('mac')
+  nnoremap <silent> <F3> :<C-u>!open .<CR>
+endif
 "}}}
 
 " MEMO{{{
