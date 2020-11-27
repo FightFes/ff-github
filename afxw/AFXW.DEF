@@ -28,6 +28,12 @@ PRT_04="json"
 MSK_04="*.json"
 PRT_05="bin"
 MSK_05="*.bin"
+PRT_06="dll"
+MSK_06="*.dll"
+PRT_07="lib"
+MSK_07="*.lib"
+PRT_08="exe"
+MSK_08="*.exe"
 
 [REG_COL]
 COL_00=4227327
