@@ -46,6 +46,9 @@ if filereadable(s:token_file)
   execute 'source' s:token_file
   unlet! s:token_file
 endif
+let g:dein#install_progress_type = "title"
+let g:dein#lazy_rplugins = 0
+let g:dein#enable_notification = 0
 if dein#load_state(s:base_dir)
   call dein#begin(s:base_dir)
   unlet! s:base_dir
@@ -80,13 +83,13 @@ if dein#load_state(s:base_dir)
   call dein#add('haya14busa/vim-open-googletranslate')
   call dein#add('tyru/open-browser.vim')
   call dein#add('raghur/fruzzy')
-  call dein#add('previm/previm', {'on_ft': 'markdown'})
-  call dein#add('tpope/vim-markdown', {'on_ft': 'markdown'})
+  call dein#add('previm/previm')
+  call dein#add('tpope/vim-markdown')
   call dein#add('deoplete-plugins/deoplete-dictionary')
   call dein#add('junegunn/vim-easy-align')
   call dein#add('mattn/sonictemplate-vim')
-  call dein#add('mechatroner/rainbow_csv', {'on_ft': 'csv'})
-  call dein#add('elzr/vim-json', {'on_ft': 'json'})
+  call dein#add('mechatroner/rainbow_csv')
+  call dein#add('elzr/vim-json')
   call dein#add('kana/vim-altr')
   call dein#add('itchyny/lightline.vim')
   call dein#add('majutsushi/tagbar')
@@ -96,17 +99,29 @@ if dein#load_state(s:base_dir)
   call dein#add('cohama/lexima.vim')
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('sjl/gundo.vim')
-  call dein#add('mattn/vim-goimports', {'on_ft': 'go'})
+  call dein#add('mattn/vim-goimports')
   call dein#add('tyru/columnskip.vim')
   call dein#add('voldikss/vim-translator')
   call dein#add('prabirshrestha/vim-lsp')
   call dein#add('mattn/vim-lsp-settings', {'merged': 0})
   call dein#add('lighttiger2505/deoplete-vim-lsp')
-  call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
+  call dein#add('octol/vim-cpp-enhanced-highlight')
   " call dein#add('Xuyuanp/scrollbar.nvim')
   call dein#add('chemzqm/denite-git')
   call dein#add('delphinus/vim-denite-memo')
-  "
+
+	call dein#config(['previm', 'vim-markdown'], {
+	\ 'lazy' : 1, 'on_ft' : 'markdown',
+	\ })
+	call dein#config('vim-goimports', {
+	\ 'lazy' : 1, 'on_ft' : 'go',
+	\ })
+	call dein#config('vim-cpp-enhanced-highlight', {
+	\ 'lazy' : 1, 'on_ft' : 'cpp',
+	\ })
+	call dein#config('rainbow_csv', {
+	\ 'lazy' : 1, 'on_ft' : 'csv',
+	\ })
   call dein#end()
   call dein#save_state()
 endif
