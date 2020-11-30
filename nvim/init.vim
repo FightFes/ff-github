@@ -109,6 +109,7 @@ if dein#load_state(s:base_dir)
   " call dein#add('Xuyuanp/scrollbar.nvim')
   call dein#add('chemzqm/denite-git')
   call dein#add('delphinus/vim-denite-memo')
+  call dein#add('glidenote/memolist.vim')
 
 	call dein#config(['previm', 'vim-markdown'], {
 	\ 'lazy' : 1, 'on_ft' : 'markdown',
@@ -475,7 +476,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]pg :<C-u>Denite -buffer-name=search-buffer grep::-w<CR>
   nnoremap <silent> [denite]w  :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
-  nnoremap <silent> [denite]m  :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
+  nnoremap <silent> [denite]<Space>  :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
   nnoremap <silent> [denite]a  :<C-u>Denite bookmark/add<CR>
   nnoremap <silent> [denite]ch :<C-u>Denite change<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
@@ -755,6 +756,14 @@ if dein#is_sourced('scrollbar.nvim')
     autocmd FocusLost   * silent! lua require('scrollbar').clear()
   augroup end
   let g:scrollbar_width = 2
+endif
+
+if dein#is_sourced('memolist.vim')
+  nnoremap <silent> [denite]m   :MemoList<CR>
+  nnoremap <silent> [denite]mn  :MemoNew<CR>
+  nnoremap <silent> [denite]mg  :MemoGrep<CR>
+  let g:memolist_denite = 1
+  let g:memolist_memo_suffix = "md"
 endif
 
 " 設定{{{
