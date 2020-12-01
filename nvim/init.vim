@@ -172,9 +172,11 @@ if dein#is_sourced('defx.nvim') "{{{
     nnoremap <silent><buffer><expr> E
           \ defx#do_action('open', 'vsplit')
     nnoremap <silent><buffer><expr> P
-          \ defx#do_action('open', 'pedit')
+          \ defx#do_action('preview')
     nnoremap <silent><buffer><expr> o
           \ defx#do_action('open_tree', 'toggle')
+    nnoremap <silent><buffer><expr> O
+          \ defx#do_action('open_tree', 'recursive')
     nnoremap <silent><buffer><expr> K
           \ defx#do_action('new_directory')
     nnoremap <silent><buffer><expr> N
@@ -184,8 +186,18 @@ if dein#is_sourced('defx.nvim') "{{{
     nnoremap <silent><buffer><expr> C
           \ defx#do_action('toggle_columns',
           \                'mark:indent:icon:filename:type:size:time')
-    nnoremap <silent><buffer><expr> S
-          \ defx#do_action('toggle_sort', 'time')
+    nnoremap <silent><buffer><expr> St
+          \ defx#do_action('multi',
+          \                [['toggle_sort', 'time'], 'redraw'])
+    nnoremap <silent><buffer><expr> Se
+          \ defx#do_action('multi',
+          \                [['toggle_sort', 'extension'], 'redraw'])
+    nnoremap <silent><buffer><expr> Ss
+          \ defx#do_action('multi',
+          \                [['toggle_sort', 'size'], 'redraw'])
+    nnoremap <silent><buffer><expr> Sf
+          \ defx#do_action('multi',
+          \                [['toggle_sort', 'filename'], 'redraw'])
     nnoremap <silent><buffer><expr> d
           \ defx#do_action('remove')
     nnoremap <silent><buffer><expr> r
@@ -210,6 +222,8 @@ if dein#is_sourced('defx.nvim') "{{{
           \ defx#do_action('toggle_select') . 'j'
     nnoremap <silent><buffer><expr> *
           \ defx#do_action('toggle_select_all')
+    vnoremap <silent><buffer><expr> <Space>
+          \ defx#do_action('toggle_select_visual')
     nnoremap <silent><buffer><expr> j
           \ line('.') == line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><expr> k
@@ -227,7 +241,7 @@ if dein#is_sourced('defx.nvim') "{{{
     nnoremap <silent><buffer><expr> < 
           \ defx#do_action('resize', defx#get_context().winwidth - 10)
     nnoremap <silent><buffer> [denite]ds :<C-u>Denite defx/session<CR>
-    nnoremap <silent><buffer> [denite]i :<C-u>Denite defx/history<CR>
+    nnoremap <silent><buffer> [denite]dh :<C-u>Denite defx/history<CR>
 	endfunction
   let s:defx_sessions_path = expand('~/.vim/defx-sessions')
   if !isdirectory(s:defx_sessions_path)
@@ -238,6 +252,7 @@ if dein#is_sourced('defx.nvim') "{{{
         \ 'columns': 'mark:indent:icons:filename:type:size:time',
         \ 'show_ignored_files': v:true,
         \ 'session_file': s:defx_sessions_path . '/default',
+        \ 'toggle': v:true,
         \ })
   unlet s:defx_sessions_path
   call defx#custom#column('time', {
