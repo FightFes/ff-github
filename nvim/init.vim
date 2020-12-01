@@ -46,7 +46,7 @@ if filereadable(s:token_file)
   execute 'source' s:token_file
   unlet! s:token_file
 endif
-let g:dein#install_progress_type = "title"
+let g:dein#install_progress_type = "echo"
 let g:dein#lazy_rplugins = 0
 let g:dein#enable_notification = 0
 if dein#load_state(s:base_dir)
@@ -108,7 +108,6 @@ if dein#load_state(s:base_dir)
   call dein#add('octol/vim-cpp-enhanced-highlight')
   " call dein#add('Xuyuanp/scrollbar.nvim')
   call dein#add('chemzqm/denite-git')
-  call dein#add('delphinus/vim-denite-memo')
   call dein#add('glidenote/memolist.vim')
 
 	call dein#config(['previm', 'vim-markdown'], {
