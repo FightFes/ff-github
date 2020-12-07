@@ -76,6 +76,7 @@ if dein#load_state(s:base_dir)
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
   call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
   call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
+  call dein#add('kristijanhusak/defx-git')  
   call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
   call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
   call dein#add('simeji/winresizer')
@@ -249,7 +250,7 @@ if dein#is_sourced('defx.nvim') "{{{
   endif
   call defx#custom#option('_', {
         \ 'auto_cd': v:false,
-        \ 'columns': 'mark:indent:icons:filename:type:size:time',
+        \ 'columns': 'mark:indent:icons:filename:type:size:time:git',
         \ 'show_ignored_files': v:true,
         \ 'session_file': s:defx_sessions_path . '/default',
         \ 'toggle': v:true,
