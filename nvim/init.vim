@@ -774,11 +774,14 @@ if dein#is_sourced('scrollbar.nvim')
 endif
 
 if dein#is_sourced('memolist.vim')
-  nnoremap <silent> [denite]m   :MemoList<CR>
+  nnoremap <silent> [denite]mm  :MemoList<CR>
   nnoremap <silent> [denite]mn  :MemoNew<CR>
   nnoremap <silent> [denite]mg  :MemoGrep<CR>
   let g:memolist_denite = 1
   let g:memolist_memo_suffix = "md"
+  let g:memolist_prompt_categories = 0
+  let g:memolist_prompt_tags = 0
+  let g:memolist_path = "~/Documents/memo"
 endif
 
 " 設定{{{
