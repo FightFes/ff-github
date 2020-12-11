@@ -111,7 +111,7 @@ if dein#load_state(s:base_dir)
   call dein#add('chemzqm/denite-git')
   call dein#add('glidenote/memolist.vim')
 
-	call dein#config(['previm', 'vim-markdown'], {
+	call dein#config(['vim-markdown'], {
 	\ 'lazy' : 1, 'on_ft' : 'markdown',
 	\ })
 	call dein#config('vim-goimports', {
