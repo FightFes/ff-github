@@ -64,7 +64,7 @@ if dein#load_state(s:base_dir)
   call dein#add('Shougo/neoyank.vim')
   call dein#add('Shougo/neoinclude.vim')      " 重いから有効にしてない
   call dein#add('Shougo/unite-outline')
-  call dein#add('Shougo/vimproc.vim')
+	call dein#add('Shougo/vimproc.vim')
   call dein#add('Shougo/vimfiler')
   call dein#add('Shougo/vinarise.vim')
   call dein#add('Shougo/neco-vim')
@@ -547,14 +547,15 @@ endif "}}}
 
 if dein#is_sourced('previm') "{{{
   if has('win32') || has('win64')
-    let g:previm_open_cmd = '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
+    " let g:previm_open_cmd = '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
   elseif has('mac')
-    let g:previm_open_cmd = 'open -a Google\ Chrome'
+    " let g:previm_open_cmd = 'open -a Google\ Chrome'
   endif
 endif "}}}
 
 if dein#is_sourced('open-browser.vim') "{{{
 	let g:netrw_nogx = 1 " disable netrw's gx mapping.
+  let g:openbrowser_use_vimproc = 0
 	nmap <Leader>x <Plug>(openbrowser-smart-search)
 	vmap <Leader>x <Plug>(openbrowser-smart-search)
 endif "}}}
