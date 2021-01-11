@@ -889,6 +889,7 @@ set history=200   "コマンドラインモードの履歴を200に
 "set textwidth=80 "グーグルコーディング規約に従って
 "set colorcolumn=+1
 "set foldcolumn=3
+set completeopt-=preview
 " ファイル
 set hidden    "変更中でも他のファイルを開けるように
 set autoread  "ファイル内容が変更されると自動読み込み
