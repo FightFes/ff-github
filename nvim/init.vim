@@ -1023,6 +1023,7 @@ if has('win32') || has('win64')
 elseif has('mac')
   nnoremap <silent> <F3> :<C-u>!open .<CR>
 endif
+nnoremap x "_x
 "}}}
 
 " MEMO{{{
@@ -1063,6 +1064,8 @@ endif
 " functions
 " function-list
 "}}}
+":g/検索したい文字列で検索したい文字列を含まれる行を一覧取得
+"echo &ft
 
 syntax on	            "シンタックスカラーリング
 set background=dark
