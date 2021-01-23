@@ -716,7 +716,7 @@ if dein#is_sourced('vim-translator')
   nmap <silent> <Leader>r <Plug>TranslateR
   vmap <silent> <Leader>r <Plug>TranslateRV
   " Translate the text in clipboard
-  nmap <silent> <Leader>c <Plug>TranslateX
+  nmap <silent> <Leader>x <Plug>TranslateX
 endif
 
 if dein#is_sourced('columnskip.vim')
@@ -865,7 +865,7 @@ set matchpairs+=<:>
 augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp let b:match_words='private\::protected\::public\:,if:else,switch:case:default,#if:#else:#elif:#endif'
-  autocmd FileType markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
+  autocmd FileType cs,markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
 augroup END
 augroup terminal_setting
   autocmd!
@@ -1025,6 +1025,8 @@ elseif has('mac')
   nnoremap <silent> <F3> :<C-u>!open .<CR>
 endif
 nnoremap x "_x
+nnoremap <Leader>c :cd %:h<CR>
+nnoremap <Leader>lc :lcd %:h<CR>
 "}}}
 
 " MEMO{{{
