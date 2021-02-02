@@ -109,6 +109,7 @@ if dein#load_state(s:base_dir)
   " call dein#add('Xuyuanp/scrollbar.nvim')
   call dein#add('chemzqm/denite-git')
   call dein#add('glidenote/memolist.vim')
+  call dein#add('kinntai/denite-bookmark')
 
 	call dein#config(['vim-markdown'], {
 	\ 'lazy' : 1, 'on_ft' : 'markdown',
@@ -491,7 +492,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]w  :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]<Space>  :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
-  nnoremap <silent> [denite]a  :<C-u>Denite bookmark/add<CR>
+  " nnoremap <silent> [denite]a  :<C-u>Denite bookmark/add<CR>
   nnoremap <silent> [denite]ch :<C-u>Denite change<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
@@ -866,6 +867,7 @@ augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp let b:match_words='private\::protected\::public\:,if:else,switch:case:default,#if:#else:#elif:#endif'
   autocmd FileType cs,markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
+  " autocmd FileType json setl foldmethod=syntax foldlevel=3
 augroup END
 augroup terminal_setting
   autocmd!
