@@ -1089,8 +1089,8 @@ hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 " vimdiffの色設定
 " hi DiffAdd    gui=NONE guifg=#87FF5F guibg=#228B22
-" hi DiffDelete gui=NONE guifg=#87FF5F guibg=#B22222
-" hi DiffChange gui=NONE guifg=#87FF5F guibg=#3333CC
+" hi DiffDelete guifg=#000000 guibg=#D787AF
+hi DiffChange guifg=#000000 guibg=#AEEA00
 " hi DiffText   gui=NONE guifg=#87FF5F guibg=#0066FF
 " floating window
 " hi NormalFloat gui=NONE guifg=#87FF5F guibg=#585858
