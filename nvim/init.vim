@@ -515,7 +515,8 @@ if dein#is_sourced('deoplete.nvim') "{{{
 	" Use smartcase.
 	call deoplete#custom#option('smart_case', v:true)
   " call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'file/include']})
-  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include', 'lsp']})
+  " call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include', 'lsp']})
+  call deoplete#custom#option('sources', {'_': ['around', 'buffer', 'file', 'member', 'include']})
   call deoplete#custom#var('around', {
         \   'mark_above': '[↑]',
         \   'mark_below': '[↓]',
@@ -1029,6 +1030,8 @@ endif
 nnoremap x "_x
 nnoremap <Leader>c :cd %:h<CR>
 nnoremap <Leader>lc :lcd %:h<CR>
+nnoremap p "0p
+nnoremap P "0P
 "}}}
 
 " MEMO{{{
