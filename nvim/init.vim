@@ -717,7 +717,7 @@ if dein#is_sourced('vim-translator')
   nmap <silent> <Leader>r <Plug>TranslateR
   vmap <silent> <Leader>r <Plug>TranslateRV
   " Translate the text in clipboard
-  nmap <silent> <Leader>x <Plug>TranslateX
+  nmap <silent> <Leader>y <Plug>TranslateX
 endif
 
 if dein#is_sourced('columnskip.vim')
