@@ -102,13 +102,14 @@ if dein#load_state(s:base_dir)
   call dein#add('mattn/vim-goimports')
   call dein#add('tyru/columnskip.vim')
   call dein#add('voldikss/vim-translator')
-  call dein#add('prabirshrestha/vim-lsp')
-  call dein#add('mattn/vim-lsp-settings', {'merged': 0})
-  call dein#add('lighttiger2505/deoplete-vim-lsp')
+  " call dein#add('prabirshrestha/vim-lsp')
+  " call dein#add('mattn/vim-lsp-settings', {'merged': 0})
+  " call dein#add('lighttiger2505/deoplete-vim-lsp')
   call dein#add('octol/vim-cpp-enhanced-highlight')
   " call dein#add('Xuyuanp/scrollbar.nvim')
   call dein#add('chemzqm/denite-git')
   call dein#add('glidenote/memolist.vim')
+  call dein#add('kinntai/denite-bookmark')
 
 	call dein#config(['vim-markdown'], {
 	\ 'lazy' : 1, 'on_ft' : 'markdown',
@@ -409,7 +410,7 @@ if dein#is_sourced('denite.nvim') "{{{
 		\ 'description': 'commands'
 		\ }
 	let s:menus.my_commands.command_candidates = [
-		\ ['Format Json', '%!python -m json.tool'],
+		\ ['Format Json', 'set nobomb | %!python -m json.tool'],
 		\ ['Make tags file', '!ctags -R'],
 		\ ['Count character num', '%s/./&/gn'],
 		\ ['Count word num', '%s/\i\+/&/gn'],
@@ -491,7 +492,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]w  :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]<Space>  :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
-  nnoremap <silent> [denite]a  :<C-u>Denite bookmark/add<CR>
+  " nnoremap <silent> [denite]a  :<C-u>Denite bookmark/add<CR>
   nnoremap <silent> [denite]ch :<C-u>Denite change<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
@@ -866,6 +867,7 @@ augroup setting_per_filetype
   autocmd!
   autocmd FileType c,cpp let b:match_words='private\::protected\::public\:,if:else,switch:case:default,#if:#else:#elif:#endif'
   autocmd FileType cs,markdown,python,groovy setl shiftwidth=4 softtabstop=4 tabstop=4
+  " autocmd FileType json setl foldmethod=syntax foldlevel=3
 augroup END
 augroup terminal_setting
   autocmd!
@@ -1087,8 +1089,8 @@ hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
 " vimdiffの色設定
 " hi DiffAdd    gui=NONE guifg=#87FF5F guibg=#228B22
-" hi DiffDelete gui=NONE guifg=#87FF5F guibg=#B22222
-" hi DiffChange gui=NONE guifg=#87FF5F guibg=#3333CC
+" hi DiffDelete guifg=#000000 guibg=#D787AF
+hi DiffChange guifg=#000000 guibg=#AEEA00
 " hi DiffText   gui=NONE guifg=#87FF5F guibg=#0066FF
 " floating window
 " hi NormalFloat gui=NONE guifg=#87FF5F guibg=#585858
