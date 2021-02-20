@@ -899,7 +899,12 @@ set autoread  "ファイル内容が変更されると自動読み込み
 set undofile
 set undodir=~/.vim/undofile
 set directory=~/.vim/swapfile   "スワップファイル
-set backupdir=~/.vim/backupfile "バックアップファイル
+let s:backup_path = expand('~/.vim/backupfile')
+if !isdirectory(s:backup_path)
+  call mkdir(s:backup_path, "p")
+endif
+execute 'set backupdir=' . s:backup_path
+unlet! s:backup_path
 " 検索
 set incsearch "インクリメンタルサーチ
 set hlsearch  "検索結果をハイライト
