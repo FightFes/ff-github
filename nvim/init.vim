@@ -1035,8 +1035,8 @@ endif
 nnoremap x "_x
 nnoremap <Leader>c :cd %:h<CR>
 nnoremap <Leader>lc :lcd %:h<CR>
-nnoremap p "0p
-nnoremap P "0P
+" nnoremap p "0p
+" nnoremap P "0P
 "}}}
 
 " MEMO{{{
