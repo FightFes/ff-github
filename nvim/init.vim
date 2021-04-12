@@ -638,7 +638,7 @@ if dein#is_sourced('lightline.vim') "{{{
 	  return winwidth(0) > 85 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 	endfunction
 	function! LightlineFileencoding()
-	  return winwidth(0) > 85 ? (&fenc !=# '' ? &fenc : &enc) : ''
+	  return winwidth(0) > 85 ? (&fenc !=# '' ? &fenc : &enc) . (&bomb ? '[BOM]' : '') : ''
 	endfunction
 endif "}}}
 
