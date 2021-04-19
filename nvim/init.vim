@@ -76,7 +76,6 @@ if dein#load_state(s:base_dir)
   call dein#add('idanarye/vim-merginal')      " ブランチ管理
   call dein#add('airblade/vim-gitgutter')     " 編集中のファイルの差分情報表示
   call dein#add('kristijanhusak/defx-icons')  " なんかアイコンのやつがneovimでも表示できるようなやつ
-  call dein#add('kristijanhusak/defx-git')  
   call dein#add('thinca/vim-localrc')         " ローカル設定、プロジェクトの設定はだいたいこれでやったほうが楽な気がする
   call dein#add('scrooloose/nerdcommenter')   " コメントアウト   
   call dein#add('simeji/winresizer')
@@ -161,17 +160,23 @@ if dein#is_sourced('defx.nvim') "{{{
 	function! s:defx_my_settings() abort
 	  " Define mappings
     nnoremap <silent><buffer><expr> <CR>
+          \ defx#is_binary() ?
+          \ defx#do_action('execute_system') :
           \ defx#do_action('drop')
+    nnoremap <silent><buffer><expr> l
+          \ defx#is_binary() ?
+          \ defx#do_action('execute_system') :
+          \ defx#do_action('open')
+    nnoremap <silent><buffer><expr> E
+          \ defx#is_binary() ?
+          \ defx#do_action('execute_system') :
+          \ defx#do_action('open', 'vsplit')
     nnoremap <silent><buffer><expr> c
           \ defx#do_action('copy')
     nnoremap <silent><buffer><expr> m
           \ defx#do_action('move')
     nnoremap <silent><buffer><expr> p
           \ defx#do_action('paste')
-    nnoremap <silent><buffer><expr> l
-          \ defx#do_action('open')
-    nnoremap <silent><buffer><expr> E
-          \ defx#do_action('open', 'vsplit')
     nnoremap <silent><buffer><expr> P
           \ defx#do_action('preview')
     nnoremap <silent><buffer><expr> o
@@ -1086,21 +1091,11 @@ colorscheme eva01-LCL
 " colorscheme eva01
 
 "eva01{{{
-hi Comment cterm=NONE gui=NONE
+" hi Comment cterm=NONE gui=NONE
 hi CursorLine ctermbg=235 guibg=#262626 cterm=NONE gui=NONE
 hi Visual cterm=NONE gui=NONE
-"hi Search ctermfg=97  ctermbg=119 cterm=NONE guifg=#875FAF guibg=#87FF5F gui=NONE
-"hi Search cterm=NONE guifg=#D0D0D0 guibg=#875FAF gui=NONE
 hi Search cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
-" hi Search cterm=NONE gui=NONE
-" hi IncSearch cterm=NONE gui=NONE
-hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
-" vimdiffの色設定
-" hi DiffAdd    gui=NONE guifg=#87FF5F guibg=#228B22
-" hi DiffDelete guifg=#000000 guibg=#D787AF
 hi DiffChange guifg=#000000 guibg=#AEEA00
-" hi DiffText   gui=NONE guifg=#87FF5F guibg=#0066FF
-" floating window
-" hi NormalFloat gui=NONE guifg=#87FF5F guibg=#585858
-hi NormalFloat gui=NONE guifg=#D0D0D0 guibg=#585858
+" hi! NormalFloat cterm=NONE guifg=#FFFFFF guibg=#875FAF gui=NONE
+" hi NormalFloat gui=NONE guifg=#D0D0D0 guibg=#585858
 "}}}
