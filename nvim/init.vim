@@ -109,6 +109,7 @@ if dein#load_state(s:base_dir)
   call dein#add('chemzqm/denite-git')
   call dein#add('glidenote/memolist.vim')
   call dein#add('kinntai/denite-bookmark')
+  call dein#add('w1mvy/vim-denite-tab')
 
 	call dein#config(['vim-markdown'], {
 	\ 'lazy' : 1, 'on_ft' : 'markdown',
@@ -496,8 +497,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]pg :<C-u>Denite -buffer-name=search-buffer grep::-w<CR>
   nnoremap <silent> [denite]w  :<C-u>Denite -buffer-name=search-buffer `'grep:::' . expand('<cword>')`<CR>
   nnoremap <silent> [denite]pw :<C-u>Denite -buffer-name=search-buffer `'grep::-w:' . expand('<cword>')`<CR>
-  nnoremap <silent> [denite]<Space>  :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
-  " nnoremap <silent> [denite]a  :<C-u>Denite bookmark/add<CR>
+  nnoremap <silent> [denite]<Space> :<C-u>Denite -buffer-name=bookmark-buffer bookmark<CR>
   nnoremap <silent> [denite]ch :<C-u>Denite change<CR>
   nnoremap <silent> [denite]dr :<C-u>Denite directory_rec<CR>
   nnoremap <silent> [denite]fo :<C-u>Denite file/old<CR>
@@ -512,6 +512,7 @@ if dein#is_sourced('denite.nvim') "{{{
   nnoremap <silent> [denite]y  :<C-u>Denite neoyank<CR>
   nnoremap <silent> [denite]l  :<C-u>Denite line::noempty<CR>
   nnoremap <silent> [denite]o :<C-u>Denite outline<CR>
+  nnoremap <silent> [denite]t :<C-u>Denite tab<CR>
 endif "}}}
 
 if dein#is_sourced('deoplete.nvim') "{{{
