@@ -101,11 +101,8 @@ if dein#load_state(s:base_dir)
   call dein#add('mattn/vim-goimports')
   call dein#add('tyru/columnskip.vim')
   call dein#add('voldikss/vim-translator')
-  " call dein#add('prabirshrestha/vim-lsp')
-  " call dein#add('mattn/vim-lsp-settings', {'merged': 0})
-  " call dein#add('lighttiger2505/deoplete-vim-lsp')
   call dein#add('octol/vim-cpp-enhanced-highlight')
-  " call dein#add('Xuyuanp/scrollbar.nvim')
+  call dein#add('Xuyuanp/scrollbar.nvim')
   call dein#add('chemzqm/denite-git')
   call dein#add('glidenote/memolist.vim')
   call dein#add('kinntai/denite-bookmark')
@@ -685,10 +682,6 @@ if exists('g:loaded_netrw')
   endif
 endif
 
-if dein#is_sourced('vim-lsp-settings')
-  " let g:lsp_settings_servers_dir=expand('~/.cache/vim_lsp_servers')
-endif
-
 if dein#is_sourced('vim-indent-guides')
   let g:indent_guides_enable_on_vim_startup = 0
   let g:indent_guides_start_level = 2
@@ -753,14 +746,6 @@ if dein#is_sourced('vim-fugitive')
   function! s:gstatus_my_settings() abort
     nnoremap <buffer> q <C-w>q
   endfunction
-endif
-
-if dein#is_sourced('vim-lsp')
-  " let g:lsp_signs_enabled = 0         " enable signs
-  " let g:lsp_diagnostics_echo_cursor = 0 " enable echo under cursor when in normal mode
-  " let g:lsp_highlights_enabled = 0
-  " let g:lsp_textprop_enabled = 0
-  " let g:lsp_diagnostics_enabled = 0         " disable diagnostics support
 endif
 
 if dein#is_sourced('switch.vim')
