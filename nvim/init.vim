@@ -525,8 +525,6 @@ if dein#is_sourced('deoplete.nvim') "{{{
 endif "}}}
 
 if dein#is_sourced('vim-gitgutter') "{{{
-  " nnoremap <silent> sn :GitGutterNextHunk<CR>
-  " nnoremap <silent> sp :GitGutterPrevHunk<CR>
   if has('win32') || has('win64')
     let g:gitgutter_git_executable = expand('~\scoop\shims\git.exe')
   endif
@@ -723,6 +721,9 @@ if dein#is_sourced('vim-fugitive')
   nnoremap <Leader>gs :<C-u>Git<CR>
   nnoremap <Leader>gb :<C-u>Git blame<CR>
   nnoremap <Leader>gd :<C-u>Gdiffsplit<CR>
+  nnoremap <Leader>gf :<C-u>Git fetch<CR>
+  nnoremap <Leader>gl :<C-u>Git pull<CR>
+  nnoremap <Leader>gp :<C-u>Git push<CR>
   augroup gstatus_settings
     autocmd!
     autocmd FileType fugitive call s:gstatus_my_settings()
