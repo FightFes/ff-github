@@ -5,24 +5,6 @@ scriptencoding utf-8
 " set fileencodings=iso-2022-jp-3,iso-2022-jp,euc-jisx0213,euc-jp,utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 set fileencodings=utf-8,ucs-bom,euc-jp,eucjp-ms,cp932
 
-" python setting{{{
-if has('win32') || has('win64')
-  " let g:python_host_prog = expand('~\python2\Scripts\python.exe')
-  " let g:python3_host_prog = expand('~\python3\Scripts\python.exe')
-  if !has('nvim')
-    " set pythonthreedll=~\python3\Scripts\python36.dll
-    " set pythonthreehome=~\python3
-  endif
-else
-  " let g:python_host_prog = expand('~/python2/bin/python')
-  " let g:python3_host_prog = expand('~/python3/bin/python3.7')
-  if !has('nvim')
-    " vim自体が3.7に対応していない見たなので3.6を入れないと無理っぽい
-    " set pythonthreedll=~/homebrew/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/3.7/Python
-  endif
-endif
-"}}}
-
 " dein {{{
 let s:base_dir = '~/.cache/dein'
 let s:dein_repos_dir = expand(s:base_dir) . '/repos/github.com/Shougo/dein.vim'
@@ -244,8 +226,9 @@ if dein#is_sourced('defx.nvim') "{{{
           \ defx#do_action('resize', defx#get_context().winwidth + 10)
     nnoremap <silent><buffer><expr> < 
           \ defx#do_action('resize', defx#get_context().winwidth - 10)
-    nnoremap <silent><buffer> [denite]ds :<C-u>Denite defx/session<CR>
+    nnoremap <silent><buffer> [denite]dd :<C-u>Denite defx/drive<CR>
     nnoremap <silent><buffer> [denite]dh :<C-u>Denite defx/history<CR>
+    nnoremap <silent><buffer> [denite]ds :<C-u>Denite defx/session<CR>
 	endfunction
   let s:defx_sessions_path = expand('~/.vim/defx-sessions')
   if !isdirectory(s:defx_sessions_path)
@@ -257,6 +240,7 @@ if dein#is_sourced('defx.nvim') "{{{
         \ 'show_ignored_files': v:true,
         \ 'session_file': s:defx_sessions_path . '/default',
         \ 'toggle': v:true,
+        \ 'drives': [expand('D:'), expand('~'), expand('~/Downloads'), expand('~/Documents'), expand('~/Desktop')]
         \ })
   unlet s:defx_sessions_path
   call defx#custom#column('time', {
@@ -280,17 +264,17 @@ if dein#is_sourced('vim-localrc') "{{{
   augroup END
 
   function! s:project_my_settings() abort
-    let load_files = localrc#search(g:localrc_filename)
-    if empty(load_files)
-      let git_dir = finddir('.git', expand('%:p:h') . ';')
-      if git_dir !=# ''
-        let project_path = fnamemodify(git_dir . '/../', ':p')
-        if isdirectory(project_path)
-          execute('lcd ' . project_path)
-          execute('setlocal path+=' . project_path . '**')
-        endif
+    let git_dir = finddir('.git', expand('%:p:h') . ';')
+    if git_dir !=# ''
+      let project_path = fnamemodify(git_dir . '/../', ':p')
+      if isdirectory(project_path)
+        execute('lcd ' . project_path)
+        execute('setlocal path+=' . project_path . '**')
       endif
-    else
+    endif
+
+    let load_files = localrc#search(g:localrc_filename)
+    if !empty(load_files)
       call localrc#load(g:localrc_filename)
     endif
   endfunction
